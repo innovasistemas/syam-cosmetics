@@ -1,0 +1,61 @@
+Recursos y Páginas Syam Cosmetics
+
+*****Equipo*****
+Usuario: DESARROLLOTEC1
+contraseña: desarrollotec1*
+
+
+*****Correo empresarial Gmail*****
+Usuario: desarrollotec@syamcosmetics.com
+contraseña: desarrollotec
+
+
+*****Huellero*****
+Identificador: 44
+
+
+*****Equipo: fobosnas (para desarrollo y pruebas)*****
+usuario: jaime
+contraseña: jaime2020*
+
+
+*****PostgreSQL 13*****
+usuario: postgres
+contraseña: 12345678	
+Puerto: 5432
+
+
+*****Oracle 19.3*****
+usuario: 
+contraseña: Oracle123*	
+Puerto: 
+(Url local que entrega el instalador de Oracle: https://localhost:5500/em ------>No funciona
+
+Documentación Oracle Apex
+https://apex.oracle.com/es/
+
+
+*****Documentación en equipo*****
+C:\Users\desarrollotec1\Documents\RESPALDO-DESARROLLOTEC1 2020-09-02 12;30;17 (Completo)
+
+
+*****Sitios Wordpress*****
+https://www.depilya.co/wp-admin/
+https://www.depilya.co/s-y7logadin
+https://www.syamcosmetics.co/wp-admin/
+
+
+*****Configurar Atom para PHP*****
+https://www.darwinsalinas.com/2016/09/configurar-atom-para-desarrollo-con-php.html
+
+
+*****Instalar Oracle Apex en Localhost*****
+https://apex-developers.com/2016/02/27/instalar-oracle-apex-en-localhost/
+
+
+*****ERP*****
+http://192.168.10.4:52000/apex
+Espacio de trabajo: sylog
+usuario: DESARROLLOTEC@SYAMCOSMETICS.COM
+Contraseña: Sylog.2020.*
+Sylog.2020.*
