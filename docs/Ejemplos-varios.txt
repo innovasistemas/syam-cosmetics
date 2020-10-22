@@ -1,0 +1,108 @@
+/d/.test($v("#P58_CEDULA"))
+//!(/^[0-9]*$/.test($v("#P58_CEDULA")))
+// parseFloat($v("#P58_CEDULA")) !== 0
+
+
+
+^[0-9]*$
+^[-]?[0-9]+[\.]?[0-9]+$
+
+
+^[^@]+@[^@]+\.[a-zA-Z]{2,}$
+
+
+
+
+select JM_DEPARTAMENTOS.DESCRIPCION as DESCRIPCION,
+    JM_DEPARTAMENTOS.ID as ID 
+ from JM_DEPARTAMENTOS JM_DEPARTAMENTOS
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ select 
+       JM_EMPLEADOS.ID,
+       CEDULA,
+       SALARIO,
+       NOMBRE,
+       DESCRIPCION,
+       SEXO,
+       ESTADO_CIVIL,
+       DIRECCION,
+       CORREO,
+       CONYUGUE,
+       EDAD
+  from JM_DEPARTAMENTOS INNER JOIN JM_EMPLEADOS
+  on JM_DEPARTAMENTOS.ID = JM_EMPLEADOS.DEPARTAMENTO_ID
+  
+  
+  
+  
+  begin 
+  delete from jm_departamentos
+  where id = :P8_DEPARTAMENTO_ID
+  
+  delete from jm_empleados
+  where departamento_id = :P8_DEPARTAMENTO_ID;
+  end;
+  
+---------------------------------------------------------------------------------------------------
+Crear usuario en Apex
+---------------------------------------------------------------------------------------------------  
+  BEGIN
+    APEX_UTIL.CREATE_USER(
+        p_user_name                     => :USUARIO,
+        p_first_name                    => :NOMBRE,
+        p_last_name                     => :APELLIDO,
+        p_description                   => :DESCRIPCION,
+        p_email_address                 => :CORREO,
+        p_web_password                  => :PASSWORD,
+        p_developer_privs               => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL',
+        p_default_schema                => 'CAPACITACIONSYAM',
+        p_allow_access_to_schemas       => 'CAPACITACIONSYAM',
+        p_change_password_on_first_use  => 'N',
+        p_attribute_01                  => '123 456 7890');
+END;
+
+
+
+
+BEGIN
+    APEX_UTIL.CREATE_USER(
+        -- p_user_name                     => :P3_EMAIL,
+        p_username                      => :P3_EMAIL,
+        p_first_name                    => :P3_FIRST_NAME,
+        p_last_name                     => :P3_LAST_NAME,
+        p_description                   => 'Usuario creado correctamente',
+        p_email_address                 => :P3_EMAIL,
+        -- p_web_password                  => :P3_PASSWORD,
+        p_password                      => :P3_PASSWORD,
+        p_developer_privs               => 'ADMIN:CREATE:DATA_LOADER:EDIT:HELP:MONITOR:SQL',
+        p_default_schema                => 'CAPACITACIONSYAM',
+        p_allow_access_to_schemas       => 'CAPACITACIONSYAM',
+        p_change_password_on_first_use  => 'N');
+END;
+----------------------------------------------------------------------------------------------------  
+
+
+
+
+  
+  
+select JM_EMPLOYEE.IDENTIFICATION_CARD || ' - ' ||
+    JM_EMPLOYEE.FIRST_NAME || ' ' ||
+    JM_EMPLOYEE.LAST_NAME as NAME_EMPLOYEE,
+    JM_EMPLOYEE.JM_ENTRPRISE_ID as JM_ENTRPRISE_ID 
+ from JM_EMPLOYEE JM_EMPLOYEE  
+  
+  
+select * from jm_employee
+
+
+
+
+regexp_like(:P7_TASK_VALUE, '^\d*$') and :P7_TASK_VALUE >= 10000
+El valor de la tarea debe contener un valor numérico mayor o igual a 10000

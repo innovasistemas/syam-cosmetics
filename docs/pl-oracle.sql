@@ -45,10 +45,12 @@ select JM_EMPLEADOS.CEDULA || JM_EMPLEADOS.NOMBRE AS identificador, JM_EMPLEADOS
 from JM_EMPLEADOS JM_EMPLEADOS
 
 
+Entorno de consola
 
-
-
+Ingreso
 sqlplus /nolog
+
+SQL>
 
 
 conn sys as sysdba
