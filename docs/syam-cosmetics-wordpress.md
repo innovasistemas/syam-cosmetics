@@ -57,6 +57,8 @@ Creación de plugin Wordpress:
 Crear plugins 
 https://raiolanetworks.es/blog/crear-plugin-wordpress/
 https://www.hostinger.co/tutoriales/tutorial-wordpress-plugins-crear-plugin-wordpress/
+https://decodecms.com/mostrar-datos-desde-una-tabla-personalizada-de-la-base-de-datos-de-wordpress/
+https://danielcastanera.com/wpdb-consultas-wordpress/
 https://developer.wordpress.org/plugins/
 
 Acceso a la base de datos de wordpress
