@@ -1,0 +1,982 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: htaccess\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-09 14:47+0200\n"
+"PO-Revision-Date: 2020-03-09 14:47+0200\n"
+"Last-Translator: BestWebSoft team <wp@bestwebsoft.com>\n"
+"Language-Team: bestwebsoft.com <plugin@bestwebsoft.com>\n"
+"Language: ru_RU\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Generator: Poedit 2.3\n"
+"Plural-Forms: nplurals=4; plural=(n==1) ? 0 : (n%10==1 && n%100!=11) ? 3 : "
+"((n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20)) ? 1 : 2);\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: bws_menu\n"
+
+#: htaccess.php:39 htaccess.php:49 htaccess.php:436
+#: includes/class-htccss-settings.php:201
+msgid "Htaccess Settings"
+msgstr "Настройки Htaccess"
+
+#: htaccess.php:58 htaccess.php:59
+msgid "Editor"
+msgstr "Редактор"
+
+#: htaccess.php:75
+msgid "Upgrade to Pro"
+msgstr "Обновить до Pro"
+
+#: htaccess.php:299 htaccess.php:313 includes/class-htccss-settings.php:21
+msgid "Settings"
+msgstr "Настройки"
+
+#: htaccess.php:315 htaccess.php:438 htaccess.php:447
+msgid "FAQ"
+msgstr "FAQ"
+
+#: htaccess.php:316
+msgid "Support"
+msgstr "Поддержка"
+
+#: htaccess.php:438 htaccess.php:447
+msgid "Note"
+msgstr "Примечание"
+
+#: htaccess.php:438 htaccess.php:447
+#, php-format
+msgid ""
+"Making changes to .htaccess file can crash your website. Double check all "
+"changes before saving them and read our %s."
+msgstr ""
+"Внесение изменений в файл .htaccess может привести к сбою вашего сайта. "
+"Дважды проверьте все изменения перед сохранением и прочитайте наши %s."
+
+#: htaccess.php:441
+msgid "Please enable JavaScript in your browser."
+msgstr "Пожалуйста, включите JavaScript в вашем браузере."
+
+#: htaccess.php:445
+msgid "Htaccess Editor"
+msgstr "Редоктор Htaccess "
+
+#: htaccess.php:454
+msgid "You do not have a backup file"
+msgstr "У вас нет файла резервной копии"
+
+#: htaccess.php:463
+msgid "The .htaccess file has been successfully restored from a backup."
+msgstr "Файл .htaccess был успешно восстановлен из резервной копии."
+
+#: htaccess.php:473 includes/class-htccss-settings.php:189
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+#: htaccess.php:490
+msgid "Create htaccess-backup.txt"
+msgstr "Создать htaccess-backup.txt"
+
+#: htaccess.php:492
+msgid "Enable to create backup file."
+msgstr "Включите, чтобы создать файл резервной копии."
+
+#: htaccess.php:498
+msgid "Save Changes"
+msgstr "Сохранить изменения"
+
+#: htaccess.php:499
+msgid "Restore .htaccess to Backup"
+msgstr "Восстановить .htaccess из резервной копии"
+
+#: htaccess.php:1066
+msgid "Notice:"
+msgstr "Внимание:"
+
+#: htaccess.php:1068
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has only"
+msgstr ""
+"В связи с особенностями работы мультисайта,  у плагина Htaccess есть только"
+
+#: htaccess.php:1068
+msgid "Network settings page"
+msgstr "страница настроек сети"
+
+#: htaccess.php:1070
+msgid ""
+"Due to the peculiarities of the multisite work, Htaccess plugin has the "
+"network settings page only and it should be Network Activated. Please"
+msgstr ""
+"В связи с особенностями работы мультисайта,  у плагина Htaccess Pro есть "
+"только страница настроек сети, соответственно плагин должен быть активирован "
+"для сети. Пожалуйста,"
+
+#: htaccess.php:1070
+msgid "Activate Htaccess for Network"
+msgstr "Активируйте Htaccess для сети"
+
+#: includes/class-htccss-settings.php:22
+msgid "Misc"
+msgstr "Разное"
+
+#: includes/class-htccss-settings.php:23
+msgid "License Key"
+msgstr "Лицензионный ключ"
+
+#: includes/class-htccss-settings.php:152
+#: includes/class-htccss-settings.php:158
+#: includes/class-htccss-settings.php:165
+#: includes/class-htccss-settings.php:167
+#: includes/class-htccss-settings.php:173
+#: includes/class-htccss-settings.php:175
+msgid "Notice: "
+msgstr "Внимание: "
+
+#: includes/class-htccss-settings.php:152
+#: includes/class-htccss-settings.php:158
+msgid ""
+"You have entered an incorrect value for \"Allow from\" field. Settings are "
+"not saved."
+msgstr ""
+"Вы ввели неверное значение для поля \"Allow from\". Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:165
+#: includes/class-htccss-settings.php:173
+msgid ""
+"You have entered an incorrect value for \"Deny from\" field. Settings are "
+"not saved."
+msgstr ""
+"Вы ввели неверное значение для поля \"Deny from\". Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:167
+#: includes/class-htccss-settings.php:175
+msgid ""
+"You have entered an incorrect value for \"Allow from\" and \"Deny from\" "
+"fields. Settings are not saved."
+msgstr ""
+"Вы ввели неверные значения для полей \"Allow from\" и \"Deny from\". "
+"Настройки не сохранены."
+
+#: includes/class-htccss-settings.php:206
+msgid "Directives Order"
+msgstr "Порядок Директив"
+
+#: includes/class-htccss-settings.php:215
+msgid "Allow from"
+msgstr "Allow from"
+
+#: includes/class-htccss-settings.php:283
+#: includes/class-htccss-settings.php:323
+msgid "Add IP address"
+msgstr "Добавить IP адрес"
+
+#: includes/class-htccss-settings.php:284
+msgid "Info about the arguments to the Allow directive"
+msgstr "Информация об аргументах директивы Allow"
+
+#: includes/class-htccss-settings.php:284
+#: includes/class-htccss-settings.php:324
+msgid "Controlling access to your website using the .htaccess"
+msgstr "Управление доступом к сайту с помощью .htaccess"
+
+#: includes/class-htccss-settings.php:288
+msgid "Deny from"
+msgstr "Deny from"
+
+#: includes/class-htccss-settings.php:324
+msgid "Info about the arguments to the Deny directive"
+msgstr "Информация об аргументах директивы Deny"
+
+#: includes/class-htccss-settings.php:340
+msgid "Allow from (automatically added)"
+msgstr "Allow from (добавленные автоматически)"
+
+#: includes/class-htccss-settings.php:344
+#: includes/class-htccss-settings.php:354
+msgid ""
+"You can edit the content of directives that have been automatically added to"
+msgstr ""
+"Вы можете редактировать содержание директив, которые были добавлены "
+"автоматически, на"
+
+#: includes/class-htccss-settings.php:344
+#: includes/class-htccss-settings.php:354
+#, php-format
+msgid "plugin settings page %s"
+msgid_plural "settings pages of next plugins: %s"
+msgstr[0] "странице настроек плагина %s"
+msgstr[1] "страницах настроек следующих плагинов: %s"
+msgstr[2] "страницах настроек следующих плагинов: %s"
+msgstr[3] "страницах настроек следующих плагинов: %s"
+
+#: includes/class-htccss-settings.php:351
+msgid "Deny from (automatically added)"
+msgstr "Deny from (добавленные автоматически)"
+
+#: includes/class-htccss-settings.php:365
+msgid "Close"
+msgstr "Закрыть"
+
+#: includes/class-htccss-settings.php:369
+msgid "Disable Access to xmlrpc.php"
+msgstr "Отключить доступ к xmlrpc.php"
+
+#: includes/class-htccss-settings.php:374
+msgid ""
+"Disable the WordPress, Movable Type, MetaWeblog and Blogger XML-RPC "
+"publishing protocols."
+msgstr ""
+"Выключить протоколы публикации XML-RPC для WordPress, Movable Type, "
+"MetaWeblog и Blogger"
+
+#: includes/class-htccss-settings.php:374
+msgid "Read more about XML-RPC"
+msgstr "Подробнее о XML-RPC"
+
+#: includes/class-htccss-settings.php:379
+msgid "Deny Access"
+msgstr "Запретить доступ"
+
+#: includes/class-htccss-settings.php:383
+msgid "Redirect to the main page"
+msgstr "Перенаправить на главную страницу"
+
+#: includes/class-htccss-settings.php:389
+msgid "Hotlinking Protection"
+msgstr "Хотлинкинг защита"
+
+#: includes/class-htccss-settings.php:393
+msgid "Enable to activate the hotlinking protection (recommended)."
+msgstr "Включите, чтобы активировать защиту от хотлинкинга (рекомендуется)."
+
+#: includes/class-htccss-settings.php:398
+msgid "Allow Hotlinking for"
+msgstr "Разрешить хотлинкинг для"
+
+#: includes/class-htccss-settings.php:402
+msgid "Allowed hosts should be entered comma separated."
+msgstr "Разрешенные хосты необходимо вводить через запятую."
+
+#: includes/class-htccss-settings.php:403
+msgid ""
+"The hosts you entered will be added to .htaccess file in the form of the "
+"string"
+msgstr "Введённые вами хосты будут добавлены в файл .htaccess в виде строки"
+
+#: includes/class-htccss-settings.php:417
+msgid "Allow Access to XML Files"
+msgstr "Разрешить доступ к XML-файлам"
+
+#: includes/class-htccss-settings.php:421
+#, php-format
+msgid ""
+"It is necessary to get the access to sitemap files of all network`s blogs "
+"via link like %s"
+msgstr ""
+"Это необходимо для того, чтобы получить доступ к sitemap-файлам сайтов Вашей "
+"сети по ссылкам вида %s"
+
+#: includes/class-htccss-settings.php:423
+msgid "The following string will be added to your .htaccess file"
+msgstr "В ваш .htaccess файл будут добавлена следующая строка"
+
+#~ msgid "Htaccess Pro Settings"
+#~ msgstr "Настройки Htaccess Pro"
+
+#~ msgid "All plugin settings were restored."
+#~ msgstr "Все настройки плагина восстановлены."
+
+#~ msgid "Go PRO"
+#~ msgstr "Обновить до PRO"
+
+#~ msgid ""
+#~ "It is very important to be extremely attentive when making changes to ."
+#~ "htaccess file. If after making changes your site stops functioning, "
+#~ "please see"
+#~ msgstr ""
+#~ "При внесении правок в файл .htaccess нужно быть очень аккуратными. Если "
+#~ "после внесения правок ваш сайт перестанет работать, смотрите"
+
+#~ msgid ""
+#~ "The changes will be applied immediately after saving the changes, if you "
+#~ "are not sure - do not click the \"Save changes\" button."
+#~ msgstr ""
+#~ "Изменения вступают в силу сразу после сохранения настроек, если вы не "
+#~ "уверены - не нажимайте кнопку \"Сохранить изменения\""
+
+#~ msgid "The order of directives"
+#~ msgstr "Порядок директив"
+
+#~ msgid "Learn more"
+#~ msgstr "Подробнее..."
+
+#~ msgid "What is XML-RPC?"
+#~ msgstr "Что такое XML-RPC ?"
+
+#~ msgid "Disable Hotlinking"
+#~ msgstr "Запретить хотлинкинг"
+
+#~ msgid "How to Prevent Hotlinking?"
+#~ msgstr "Как предотвратить хотлинкинг?"
+
+#~ msgid "Customize .htaccess File"
+#~ msgstr "Настройка файла .htaccess"
+
+#~ msgid "Custom Code"
+#~ msgstr "Пользовательский код"
+
+#~ msgid "Customise .htaccess File"
+#~ msgstr "Настройка файла .htaccess"
+
+#~ msgid "Custom code"
+#~ msgstr "Пользовательский код"
+
+#~ msgid "The Order of Directives"
+#~ msgstr "Порядок директив"
+
+#~ msgid "The following strings will be added to your .htaccess file"
+#~ msgstr "В ваш .htaccess файл будут добавлены следующие строки"
+
+#~ msgid "Read more about hotlinking"
+#~ msgstr "Подробнее о хотлинкинге"
+
+#~ msgid "Htaccess Pro Custom code"
+#~ msgstr "Htaccess Pro пользовательский код"
+
+#~ msgid ""
+#~ "Due to the peculiarities of the multisite work, Htaccess Pro plugin has "
+#~ "only"
+#~ msgstr ""
+#~ "В связи с особенностями работы мультисайта,  у плагина Htaccess Pro есть "
+#~ "только"
+
+#~ msgid ""
+#~ "Due to the peculiarities of the multisite work, Htaccess Pro plugin has "
+#~ "the network settings page only and it should be Network Activated. Please"
+#~ msgstr ""
+#~ "В связи с особенностями работы мультисайта,  у плагина Htaccess Pro есть "
+#~ "только страница настроек сети, соответственно плагин должен быть "
+#~ "активирован для сети. Пожалуйста,"
+
+#~ msgid "Activate Htaccess Pro for Network"
+#~ msgstr "Активируйте Htaccess Pro для сети"
+
+#~ msgid "the settings page of the plugin %s"
+#~ msgid_plural "settings pages of next plugins: %s"
+#~ msgstr[0] "странице настроек плагина %s"
+#~ msgstr[1] "страницах настроек следующих плагинов: %s"
+#~ msgstr[2] "страницах настроек следующих плагинов: %s"
+#~ msgstr[3] "страницах настроек следующих плагинов: %s"
+
+#~ msgid "Deny from ( automatically added )"
+#~ msgstr "Deny from (добавленные автоматически)"
+
+#~ msgid "Allow from ( automatically added )"
+#~ msgstr "Allow from (добавленные автоматически)"
+
+#~ msgid "Disable hotlinking"
+#~ msgstr "Запретить хотлинкинг"
+
+#~ msgid ""
+#~ "You can edit the content of directives that have been added automatically "
+#~ "on"
+#~ msgstr ""
+#~ "Вы можете редактировать контент директив, которые были добавлены "
+#~ "автоматически, на"
+
+#~ msgid "Access deny"
+#~ msgstr "Запретить доступ"
+
+#~ msgid "Order directives"
+#~ msgstr "Порядок директив"
+
+#~ msgid ""
+#~ "The plugin's settings have been changed. In order to save them please "
+#~ "don't forget to click the 'Save Changes' button."
+#~ msgstr ""
+#~ "Настройки плагина были изменены. Для того, чтобы сохранить их, "
+#~ "пожалуйста, не забудьте нажать кнопку 'Сохранить изменения'."
+
+#~ msgid "The following line will be added to your .htaccess file:"
+#~ msgstr "В Ваш  .htaccess файл будет добавлена следующая строка:"
+
+#~ msgid "Wrong 'Order fields'. You can enter:"
+#~ msgstr "Неправильно введен 'Order fields'. Вы можете ввести:"
+
+#~ msgid "or"
+#~ msgstr "или"
+
+#~ msgid "Wrong 'Access to xmlrpc.php'. You can enter:"
+#~ msgstr "Ошибка ввода данных 'Доступ  к  xmlrpc.php'. Вы можете выбрать:"
+
+#~ msgid "Rewrite to Main page"
+#~ msgstr "Переадресовывать на главную страницу"
+
+#~ msgid "requires"
+#~ msgstr "требует"
+
+#~ msgid ""
+#~ "or higher, that is why it has been deactivated! Please upgrade WordPress "
+#~ "and try again."
+#~ msgstr ""
+#~ "или выше, поэтому плагин был деактивирован! Обновите WordPress и "
+#~ "повторите попытку."
+
+#~ msgid "Back to the WordPress"
+#~ msgstr "Вернуться назад на WordPress"
+
+#~ msgid "Plugins page"
+#~ msgstr "Страницу плагинов"
+
+#~ msgid ""
+#~ "Something went wrong. Try again later. If the error will appear again, "
+#~ "please, contact us <a href=http://support.bestwebsoft.com>BestWebSoft</"
+#~ "a>. We are sorry for inconvenience."
+#~ msgstr ""
+#~ "Что-то не так. Повторите попытку позже. Если ошибка повторится, "
+#~ "пожалуйста, сообщите нам <a href=http://support.bestwebsoft."
+#~ "com>BestWebSoft</a>.  Приносим извинения за неудобства."
+
+#~ msgid "Wrong license key!"
+#~ msgstr "Неверный лицензионный ключ!"
+
+#~ msgid "This license key is bind to another site"
+#~ msgstr "Этот лицензионный ключ привязан к другому сайту"
+
+#~ msgid ""
+#~ "This license key is valid, but Your license has expired. If you want to "
+#~ "update our plugin in future, you should extend the license."
+#~ msgstr ""
+#~ "Этот лицензионный ключ верен, однако срок действия лицензии истек. Если "
+#~ "вы хотите использовать наш плагин в будущем, пожалуйста, продлите "
+#~ "лицензию."
+
+#~ msgid "Unfortunately, you have exceeded the number of available tries."
+#~ msgstr "К сожалению, вы превысили количество допустимых попыток в сутки."
+
+#~ msgid "The license key is valid. Your license will expire on"
+#~ msgstr "Лицензионный ключ верен. Ваша лицензия действительна до"
+
+#~ msgid "The license key is valid."
+#~ msgstr "Лицензионный ключ верен."
+
+#~ msgid "Please, enter your license key"
+#~ msgstr "Пожалуйста, введите ваш лицензионный ключ"
+
+#~ msgid ""
+#~ "If needed you can check if the license key is correct or reenter it in "
+#~ "the field below. You can find your license key on your personal page - "
+#~ "Client area - on our website"
+#~ msgstr ""
+#~ "При необходимости вы можете проверить корректность лицензионного ключа "
+#~ "или же повторно ввести его в поле ниже. Лицензионный ключ Вы можете найти "
+#~ "на странице Клиентам вашего сайта"
+
+#~ msgid ""
+#~ "(your username is the email you specify when purchasing the product). If "
+#~ "necessary, please submit \"Lost your password?\" request."
+#~ msgstr ""
+#~ "(имя пользователя - это емейл, который вы указывали при покупке "
+#~ "продукта). При необходимости нажмите \"Lost your password?\""
+
+#~ msgid "If you enjoy our plugin, please give it 5 stars on WordPress"
+#~ msgstr ""
+#~ "Если вам понравился плагин, пожалуйста, поставте нам 5 звезд на WordPress"
+
+#~ msgid "Rate the plugin"
+#~ msgstr "Оценить плагин"
+
+#~ msgid "If there is something wrong about it, please contact us"
+#~ msgstr "Если у вас есть какие-то вопросы, обращайтесь"
+
+#~ msgid ""
+#~ "WARNING: We have noticed illegal use of our plugin by you. We strongly "
+#~ "recommend you to solve the problem within 24 hours, otherwise the plugin "
+#~ "will be deactivated. Please go to your personal"
+#~ msgstr ""
+#~ "ВНИМАНИЕ: Вы используете наш плагин незаконно. Мы настоятельно "
+#~ "рекомендуем Вам решить данную проблему в течение 24 часов, в противном "
+#~ "случае плагин будет деативирован. Пожалуйста, перейдите на вашу личную"
+
+#~ msgid ""
+#~ "(your username is the email you specify when purchasing the product), "
+#~ "where you can make the necessary changes."
+#~ msgstr ""
+#~ "(имя пользователя - это емейл, который вы указывали при покупке "
+#~ "продукта), где вы можете внести необходимые изменения."
+
+#~ msgid ""
+#~ "Your license has expired. To continue getting top-priority support and "
+#~ "plugin updates you should extend it."
+#~ msgstr ""
+#~ "Срок действия вашей лицензии истек. Чтобы и впредь получать ОБНОВЛЕНИЯ и "
+#~ "ПРИОРИТЕТНУЮ техподдержку, вам необходимо продлить лицензию."
+
+#~ msgid "You license for"
+#~ msgstr "Вы можете ввести:"
+
+#~ msgid "expires on"
+#~ msgstr "истекает"
+
+#~ msgid "and you won't be granted TOP-PRIORITY SUPPORT or UPDATES."
+#~ msgstr ""
+#~ "и у вас не будет возможности получать ОБНОВЛЕНИЯ и ПРИОРИТЕТНУЮ "
+#~ "техподдержку."
+
+#~ msgid "or a specific IP"
+#~ msgstr "или определенный IP"
+
+#~ msgid "for a subnet"
+#~ msgstr "для подсети"
+
+#~ msgid "Not set"
+#~ msgstr "Не задан"
+
+#~ msgid "On"
+#~ msgstr "Вкл"
+
+#~ msgid "Off"
+#~ msgstr "Выкл"
+
+#~ msgid "N/A"
+#~ msgstr "Неизвестно"
+
+#~ msgid " Mb"
+#~ msgstr "Mb"
+
+#~ msgid "Yes"
+#~ msgstr "Да"
+
+#~ msgid "No"
+#~ msgstr "Нет"
+
+#~ msgid "Operating System"
+#~ msgstr "Операционная система"
+
+#~ msgid "Server"
+#~ msgstr "Тип сервера"
+
+#~ msgid "Memory usage"
+#~ msgstr "Памяти использовано"
+
+#~ msgid "MYSQL Version"
+#~ msgstr "Версия MYSQL"
+
+#~ msgid "SQL Mode"
+#~ msgstr "Режим SQL"
+
+#, fuzzy
+#~ msgid "PHP Version"
+#~ msgstr "Версия MYSQL"
+
+#~ msgid "PHP Safe Mode"
+#~ msgstr "PHP Safe Mode"
+
+#~ msgid "PHP Allow URL fopen"
+#~ msgstr "PHP Allow URL fopen"
+
+#~ msgid "PHP Memory Limit"
+#~ msgstr "Лимит памяти"
+
+#~ msgid "PHP Max Upload Size"
+#~ msgstr "Макс. размер загружаемого файла"
+
+#~ msgid "PHP Max Post Size"
+#~ msgstr "Макс. размер записи"
+
+#~ msgid "PHP Max Script Execute Time"
+#~ msgstr "Макс. время выполнения сценария"
+
+#~ msgid "PHP Exif support"
+#~ msgstr "Поддержка PHP Exif"
+
+#~ msgid "PHP IPTC support"
+#~ msgstr "Поддержка PHP IPTC"
+
+#~ msgid "PHP XML support"
+#~ msgstr "Поддержка PHP XML"
+
+#~ msgid "Site URL"
+#~ msgstr "Адрес сайта"
+
+#~ msgid "Home URL"
+#~ msgstr "Основной адрес сайта"
+
+#~ msgid "WordPress Version"
+#~ msgstr "Версия WordPress"
+
+#~ msgid "WordPress DB Version"
+#~ msgstr "Версия базы данных WordPress"
+
+#~ msgid "Multisite"
+#~ msgstr "Мультиблог"
+
+#~ msgid "Active Theme"
+#~ msgstr "Текущая тема"
+
+#~ msgid "Please enter a valid email address."
+#~ msgstr "Пожалуйста, введите валидный емайл."
+
+#~ msgid "Email with system info is sent to "
+#~ msgstr "E-mail с системной информацией отправлен на"
+
+#~ msgid "Thank you for contacting us."
+#~ msgstr "Спасибо что связались с нами."
+
+#~ msgid "Sorry, email message could not be delivered."
+#~ msgstr "Извините, ваш email не может быть отправлен."
+
+#, fuzzy
+#~ msgid "Pro plugins"
+#~ msgstr "Бесплатные плагины"
+
+#~ msgid "Activated plugins"
+#~ msgstr "Активированные плагины"
+
+#~ msgid "Read more"
+#~ msgstr "Подробнее..."
+
+#~ msgid "Installed plugins"
+#~ msgstr "Установленные плагины"
+
+#~ msgid "Recommended plugins"
+#~ msgstr "Рекомендованные к установке плагины"
+
+#~ msgid "Purchase"
+#~ msgstr "Купить"
+
+#~ msgid "Free plugins"
+#~ msgstr "Бесплатные плагины"
+
+#~ msgid "Download"
+#~ msgstr "Скачать"
+
+#~ msgid "Install %s"
+#~ msgstr "Установлено %s"
+
+#~ msgid "Install now from wordpress.org"
+#~ msgstr "Установить с wordpress.org"
+
+#, fuzzy
+#~ msgid "Free themes"
+#~ msgstr "Рекомендованные к установке плагины"
+
+#, fuzzy
+#~ msgid "Activated theme"
+#~ msgstr "Текущая тема"
+
+#, fuzzy
+#~ msgid "Installed themes"
+#~ msgstr "Установлено %s"
+
+#, fuzzy
+#~ msgid "Recommended themes"
+#~ msgstr "Рекомендованные к установке плагины"
+
+#~ msgid "If you have any questions, please contact us via"
+#~ msgstr "Если у вас есть какие-то вопросы, обращайтесь на"
+
+#~ msgid "System status"
+#~ msgstr "Системная информация"
+
+#~ msgid "Environment"
+#~ msgstr "Системная среда"
+
+#~ msgid "Active Plugins"
+#~ msgstr "Активированные плагины"
+
+#~ msgid "Inactive Plugins"
+#~ msgstr "Неактивированные плагины"
+
+#~ msgid "Send to support"
+#~ msgstr "Отправить в тех. поддержку"
+
+#~ msgid "Send to custom email &#187;"
+#~ msgstr "Отправить на емейл &#187;"
+
+#, fuzzy
+#~ msgid "Plugins"
+#~ msgstr "Бесплатные плагины"
+
+#, fuzzy
+#~ msgid "Installed"
+#~ msgstr "Установлено %s"
+
+#, fuzzy
+#~ msgid "Recommended"
+#~ msgstr "Рекомендованные к установке плагины"
+
+#, fuzzy
+#~ msgid "Activate this plugin"
+#~ msgstr "Активированные плагины"
+
+#, fuzzy
+#~ msgid "Activate"
+#~ msgstr "Текущая тема"
+
+#, fuzzy
+#~ msgid "Install now"
+#~ msgstr "Установить сейчас"
+
+#~ msgid "Install Now"
+#~ msgstr "Установить сейчас"
+
+#~ msgid "Wrong data for setting 'Allow from'."
+#~ msgstr "Неправильные данные для настройки 'Allow from'."
+
+#~ msgid "Wrong data for setting 'Deny from'."
+#~ msgstr "Неправильные данные для настройки 'Deny from'."
+
+#~ msgid "Enable CAPTCHA for:"
+#~ msgstr "Отображать КАПЧУ для:"
+
+#~ msgid "Captcha"
+#~ msgstr "КАПЧА"
+
+#~ msgid "Login form"
+#~ msgstr "Форма логина"
+
+#~ msgid "Registration form"
+#~ msgstr "Форма регистрации"
+
+#~ msgid "Register form"
+#~ msgstr "Форма регистрации"
+
+#~ msgid "Reset Password form"
+#~ msgstr "Форма восстановления пароля"
+
+#~ msgid "Lost password form"
+#~ msgstr "Форма восстановления пароля"
+
+#~ msgid "Comments form"
+#~ msgstr "Форма комментариев"
+
+#~ msgid "Hide CAPTCHA for registered users"
+#~ msgstr "Не отображать для зарегистрированных пользователей"
+
+#~ msgid "Plus (&#43;)"
+#~ msgstr "Плюс (&#43;)"
+
+#~ msgid "Plus"
+#~ msgstr "Плюс (&#43;)"
+
+#~ msgid "Minus (&minus;)"
+#~ msgstr "Минус (&minus;)"
+
+#~ msgid "Minus"
+#~ msgstr "Минус (&minus;)"
+
+#~ msgid "Multiplication (&times;)"
+#~ msgstr "Умножение (&times;)"
+
+#~ msgid "Multiply"
+#~ msgstr "Умножить"
+
+#~ msgid "Numbers"
+#~ msgstr "Цифры"
+
+#~ msgid "Words"
+#~ msgstr "Слова"
+
+#~ msgid ""
+#~ "Please select one item in the block Arithmetic and Complexity for CAPTCHA"
+#~ msgstr ""
+#~ "Пожалуйста, выберите 1 пункт из блока Арифметические дейтсвия и Сложность "
+#~ "для КАПЧИ"
+
+#~ msgid "Contact form"
+#~ msgstr "Контактная форма"
+
+#~ msgid "powered by"
+#~ msgstr "разработано компанией"
+
+#~ msgid "Activate contact form"
+#~ msgstr "Активировать контакную форму"
+
+#~ msgid "Download contact form"
+#~ msgstr "Скачать контактную форму"
+
+#~ msgid ""
+#~ "If you would like to customize this plugin for a custom form, please see"
+#~ msgstr "Если вы хотите кастомизировать плагин для кастомной формы, смотрите"
+
+#~ msgid "\"Create a Group\" form"
+#~ msgstr "Форма \"Создать группу\""
+
+#~ msgid "Enable CAPTCHA:"
+#~ msgstr "Отображать КАПЧУ:"
+
+#~ msgid ""
+#~ "This functionality is available in the Pro version of the plugin. For "
+#~ "more details, please follow the link"
+#~ msgstr ""
+#~ "Данный функционал доступен в Про версии плагина. Для более детальной "
+#~ "информации смотрите"
+
+#~ msgid "Title for CAPTCHA in the form"
+#~ msgstr "Заголовок для КАПЧИ в форме"
+
+#~ msgid "Required symbol"
+#~ msgstr "Символ, отображающий обязательное поле"
+
+#~ msgid "Arithmetic actions for CAPTCHA"
+#~ msgstr "Арифметические действия для КАПЧИ"
+
+#~ msgid "CAPTCHA complexity level"
+#~ msgstr "Уровень сложности КАПЧИ"
+
+#~ msgid "ERROR"
+#~ msgstr "Ошибка"
+
+#~ msgid "Please fill the form."
+#~ msgstr "Пожалуйста, заполните КАПЧУ."
+
+#~ msgid "Please enter a valid CAPTCHA value."
+#~ msgstr "Пожалуйста, заполните КАПЧУ."
+
+#~ msgid ""
+#~ "Error: You have entered an incorrect CAPTCHA value. Click the BACK button "
+#~ "on your browser, and try again."
+#~ msgstr ""
+#~ "Ошибка: Вы ввели КАПЧУ неправильно. Нажмите НАЗАД в браузере и попробуйте "
+#~ "еще раз"
+
+#~ msgid "zero"
+#~ msgstr "ноль"
+
+#~ msgid "one"
+#~ msgstr "один"
+
+#~ msgid "two"
+#~ msgstr "два"
+
+#~ msgid "three"
+#~ msgstr "три"
+
+#~ msgid "five"
+#~ msgstr "пять"
+
+#~ msgid "six"
+#~ msgstr "шесть"
+
+#~ msgid "seven"
+#~ msgstr "семь"
+
+#~ msgid "eight"
+#~ msgstr "восемь"
+
+#~ msgid "nine"
+#~ msgstr "девять"
+
+#~ msgid "eleven"
+#~ msgstr "одиннадцать"
+
+#~ msgid "twelve"
+#~ msgstr "двенадать"
+
+#~ msgid "thirteen"
+#~ msgstr "тринадцать"
+
+#~ msgid "fourteen"
+#~ msgstr "четырнадать"
+
+#~ msgid "fifteen"
+#~ msgstr "пятнадцать"
+
+#~ msgid "sixteen"
+#~ msgstr "шестнадцать"
+
+#~ msgid "seventeen"
+#~ msgstr "семнадцать"
+
+#~ msgid "eighteen"
+#~ msgstr "восемнадцать"
+
+#~ msgid "nineteen"
+#~ msgstr "девятнадцать"
+
+#~ msgid "ten"
+#~ msgstr "десять"
+
+#~ msgid "twenty"
+#~ msgstr "двадцать"
+
+#~ msgid "thirty"
+#~ msgstr "тридцать"
+
+#~ msgid "forty"
+#~ msgstr "сорок"
+
+#~ msgid "fifty"
+#~ msgstr "пятьдесят"
+
+#~ msgid "sixty"
+#~ msgstr "шестьдесят"
+
+#~ msgid "seventy"
+#~ msgstr "семьдесят"
+
+#~ msgid "eighty"
+#~ msgstr "восемьдесят"
+
+#~ msgid "ninety"
+#~ msgstr "девяносто"
+
+#~ msgid "and"
+#~ msgstr "и"
+
+#~ msgid "Encryption password is not set"
+#~ msgstr "Пароль для шифрования не установлен"
+
+#~ msgid "Decryption password is not set"
+#~ msgstr "Пароль для дешифровки не установлен"
+
+#~ msgid ""
+#~ "It's time to upgrade your <strong>Captcha plugin</strong> to <strong>PRO</"
+#~ "strong> version"
+#~ msgstr ""
+#~ "Настало время обновить ваш <strong>плагин Капча</strong> до <strong>PRO</"
+#~ "strong> версии"
+
+#~ msgid "Extend standard plugin functionality with new great options"
+#~ msgstr ""
+#~ "Расширение стандартного функционала плагина новыми прекрасными опциями"
+
+#~ msgid "It's time to upgrade your"
+#~ msgstr "Настало время обновить ваш"
+
+#~ msgid "to"
+#~ msgstr "до"
+
+#~ msgid "version"
+#~ msgstr "версии"
+
+#~ msgid "(powered by bestwebsoft.com)"
+#~ msgstr "(разработано компанией bestwebsoft.com)"
+
+#~ msgid ""
+#~ "If you have any questions, please contact us via plugin@bestwebsoft.com "
+#~ "or fill in the contact form on our website"
+#~ msgstr ""
+#~ "Если у вас есть какие-то впросы, обращайтесь на plugin@bestwebsoft.com "
+#~ "или заполните контактную форму на нашем сайте"
+
+#~ msgid "The password of encryption is not set"
+#~ msgstr "Пароль для шифрования не установлен"
+
+#~ msgid "Increase"
+#~ msgstr "Умножить"
+
+#~ msgid "Difficulty for CAPTCHA"
+#~ msgstr "Уровень сложности КАПЧИ"
+
+#~ msgid "That CAPTCHA was incorrect."
+#~ msgstr "КАПЧА введена некорректно"
+
+#~ msgid "null"
+#~ msgstr "ноль"

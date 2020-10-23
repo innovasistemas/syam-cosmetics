@@ -7,41 +7,89 @@ if($_wp_using_ext_object_cache) {
 
 if (!current_user_can('manage_options')) wp_die (__ ('No tienes suficientes permisos para acceder a esta página.'));
 ?>
-	<div class="wrap">
-		<h2><?php _e('Develop', 'Desarrollo') ?></h2>
-		Bienvenido a la configuración del plugin
-	</div>
+
+<div class="wrap">
+	<h2><?php _e('Develop', 'Desarrollo') ?></h2>
+	Bienvenido a la configuración del plugin
+</div>
+
+<hr>
 
 <?php
 add_option('Nueva opción', '1000', '', 'yes');
 ?>
 
-<p>
-	La nueva opción es:
-	<strong>
-		<?php  
-			echo get_option('Nueva opción');
-		?>
-	</strong>
-</p>
+La nueva opción es:
+<strong>
+	<?php  
+		echo get_option('Nueva opción');
+	?>
+</strong>
 
 <br>
-<br>
+<hr>
 
 <?php
-echo TEMPLATEPATH . "<br>";
+echo "Ruta de temas: " . TEMPLATEPATH . "<br>";
+
 // $result = $wpdb->get_col("SELECT option_name FROM {$wpdb->prefix}options LIMIT 5");
 $result = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}options LIMIT 5");
-// var_dump($result);
-echo "<br>";
+
+echo "<br><hr>";
 foreach($result as $key => $value){
-// foreach($result as $value){
 	echo "{$key}: {$value->option_name} -- {$value->option_value} <br>";
 }
 
-//for()
+?>
+
+<hr>
+<h3>Inserción de datos. Verificación de existencia</h3>
+
+
+<?php
+if($wpdb->get_var("SELECT COUNT(*) FROM $wpdb->postmeta WHERE meta_key='Funny Phrases 2'") == 0){
+	$metakey   = 'Funny Phrases 2';
+	$metavalue = "WordPress' database interface is like Sunday Morning: Easy.";
+	$wpdb->query(
+		   $wpdb->prepare(
+			"
+			INSERT INTO $wpdb->postmeta
+			( post_id, meta_key, meta_value )
+			VALUES ( %d, %s, %s )
+			",
+			10,
+			$metakey,
+			$metavalue
+		   )
+	);
+	echo "Se insertó el postmeta $metakey";
+}else{
+	echo "El postmeta $metakey ya está registrado";
+}
 
 ?>
+
+<br>
+<hr>
+<h3>Inserción de datos</h3>
+
+<?php
+$wpdb->insert( 
+    $wpdb->postmeta, 
+    array( 
+        'meta_key' => 'value1', 
+        'meta_value' => 12345, 
+    ), 
+    array( 
+        '%s', 
+        '%d', 
+    ) 
+);
+
+echo "Se insertó el postmeta $wpdb->insert_id";
+?>
+
+
 <hr>
 <h3>Datos tabla options</h3>
 
@@ -81,6 +129,20 @@ while($record = $result2->fetch_assoc()){
 $result2->free();
 $objMysqli->close();
 ?>
+
+<hr>
+<h3>Páginas en WordPress</h3>
+<?php
+echo "Páginas del sitio: ";
+var_dump(get_pages());
+
+?>
+
+
+
+
+
+
 
 <br>
 <br>

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - WooCommerce - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2020-10-21 18:28:40+0000\n"
+"PO-Revision-Date: 2020-10-23 13:45:08+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26735,10 +26735,6 @@ msgstr "Existencias disponibles. Si se trata de un producto variable este valor 
 msgid "Before you can upload your import file, you will need to fix the following error:"
 msgstr "Antes de que puedas subir tu archivo de importación tendrás que arreglar el error siguiente:"
 
-#: includes/admin/meta-boxes/class-wc-meta-box-order-notes.php:35
-msgid "Add a note for your reference, or add a customer note (the user will be notified)."
-msgstr "Añade una nota para tu referencia, o añade una nota para el cliente (no se avisará al usuario)."
-
 #: includes/rest-api/Controllers/Version2/class-wc-rest-system-status-tools-v2-controller.php:154
 msgid "This tool will recount product terms - useful when changing your settings in a way which hides products from the catalog."
 msgstr "Esta herramienta recontará términos de productos - útil cuando cambias algún ajuste y dejan de mostrarse productos del catálogo."
@@ -27073,6 +27069,10 @@ msgid "Drafts <span class=\"count\">(%s)</span>"
 msgid_plural "Drafts <span class=\"count\">(%s)</span>"
 msgstr[0] "Borrador <span class=\"count\">(%s)</span>"
 msgstr[1] "Borradores <span class=\"count\">(%s)</span>"
+
+#: includes/admin/meta-boxes/class-wc-meta-box-order-notes.php:35
+msgid "Add a note for your reference, or add a customer note (the user will be notified)."
+msgstr "Añade una nota para tu referencia o añade una nota para el cliente (se avisará al usuario)."
 
 #: includes/admin/class-wc-admin-pointers.php:75
 msgid "This is your products main body of content. Here you should describe your product in detail."

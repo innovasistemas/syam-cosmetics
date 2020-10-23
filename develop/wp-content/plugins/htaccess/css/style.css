@@ -1,0 +1,33 @@
+/*
+* styles for settings page
+*/
+.htccss_textarea {
+	height: 150px;
+	width: 40%;
+}
+.htccss_allow_form,
+.htccss_deny_form {
+	margin-bottom: 3px;
+}
+.htccss_ip.htccss-invalid-value {
+	background-color: #fef7f1;
+	border-color: #d54e21;
+}
+input.htccss_ip {
+	width: 60px;
+	height: 25px;
+}
+span.htccss_dot {
+	font-weight: bold;
+}
+#htccss_wrap .dashicons-trash {
+	content: "\f182";
+	margin: 2px 5px 0 0;
+	cursor: pointer;
+}
+@media screen and (min-width: 300px) {
+	input.htccss_ip {
+		display: inline !important;
+		width: 60px !important;
+	}
+}

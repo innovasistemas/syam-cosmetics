@@ -1,0 +1,13 @@
+2020-10-23T13:14:28+00:00 CRITICAL syntax error, unexpected 'ruta' (T_STRING) en C:\xampp\htdocs\develop\wp-content\themes\customizephp\functions.php en la línea 40
+
+2020-10-23T13:14:41+00:00 CRITICAL Uncaught Error: Class 'Storefront_Customizer' not found in C:\xampp\htdocs\develop\wp-content\themes\customizephp\inc\woocommerce\class-storefront-woocommerce-customizer.php:18
+Stack trace:
+#0 C:\xampp\htdocs\develop\wp-content\themes\customizephp\functions.php(43): require()
+#1 C:\xampp\htdocs\develop\wp-settings.php(514): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\develop\wp-config.php(90): require_once('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\develop\wp-load.php(37): require_once('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\develop\wp-blog-header.php(13): require_once('C:\\xampp\\htdocs...')
+#5 C:\xampp\htdocs\develop\index.php(17): require('C:\\xampp\\htdocs...')
+#6 {main}
+  thrown en C:\xampp\htdocs\develop\wp-content\themes\customizephp\inc\woocommerce\class-storefront-woocommerce-customizer.php en la línea 18
+
