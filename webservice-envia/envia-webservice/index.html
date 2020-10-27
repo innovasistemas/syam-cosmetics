@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Envía Webservice</title>
+    </head>
+
+    <body>
+        <h2>Envía Webservice</h2>
+        <form>
+            <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía" />
+            <input type="button" id="btnRequestWebservice" value="Consumir webservice Envía" />
+        </form>
+
+        <script src="assets/js/jquery-3.4.1.min.js"></script>
+        <script>
+            $(function(){
+                $('#btnRequestWebserviceStates').click(function(){
+                    $.ajax({
+                        // url: 'http://200.69.100.66/ServicioRESTConsultaEstados/Service1Consulta.svc/ConsultaGuia/044012847831',
+                        url: 'http://200.69.100.66/ServicioRESTConsultaEstadospruebas/Service1Consulta.svc/ConsultaGuia/044012847831',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                        }
+                    });
+                });
+            });
+        </script>
+    </body>
+</html

@@ -186,7 +186,7 @@ ticketvirtual.co
 +===================================+
 
 
-En Hosting
+En Hosting y local
 Admin
 Url: https://desarrollos.sylog.co/s-y7logadin
 Usuario: Desarrollotec
@@ -220,10 +220,16 @@ Usuario: desarrollotec
 Contraseña: de*pil/$YA/direccionoperativa%*
 
 
-
 Cuenta de Sebastian
 desarrollotec2syamcosmetics.com
 SYAM.2020.**
+
+
+Acceso Envía
+http://200.69.100.66/online/
+USUARIO: 44FFLOPE
+CONTRASEÑA: 0nl1sy43M
+
 
 
 Plugin Wordpress código embebido
@@ -243,3 +249,14 @@ https://imacreste.com/funciones-de-wordpress/
 Acceso a la base de datos de wordpress
 https://danielcastanera.com/almacenar-datos-wordpress/
 
+
+Custom Post Types (CPT)
+https://www.enriquejros.com/custom-post-types-cpt-wordpress/
+
+tabla wp_post y wp_postmeta
+https://www.enriquejros.com/woocommerce-datos-productos/
+
+
+
+Listados de departamentos y municipios DANE
+https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf
