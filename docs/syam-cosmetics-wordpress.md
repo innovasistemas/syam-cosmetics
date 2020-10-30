@@ -260,3 +260,7 @@ https://www.enriquejros.com/woocommerce-datos-productos/
 
 Listados de departamentos y municipios DANE
 https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf
+
+
+Reglas de construcción en PHP
+http://www.juntadeandalucia.es/servicios/madeja/contenido/libro-pautas/102
