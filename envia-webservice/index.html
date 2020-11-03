@@ -7,7 +7,9 @@
     <body>
         <h2>Envía Webservice</h2>
         <form>
-            <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía" />
+            <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía Consulta" />
+            <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía Liquidación" />
+            <input type="button" id="btnRequestWebserviceGeneration" value="Consumir webservice Envía Generación" />
             <input type="button" id="btnRequestWebservice" value="Consumir webservice Envía" />
         </form>
 
@@ -25,7 +27,35 @@
                         }
                     });
                 });
+
+
+                $('#btnRequestWebserviceLiquidation').click(function(){
+                    $.ajax({
+                        url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Liquidacion/',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                        }
+                    });
+                });
+
+
+
+                $('#btnRequestWebserviceGeneration').click(function(){
+                    $.ajax({
+                        url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Generacion/',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data){
+                            console.log(data);
+                        }
+                    });
+                });
             });
+
+
+
         </script>
     </body>
 </html
