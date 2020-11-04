@@ -7,10 +7,11 @@
     <body>
         <h2>Envía Webservice</h2>
         <form>
-            <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía Consulta" />
+            <input type="button" id="btnRequestWebserviceGenerateGuide" value="Generar Guía" />
+            <!-- <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía Consulta" />
             <input type="button" id="btnRequestWebserviceStates" value="Consumir webservice Envía Liquidación" />
             <input type="button" id="btnRequestWebserviceGeneration" value="Consumir webservice Envía Generación" />
-            <input type="button" id="btnRequestWebservice" value="Consumir webservice Envía" />
+            <input type="button" id="btnRequestWebservice" value="Consumir webservice Envía" /> -->
         </form>
 
         <script src="assets/js/jquery-3.4.1.min.js"></script>
@@ -41,7 +42,6 @@
                 });
 
 
-
                 $('#btnRequestWebserviceGeneration').click(function(){
                     $.ajax({
                         url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Generacion/',
@@ -49,6 +49,27 @@
                         dataType: 'json',
                         success: function(data){
                             console.log(data);
+                        }
+                    });
+                });
+
+
+                $('#btnRequestWebserviceGenerateGuide').click(function(){
+                    $.ajax({
+                        url: 'http://localhost/envia-webservice/webservice/envia-webservice.php',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data){
+                            // console.log(data);
+                            $.ajax({
+                                url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Generacion/',
+                                type: 'POST',
+                                dataType: 'json',
+                                data: data,
+                                success: function(response){
+                                    console.log(response);
+                                }
+                            });
                         }
                     });
                 });
