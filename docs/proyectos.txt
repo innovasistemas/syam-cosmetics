@@ -56,9 +56,15 @@ https://apex-developers.com/2016/02/27/instalar-oracle-apex-en-localhost/
 *****ERP*****
 http://192.168.10.4:52000/apex
 Espacio de trabajo: sylog
-usuario: DESARROLLOTEC@SYAMCOSMETICS.COM
+Usuario: DESARROLLOTEC@SYAMCOSMETICS.COM
 Contraseña: Sylog.2020.*
 Sylog.2020.*
 
 Ingreso de usuarios finales
 http://192.168.10.4:52000/apex/r/sylog/sylog
+
+
+Github
+Usuario: desarrollotec1
+Correo: desarrollotec@syamcosmetics.co
+Contraseña: syam2020**
