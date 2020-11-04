@@ -142,7 +142,6 @@ foreach($arrayOrders as $order){
 }
 
 // echo "\nDetalle orden\n";
-// print_r($arrayDetails);
 print_r($arrayData);
 
 $link->close();
