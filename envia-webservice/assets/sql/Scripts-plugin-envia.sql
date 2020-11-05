@@ -61,6 +61,28 @@ from wp_postmeta
 where post_id = 9487 -- pedido
 
 
+select wpm.*, dcc.codigo_ciudad, dcc.nombre_ciudad 
+from wp_postmeta wpm, dt_conf_ciudades dcc  
+where wpm.meta_key = '_billing_city' 
+	 and dcc.nombre_ciudad like concat('%', wpm.meta_value, '%')
+	and post_id = 9487 -- pedido
+
+select * from dt_conf_ciudades dcc where nombre_ciudad like '%BUGA%'
+
+		
+select *
+from wp_postmeta wpm
+where wpm.meta_key = '_billing_first_name' and post_id = 9487 -- pedido
+
+select *
+from wp_postmeta wpm
+where wpm.meta_key = '_billing_last_name' and post_id = 9487 -- pedido
+
+
+select distinct *
+from wp_postmeta wpm
+where wpm.meta_key = '_billing_last_name' or wpm.meta_key = '_billing_first_name' and post_id = 9487 -- pedido
+
 select * from wp_users wu
 
 
