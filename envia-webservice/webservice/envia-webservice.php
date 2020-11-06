@@ -1,6 +1,6 @@
 <?php
 //----------------------------------------------------------------------------------------
-// Conectar a la base de datos
+// Conexión a la base de datos
 //---------------------------------------------------------------------------------------
 include 'connection.php';
 
@@ -13,7 +13,6 @@ $sql = "SELECT *
 
 $resultQuery = $link->query($sql);
 
-
 //---------------------------------------------------------------------------------------
 // Formación de array de órdenes de pedidos que se deben incluir en la guía y que cumplen 
 // con el estado 'wc-processing'
@@ -24,18 +23,16 @@ while($row = $resultQuery->fetch_array()){
     $arrayOrders[] = $row['ID'];
 }
 
-
 //---------------------------------------------------------------------------------------
 // Extraer los datos necesarios de cada pedido para realizar la solicitud al Webservice 
 // de Envía y generar la guía
 //---------------------------------------------------------------------------------------
 $arrayData = array();
 $index = 0;
-$index2 = 0;
 
 foreach($arrayOrders as $order){
     $sql =  "SELECT 
-                CONCAT(dcc.codigo_ciudad, ' - ', dcc.nombre_ciudad) AS 'Ciudad_Origen',
+                CONCAT(dcc.codigo_municipio, ' - ', dcc.nombre_municipio) AS 'Ciudad_Origen',
                 '4' AS 'Cod_FormaPago',
                 '12' AS 'Cod_Servicio',
                 '1' AS 'Num_Unidades',
@@ -51,7 +48,6 @@ foreach($arrayOrders as $order){
                 'Carrera 54 # 79AA Sur - 40 Bodega 140 La Troja' AS 'Dir_Remitente',
                 '3016883' AS 'Tel_Remitente',
                 '901040898-6' AS 'Ced_Remitente',
-                -- CONCAT(wpm.meta_value, ' - ', wpm.meta_value) AS 'Nom_Destinatario', -- organizar dato a capturar
                 $order AS 'Num_Documentos', -- Número de pedido para solicitar la generación de la guía,
                 wp.post_excerpt AS 'Texto_Guia',
                 '' AS 'Accion_NotaGuia',
@@ -71,12 +67,8 @@ foreach($arrayOrders as $order){
              	INNER JOIN wp_posts wp1 	
              		ON wp1.ID = wwopl.product_id 
             WHERE
-              	dcc.nombre_ciudad = 'LA ESTRELLA' AND 
- 	            -- wpm.meta_key = '_billing_city' OR
+              	dcc.nombre_municipio = 'LA ESTRELLA' AND 
              	wpm.meta_key = '_order_total' AND 
-             	-- wpm.meta_key = '_billing_first_name' OR
-             	-- wpm.meta_key = '_billing_last_name') AND
- 	            -- wpm.meta_id = wpm2.meta_id AND
                 wpm.post_id = '$order'  
             ";
 
@@ -112,7 +104,6 @@ foreach($arrayOrders as $order){
         $arrayData[$index]['generar_os'] = $row['generar_os'];
     }
 
-
     //---------------------------------------------------------------------------------------
     // Extraer el detalle de la orden de pedido
     //---------------------------------------------------------------------------------------
@@ -122,19 +113,23 @@ foreach($arrayOrders as $order){
             WHERE wwopl.order_id = '$order'";
 
     $resultQuery2 = $link->query($sql2);
-    $strSaysContaint = "PG.";
-    $index2 = 0;
-    $arrayDetails = array();
+    $strSaysContain = "PG.";
+    $arrayCodes = array();
 
     while($row2 = $resultQuery2->fetch_array()){
-        $arrayDetails[$index2]['post_title'] = $row2['post_title'];
-        $arrayDetails[$index2]['product_qty'] = $row2['product_qty'];
-        $strSaysContaint .= $arrayDetails[$index2]['product_qty'] . $arrayDetails[$index2]['post_title'] . "/";
-        ++$index2;
+        $intIniPos = strpos($row2['post_title'], "[");
+        $intFinPos = strpos($row2['post_title'], "]");
+        $strSubStringCode = substr($row2['post_title'], $intIniPos + 1, $intFinPos - $intIniPos -1);
+        $arrayCodes = explode(",", $strSubStringCode);
+        
+        foreach($arrayCodes as $code){
+            $intQuantity = (int)$row2['product_qty'] * (int)substr($code, 0, 1);
+            $strCode = substr($code, 1);
+            $strSaysContain .=  $intQuantity . $strCode . "/";
+        }
     }
 
-    $arrayData[$index]['info_contenido']['Dice_Contener'] = $strSaysContaint; // Organizar para que sume cantidades del mismo producto y muestre solo una descripción de ésta
-
+    $arrayData[$index]['info_contenido']['Dice_Contener'] = $strSaysContain; // Organizar para que sume cantidades del mismo producto y muestre solo una descripción de ésta
 
     //---------------------------------------------------------------------------------------
     // Extraer la ciudad del destinatario
@@ -142,17 +137,10 @@ foreach($arrayOrders as $order){
     $sql3 = "SELECT *
             FROM wp_postmeta wpm
             WHERE wpm.meta_key = '_billing_city' AND post_id = '$order'";
-    
-    // $sql3 = "SELECT wpm.*, dcc.codigo_ciudad, dcc.nombre_ciudad
-    //         FROM wp_postmeta wpm, dt_conf_ciudades dcc  
-    //         WHERE wpm.meta_key = '_billing_city' 
-    //             AND dcc.nombre_ciudad LIKE CONCAT('%', wpm.meta_value, '%')
-    //             AND post_id = '$order'";
 
     $resultQuery3 = $link->query($sql3);
     $row3 = $resultQuery3->fetch_array();
     $arrayData[$index]['ciudad_destino'] = $row3['meta_value'];
-
 
     //---------------------------------------------------------------------------------------
     // Extraer el nombre, apellido, dirección, teléfono y cédula del destinatario
@@ -195,11 +183,9 @@ foreach($arrayOrders as $order){
     ++$index;
 }
 
-// echo "\nDetalle orden\n";
-// print_r($arrayData);
-// print_r($row3);
+print_r($arrayData);
 
 $link->close();
 
-echo json_encode($arrayData);
+// echo json_encode($arrayData);
 

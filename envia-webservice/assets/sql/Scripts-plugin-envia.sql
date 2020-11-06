@@ -53,7 +53,11 @@ from wp_postmeta
 
 select *
 from wp_postmeta 
-where post_id = 8079 -- producto
+where post_id = 8078 -- producto
+
+select *
+from wp_posts wp 
+where wp.ID = 8078 -- producto
 
 
 select *

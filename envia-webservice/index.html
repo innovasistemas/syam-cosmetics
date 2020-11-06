@@ -1,4 +1,4 @@
-<html>
+<html lang="es">
     <head>
         <meta charset="utf-8" />
         <title>Envía Webservice</title>
@@ -60,22 +60,25 @@
                         type: 'GET',
                         dataType: 'json',
                         success: function(data){
-                            console.log(data);
-                            // $.ajax({
-                            //     url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Generacion/',
-                            //     type: 'POST',
-                            //     dataType: 'json',
-                            //     data: data,
-                            //     success: function(response){
-                            //         console.log(response);
-                            //     }
-                            // });
+                            // console.log(data);
+                            $.each(data, function(index, value){
+                                console.log(value);
+                                // $.ajax({
+                                //     url: 'http://200.69.100.66/ServicioLiquidacionRESTpruebas/Service1.svc/Generacion/',
+                                //     type: 'POST',
+                                //     dataType: 'json',
+                                //     data: value,
+                                //     headers: {"Authorization": btoa('44FFLOPE' + ":" + '0nl1sy43M')},
+                                //     success: function(response){
+                                //         console.log(response);
+                                //     }
+                                // });
+                            });
                         }
                     });
                 });
+
             });
-
-
 
         </script>
     </body>
