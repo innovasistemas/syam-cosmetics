@@ -3,6 +3,7 @@
 // Conexión a la base de datos
 //---------------------------------------------------------------------------------------
 include 'connection.php';
+include 'utils.php';
 
 //---------------------------------------------------------------------------------------
 // Obtener los pedidos que estén estado 'procesando' ('wc-processing') de la base de datos
@@ -129,6 +130,50 @@ foreach($arrayOrders as $order){
         }
     }
 
+    // Separar la cantidad y el código y sumar luego dichas cantidades 
+    $arrayCodes = explode("/", substr($strSaysContain, 3));
+    $arrayProductQuantity = array();
+    foreach($arrayCodes as $codes){
+        $arrayProductQuantity[] = $codes;
+    }
+
+    $arrayQuantity = array();
+    $arrayQuantityAux = array();
+    $arrayProduct = array();
+    foreach($arrayProductQuantity as $item){
+        $arrayQuantity[] = substr($item, 0, 1);
+        $arrayProduct[] = substr($item, 1);
+    }
+
+    // $strSaysContain = "PG.";
+
+    foreach($arrayProduct as $key => $value){
+        $intSumCoincidence = 0;
+
+        for($j = 0; $j < count($arrayProduct); $j++){
+            if($value == $arrayProduct[$j]){
+                $intSumCoincidence += $arrayQuantity[$j];
+            }
+        }
+
+        $arrayQuantityAux[$key] = $intSumCoincidence;
+
+    }
+
+    removeRepeatItems($arrayProduct, $arrayQuantity, $arrayQuantityAux);
+    array_pop($arrayProduct);
+    array_pop($arrayQuantity);
+    array_pop($arrayQuantityAux);
+
+
+    print_r($arrayProduct);
+    echo "\n";
+    print_r($arrayQuantity);
+
+    // foreach($arrayProduct as $key => $value){
+    //     $strSaysContain .=  $arrayQuantityAux[$key] . $value . "/";
+    // }
+
     $arrayData[$index]['info_contenido']['Dice_Contener'] = $strSaysContain; // Organizar para que sume cantidades del mismo producto y muestre solo una descripción de ésta
 
     //---------------------------------------------------------------------------------------
@@ -173,7 +218,7 @@ foreach($arrayOrders as $order){
              WHERE wpm.meta_key = '_billing_phone' AND post_id = '$order'";
 
     $resultQuery3 = $link->query($sql3);
-    $row4 = $resultQuery3->fetch_array();
+    $row4 = $resultQuery3->fetch_array( );
 
     $arrayData[$index]['info_destino']['nom_destinatario'] = $strFullName;
     $arrayData[$index]['info_destino']['dir_destinatario'] = $row3['meta_value'];
@@ -183,7 +228,7 @@ foreach($arrayOrders as $order){
     ++$index;
 }
 
-print_r($arrayData);
+// print_r($arrayData);
 
 $link->close();
 
