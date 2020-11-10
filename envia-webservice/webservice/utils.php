@@ -30,12 +30,12 @@ function removeElement(&$arrayProduct = array(), &$arrayQuantity = array(), $int
 
 function removeRepeatItems(&$arrayProduct = array(), &$arrayQuantity = array(), $position, $value)
 {
-    $i = $position + 1;
-    while($i < count($arrayProduct)){
-        if($arrayProduct[$i] == $value){
-            removeElement($arrayProduct, $arrayQuantity, $i);
+    $index = $position + 1;
+    while($index < count($arrayProduct)){
+        if($arrayProduct[$index] == $value){
+            removeElement($arrayProduct, $arrayQuantity, $index);
         }else{
-            $i++;
+            $index++;
         }
     }
 }

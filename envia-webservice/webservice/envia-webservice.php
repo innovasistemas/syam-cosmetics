@@ -135,17 +135,12 @@ foreach($arrayOrders as $order){
     // Dice_Contener
     //---------------------------------------------------------------------------------------
     $arrayCodes = explode("/", substr($strSaysContain, 3));
-    $arrayProductQuantity = array();
-    foreach($arrayCodes as $codes){
-        $arrayProductQuantity[] = $codes;
-    }
-
     $arrayQuantity = array();
     $arrayProduct = array();
     $arrayNewProduct = array();
     $arrayNewQuantity = array();
 
-    foreach($arrayProductQuantity as $item){
+    foreach($arrayCodes as $item){
         $arrayQuantity[] = substr($item, 0, 1);
         $arrayProduct[] = substr($item, 1);
     }
