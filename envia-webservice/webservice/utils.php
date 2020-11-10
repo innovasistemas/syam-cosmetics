@@ -1,4 +1,5 @@
 <?php
+// Función para encontrar un elemento en un array (vector) y devolver la posición
 function findElement($arrayData, $data)
 {
     $intPosition = -1;
@@ -14,30 +15,40 @@ function findElement($arrayData, $data)
 }
 
 
-function removeElement(&$arrayProduct, &$arrayQuantity, &$arrayQuantityAux, $intPosition)
+// Función para eliminar un elemento de un array y quitar la última posición
+// del array una vez reacomodados los elementos
+function removeElement(&$arrayProduct = array(), &$arrayQuantity = array(), $intPosition = -1)
 {
     for($i = $intPosition; $i < count($arrayProduct) - 1; $i++){
         $arrayProduct[$i] = $arrayProduct[$i + 1];
         $arrayQuantity[$i] = $arrayQuantity[$i + 1];
-        $arrayQuantity[$i] = $arrayQuantityAux[$i + 1];
     }
+    array_pop($arrayProduct);
+    array_pop($arrayQuantity);
 }
 
 
-function removeRepeatItems(&$arrayProduct, &$arrayQuantity,  &$arrayQuantityAux)
+function removeRepeatItems(&$arrayProduct = array(), &$arrayQuantity = array(), $position, $value)
 {
-    $i = 0;
+    $i = $position + 1;
     while($i < count($arrayProduct)){
-        $intPosition = findElement($arrayProduct, $arrayProduct[$i]);
-        if($intPosition != $i && $intPosition > -1){
-            removeElement($arrayProduct, $arrayQuantity, $arrayQuantityAux, $intPosition);
-            array_pop($arrayProduct);
-            array_pop($arrayQuantity);
-            array_pop($arrayQuantityAux);
+        if($arrayProduct[$i] == $value){
+            removeElement($arrayProduct, $arrayQuantity, $i);
         }else{
-            ++$i;
+            $i++;
         }
     }
 }
 
-
+               
+// Función para sumar las cantidades de un mismo producto en un despacho
+function sumProductQuantity($arrayProduct = array(), $arrayQuantity = array(), $value)
+{
+    $sumQuantity = 0;
+    foreach($arrayProduct as $key => $productValue){
+        if($productValue == $value){
+            $sumQuantity += $arrayQuantity[$key];
+        }
+    }
+    return $sumQuantity;
+}

@@ -9,13 +9,13 @@ include 'utils.php';
 // Obtener los pedidos que estén estado 'procesando' ('wc-processing') de la base de datos
 //---------------------------------------------------------------------------------------
 $sql = "SELECT *
-        FROM wp_posts 
+        FROM wp_posts
         WHERE post_type = 'shop_order' AND post_status = 'wc-cancelled'"; // cambiar luego por wc-processing
 
 $resultQuery = $link->query($sql);
 
 //---------------------------------------------------------------------------------------
-// Formación de array de órdenes de pedidos que se deben incluir en la guía y que cumplen 
+// Formación de array de órdenes de pedidos que se deben incluir en la guía y que cumplen
 // con el estado 'wc-processing'
 //---------------------------------------------------------------------------------------
 $arrayOrders = array();
@@ -25,21 +25,21 @@ while($row = $resultQuery->fetch_array()){
 }
 
 //---------------------------------------------------------------------------------------
-// Extraer los datos necesarios de cada pedido para realizar la solicitud al Webservice 
+// Extraer los datos necesarios de cada pedido para realizar la solicitud al Webservice
 // de Envía y generar la guía
 //---------------------------------------------------------------------------------------
 $arrayData = array();
 $index = 0;
 
 foreach($arrayOrders as $order){
-    $sql =  "SELECT 
+    $sql =  "SELECT
                 CONCAT(dcc.codigo_municipio, ' - ', dcc.nombre_municipio) AS 'Ciudad_Origen',
                 '4' AS 'Cod_FormaPago',
                 '12' AS 'Cod_Servicio',
                 '1' AS 'Num_Unidades',
                 '1' AS 'MPesoReal_K',
                 '1' AS 'MPesoVolumen_K',
-                TRUNCATE(wpm.meta_value, 0) AS 'Valor_Declarado', 
+                TRUNCATE(wpm.meta_value, 0) AS 'Valor_Declarado',
                 '0' AS 'Mca_NoSabado',
                 '0' AS 'Mca_DocInternacional',
                 '3' AS 'Cod_Regional_Cta',
@@ -57,20 +57,20 @@ foreach($arrayOrders as $order){
                 '' AS 'Con_Cartaporte',
                 '' AS 'generar_os',
                 '0' AS 'valorproducto'
-            FROM 
-              	dt_conf_ciudades dcc, 
-              	wp_posts wp INNER JOIN wp_postmeta wpm 
-             		ON wp.ID = wpm.post_id 
-             	INNER JOIN wp_postmeta wpm2 
-             		ON wpm.post_id = wpm2.post_id 
+            FROM
+              	dt_conf_ciudades dcc,
+              	wp_posts wp INNER JOIN wp_postmeta wpm
+             		ON wp.ID = wpm.post_id
+             	INNER JOIN wp_postmeta wpm2
+             		ON wpm.post_id = wpm2.post_id
              	INNER JOIN wp_wc_order_product_lookup wwopl
-             		ON wp.ID = wwopl.order_id 
-             	INNER JOIN wp_posts wp1 	
-             		ON wp1.ID = wwopl.product_id 
+             		ON wp.ID = wwopl.order_id
+             	INNER JOIN wp_posts wp1
+             		ON wp1.ID = wwopl.product_id
             WHERE
-              	dcc.nombre_municipio = 'LA ESTRELLA' AND 
-             	wpm.meta_key = '_order_total' AND 
-                wpm.post_id = '$order'  
+              	dcc.nombre_municipio = 'LA ESTRELLA' AND
+             	wpm.meta_key = '_order_total' AND
+                wpm.post_id = '$order'
             ";
 
     $resultQuery = $link->query($sql);
@@ -109,8 +109,8 @@ foreach($arrayOrders as $order){
     // Extraer el detalle de la orden de pedido
     //---------------------------------------------------------------------------------------
     $sql2 = "SELECT *
-            FROM wp_posts wp INNER JOIN wp_wc_order_product_lookup wwopl 
-                ON wp.ID = wwopl.product_id 
+            FROM wp_posts wp INNER JOIN wp_wc_order_product_lookup wwopl
+                ON wp.ID = wwopl.product_id
             WHERE wwopl.order_id = '$order'";
 
     $resultQuery2 = $link->query($sql2);
@@ -122,7 +122,7 @@ foreach($arrayOrders as $order){
         $intFinPos = strpos($row2['post_title'], "]");
         $strSubStringCode = substr($row2['post_title'], $intIniPos + 1, $intFinPos - $intIniPos -1);
         $arrayCodes = explode(",", $strSubStringCode);
-        
+
         foreach($arrayCodes as $code){
             $intQuantity = (int)$row2['product_qty'] * (int)substr($code, 0, 1);
             $strCode = substr($code, 1);
@@ -130,7 +130,10 @@ foreach($arrayOrders as $order){
         }
     }
 
-    // Separar la cantidad y el código y sumar luego dichas cantidades 
+    //---------------------------------------------------------------------------------------
+    // Separar la cantidad y el código y sumar luego dichas cantidades para formar el campo
+    // Dice_Contener
+    //---------------------------------------------------------------------------------------
     $arrayCodes = explode("/", substr($strSaysContain, 3));
     $arrayProductQuantity = array();
     foreach($arrayCodes as $codes){
@@ -138,41 +141,37 @@ foreach($arrayOrders as $order){
     }
 
     $arrayQuantity = array();
-    $arrayQuantityAux = array();
     $arrayProduct = array();
+    $arrayNewProduct = array();
+    $arrayNewQuantity = array();
+
     foreach($arrayProductQuantity as $item){
         $arrayQuantity[] = substr($item, 0, 1);
         $arrayProduct[] = substr($item, 1);
     }
 
-    // $strSaysContain = "PG.";
-
-    foreach($arrayProduct as $key => $value){
-        $intSumCoincidence = 0;
-
-        for($j = 0; $j < count($arrayProduct); $j++){
-            if($value == $arrayProduct[$j]){
-                $intSumCoincidence += $arrayQuantity[$j];
-            }
-        }
-
-        $arrayQuantityAux[$key] = $intSumCoincidence;
-
-    }
-
-    removeRepeatItems($arrayProduct, $arrayQuantity, $arrayQuantityAux);
     array_pop($arrayProduct);
     array_pop($arrayQuantity);
-    array_pop($arrayQuantityAux);
+    
+    foreach($arrayProduct as $key => $value){
+        $intSum = sumProductQuantity($arrayProduct, $arrayQuantity, $value);
+        $arrayNewProduct[] = $value;
+        $arrayNewQuantity[] = $intSum;
+    }
 
+    foreach($arrayProduct as $key => $value){
+        removeRepeatItems($arrayNewProduct, $arrayNewQuantity, $key, $value);
+    }
 
-    print_r($arrayProduct);
-    echo "\n";
-    print_r($arrayQuantity);
+    // print_r($arrayNewProduct);
+    // print_r($arrayNewQuantity);
+    // https://es.stackoverflow.com/questions/7336/comparar-dos-cadenas-aparentemente-son-iguales
+    
+    $strSaysContain = "PG.";
 
-    // foreach($arrayProduct as $key => $value){
-    //     $strSaysContain .=  $arrayQuantityAux[$key] . $value . "/";
-    // }
+    foreach($arrayNewProduct as $key => $value){
+        $strSaysContain .=  $arrayNewQuantity[$key] . $value . "/";
+    }
 
     $arrayData[$index]['info_contenido']['Dice_Contener'] = $strSaysContain; // Organizar para que sume cantidades del mismo producto y muestre solo una descripción de ésta
 
@@ -197,7 +196,7 @@ foreach($arrayOrders as $order){
     $resultQuery3 = $link->query($sql3);
     $row3 = $resultQuery3->fetch_array();
     $strFullName = $row3['meta_value'];
-    
+
     $sql3 = "SELECT *
              FROM wp_postmeta wpm
              WHERE wpm.meta_key = '_billing_last_name' AND post_id = '$order'";
@@ -212,7 +211,7 @@ foreach($arrayOrders as $order){
 
     $resultQuery3 = $link->query($sql3);
     $row3 = $resultQuery3->fetch_array();
-    
+
     $sql3 = "SELECT *
              FROM wp_postmeta wpm
              WHERE wpm.meta_key = '_billing_phone' AND post_id = '$order'";
@@ -224,13 +223,12 @@ foreach($arrayOrders as $order){
     $arrayData[$index]['info_destino']['dir_destinatario'] = $row3['meta_value'];
     $arrayData[$index]['info_destino']['tel_destinatario'] = $row4['meta_value'];
     $arrayData[$index]['info_destino']['ced_destinatario'] = ""; // Extraer cédula para enviarla (aunque no es obligatorio)
- 
+
     ++$index;
 }
 
-// print_r($arrayData);
+print_r($arrayData);
 
 $link->close();
 
 // echo json_encode($arrayData);
-
