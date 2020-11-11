@@ -1,5 +1,30 @@
 Accesos Servidor de Desarrollo (Hosting)
 
+
++===================================+
+
+| New Account Info                  |
+
++===================================+
+
+| IP: 167.86.93.59  
+  
+| Domain: sylog.ml
+
+| cpanel acceso: https://vmi415936.contaboserver.net:2083/ o sylog.ml/cpanel
+
+| UserName: sylog
+
+| PassWord: +q,SUXtC0ixz
+
+| Quota: unlimited
+
+| Language: es
+
++===================================+
+
+
+
 +===================================+
 
 | New Account Info                  |
@@ -264,3 +289,7 @@ https://www.dane.gov.co/files/censo2005/provincias/subregiones.pdf
 
 Reglas de construcción en PHP
 http://www.juntadeandalucia.es/servicios/madeja/contenido/libro-pautas/102
+
+
+Base de datos países y ciudades 
+https://googleseo.marketing/paises-ciudades-sql/
