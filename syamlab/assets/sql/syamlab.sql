@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 12-11-2020 a las 00:16:40
+-- Tiempo de generación: 13-11-2020 a las 00:05:26
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -1192,9 +1192,37 @@ CREATE TABLE `component` (
   `order` smallint(6) NOT NULL DEFAULT 0,
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contract_type`
+--
+
+CREATE TABLE `contract_type` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `contract_type`
+--
+
+INSERT INTO `contract_type` (`id`, `description`, `observation`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Contrato a término fijo', 'Este tipo de contrato tiene una duración entre un día y tres años y puede ser renovado hasta por tres veces su permanencia. El empleado goza de todas las prestaciones sociales establecidas por la ley (cesantías, vacaciones y primas) y para su finalización es necesario un preaviso de 30 días.\r\nLas deducciones por nómina de este tipo de contrato son iguales a las de cualquier contrato de vínculo laboral. La vinculación puede ser directamente con la empresa o a través de temporales.', 1, '2020-11-12 17:01:58', NULL),
+(2, 'Contrato a término indefinido', 'No tiene fecha de terminación establecida . El empleado goza de todas las prestaciones sociales establecidas por la ley y tiene beneficios adicionales como la opción de vinculación a cooperativas empresariales y ayudas especiales de acuerdo con cada empresa; con posibilidad de optar por créditos y préstamos entre otros.\r\nLos descuentos para este tipo de contrato son iguales a los de un contrato a término fijo, más cualquier otra deducción autorizada por el empleado.', 1, '2020-11-12 17:01:58', NULL),
+(3, 'Contrato de obra o labor', 'Es durante una labor específica y termina en el momento que la obra llegue a su fin. Este tipo de vinculación es característica de aquellos que cumplen su labor una vez haya terminado el periodo académico. Este contrato es igual en términos de beneficios y descuentos a los contratos indefinidos y definidos, por ser un contrato laboral.', 1, '2020-11-12 17:01:58', NULL),
+(4, 'Contrato de aprendizaje', 'Está enfocado a la formación de practicantes. La idea de este tipo de contrato es el aprendizaje y que el practicante se incluya al mundo laboral. La remuneración es llamada auxilio de sostenimiento y depende completamente de un convenio entre ambas partes, donde el estudiante no tiene prestaciones sociales.\r\nEl valor de la remuneración depende de si el practicante es universitario o no, de ser universitario tiene derecho a un salario que debe ser superior o igual al mínimo y si el practicante no es universitario tendrá como base de pago un salario por debajo del mínimo.', 1, '2020-11-12 17:01:58', NULL),
+(5, 'Contrato ocasional de trabajo', 'Este contrato no debe ser superior a 30 días y debe ser por una labor específica diferente a las actividades comunes de la empresa. El trabajador recibe la remuneración acordada y al terminar no tiene derecho a ningún tipo de prestación, salvo en caso de un accidente. La duración del contrato puede ser renovable sin exceder los treinta días del vínculo inicial.', 1, '2020-11-12 17:01:58', NULL),
+(6, 'Contrato civil por prestación de servicios', 'La remuneración se acuerda entre las partes y no genera relación laboral ni obliga a la organización a pagar prestaciones sociales. La duración es igualmente en común acuerdo dependiendo del trabajo a realizar.\r\nEl empleado recibe un sueldo al cual se le descuenta únicamente por concepto de retención en la fuente.', 1, '2020-11-12 17:01:58', NULL);
 
 -- --------------------------------------------------------
 
@@ -2125,6 +2153,23 @@ INSERT INTO `currency` (`id`, `currency_ISO`, `language`, `currency_name`, `mone
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `customer`
+--
+
+CREATE TABLE `customer` (
+  `id` bigint(20) NOT NULL,
+  `person_id` bigint(20) NOT NULL,
+  `contact_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact_phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `contact_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `department`
 --
 
@@ -2177,6 +2222,48 @@ INSERT INTO `department` (`id`, `code`, `name`, `country_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `employee`
+--
+
+CREATE TABLE `employee` (
+  `id` bigint(20) NOT NULL,
+  `person_id` bigint(20) NOT NULL,
+  `position` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salary` double NOT NULL,
+  `number_children` tinyint(4) NOT NULL DEFAULT 0,
+  `pension_fund` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `EPS` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `ARL` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `compensation_box` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_account` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bank_entity` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `contract_type_id` bigint(20) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `employee_document`
+--
+
+CREATE TABLE `employee_document` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `employee_id` bigint(20) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `exchange_rate`
 --
 
@@ -2185,9 +2272,18 @@ CREATE TABLE `exchange_rate` (
   `currency_id` bigint(20) NOT NULL,
   `exchange_TRM` double NOT NULL,
   `custom_exchange` double NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `exchange_rate`
+--
+
+INSERT INTO `exchange_rate` (`id`, `currency_id`, `exchange_TRM`, `custom_exchange`, `active`, `creation_date`, `last_update`) VALUES
+(1, 153, 3662.6, 3662.6, 1, '2020-11-12 15:07:59', NULL),
+(2, 50, 4321.19, 4321.19, 1, '2020-11-12 15:07:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -2211,11 +2307,51 @@ CREATE TABLE `operation` (
 
 CREATE TABLE `parameter` (
   `id` bigint(20) NOT NULL,
-  `description` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `percentage` double NOT NULL,
+  `active` tinyint(1) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `parameter`
+--
+
+INSERT INTO `parameter` (`id`, `description`, `percentage`, `active`, `create_date`, `last_update`) VALUES
+(1, 'IVA', 19, 1, '2020-11-12 14:49:08', NULL),
+(2, 'Retención en la fuente - compras', 4, 1, '2020-11-12 14:54:31', NULL),
+(3, 'Retención en la fuente - servicios', 2.5, 1, '2020-11-12 14:54:31', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payment_method`
+--
+
+CREATE TABLE `payment_method` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `payment_method`
+--
+
+INSERT INTO `payment_method` (`id`, `description`, `observation`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Efectivo', 'Por medio de billetes o monedas (conocidos como fiduciarios, ya que la gente le asigna y confía en que tiene el valor que indica su denominación, independientemente de los materiales con los que estén hechos), la gente compra o contrata bienes y servicios.', 1, '2020-11-12 21:12:01', NULL),
+(2, 'Cheque', 'La idea del cheque es básicamente la misma sin importar del tipo que se trate (personal, bancario, etc.): el comprador extiende un documento certificado con la cantidad a pagar al portador, la cual cambia por efectivo.', 1, '2020-11-12 21:12:01', NULL),
+(3, 'Contra reembolso', 'En las formas de pago, un caso interesante es el del contrareembolso, ya que algunos lo considerarían como una subcategoría de los pagos en efectivo. Cuando un cliente escoge un producto, se pone en contacto con su proveedor y concuerdan un lugar de entrega. Una vez que se ven, el primero le da dinero al segundo por el insumo.', 1, '2020-11-12 21:12:01', NULL),
+(4, 'Pago en línea sin tarjeta', 'Empresas como PayPal o PayU sirven como intermediarios entre el cliente y el vendedor en el pago y cobro de dinero por un producto o servicio. Tanto uno como otro registran sus datos en el sitio, por lo que, por ejemplo, el proveedor no tiene acceso a los datos bancarios del consumidor.', 1, '2020-11-12 21:12:01', NULL),
+(5, 'Tarjeta débito', 'Unas de las modalidades electrónicas de pago más extendidas son las tarjetas, ya sea de débito o de crédito. La primera hace uso de la cantidad de efectivo con la que cuenta un consumidor en su cuenta bancaria al momento de su compra. La segunda hace utilización de un crédito que debe ser pagado por el comprador en un futuro.', 1, '2020-11-12 21:12:01', NULL),
+(6, 'Tarjeta crédito', 'Unas de las modalidades electrónicas de pago más extendidas son las tarjetas, ya sea de débito o de crédito. La primera hace uso de la cantidad de efectivo con la que cuenta un consumidor en su cuenta bancaria al momento de su compra. La segunda hace utilización de un crédito que debe ser pagado por el comprador en un futuro.', 1, '2020-11-12 21:12:01', NULL),
+(7, 'Transferencia electrónica', 'Esta forma de pago consiste en mover cierta cantidad de dinero de una cuenta bancaria a otra. Para concretarla, el comprador debe certificar su identidad por medio de un código proporcionado por un banco. Tanto las tarjetas de crédito y débito como la transferencia son servicios que ofrecen instituciones bancarias.', 1, '2020-11-12 21:12:01', NULL),
+(8, 'Pagos a través de dispositivos móviles', 'Con esta modalidad, el usuario puede comprar directamente en el punto de venta o a través de aplicaciones. Regularmente hacen uso de un código QR para llevar a cabo el proceso de compra. Algunos ejemplos de estos medios de pagos son Mobile Card, Android Pay, Apple Pay o Twyp.', 1, '2020-11-12 21:12:01', NULL),
+(9, 'Moneda virtual', 'Sólo existe en el espacio digital, pero tiene su equivalencia con dinero físico. Esta moneda puede ser comprada a alguien más que desea vender las que tiene. Algunos ejemplos de ésta son Ethereum, Monero, Tether y Bitcoin.', 1, '2020-11-12 21:12:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -2253,7 +2389,7 @@ CREATE TABLE `person` (
   `birth_place` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city_residence` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2273,8 +2409,10 @@ CREATE TABLE `product` (
   `purchase_price` double NOT NULL,
   `sale_price` double NOT NULL,
   `order` smallint(6) NOT NULL,
-  `active` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `weight` double NOT NULL,
+  `way_to_pay_id` bigint(20) NOT NULL,
+  `payment_method_id` bigint(20) NOT NULL,
   `unit_measurement_id` bigint(20) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
@@ -2289,7 +2427,7 @@ CREATE TABLE `product` (
 CREATE TABLE `profile` (
   `id` bigint(20) NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2306,6 +2444,53 @@ CREATE TABLE `provider` (
   `contact_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `purchase_order`
+--
+
+CREATE TABLE `purchase_order` (
+  `id` bigint(20) NOT NULL,
+  `provider_id` bigint(20) NOT NULL,
+  `date_time` datetime NOT NULL,
+  `total_cost` double NOT NULL,
+  `total_IVA` double NOT NULL,
+  `total_withholding` double NOT NULL,
+  `way_to_pay_id` bigint(20) NOT NULL,
+  `payment_method_id` bigint(20) NOT NULL,
+  `currency_id` bigint(20) NOT NULL,
+  `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sale_order`
+--
+
+CREATE TABLE `sale_order` (
+  `id` bigint(20) NOT NULL,
+  `customer_id` bigint(20) NOT NULL,
+  `date_time` datetime NOT NULL,
+  `total_cost` double NOT NULL,
+  `total_IVA` double NOT NULL,
+  `total_withholding` double NOT NULL,
+  `way_to_pay_id` bigint(20) NOT NULL,
+  `payment_method_id` bigint(20) NOT NULL,
+  `currency_id` bigint(20) NOT NULL,
+  `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2323,6 +2508,15 @@ CREATE TABLE `unit_measurement` (
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `unit_measurement`
+--
+
+INSERT INTO `unit_measurement` (`id`, `description`, `creation_date`, `last_update`) VALUES
+(1, 'Unidad física', '2020-11-12 18:35:33', NULL),
+(2, 'Gramo', '2020-11-12 18:35:33', NULL),
+(3, 'Litro', '2020-11-12 18:35:33', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -2333,12 +2527,34 @@ CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
   `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `profile_id` bigint(20) NOT NULL,
   `person_id` bigint(20) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `way_to_pay`
+--
+
+CREATE TABLE `way_to_pay` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `way_to_pay`
+--
+
+INSERT INTO `way_to_pay` (`id`, `description`, `observation`, `creation_date`, `last_update`) VALUES
+(1, 'Contado', 'Es una operación donde el pago de los productos o bienes que se han adquirido se realiza en el momento de la entrega.', '2020-11-12 21:26:54', NULL),
+(2, 'Crédito', 'Se abona el dinero después de que se haya recibido lo que se ha comprado, generalmente, a cambio de unos intereses.', '2020-11-12 21:26:54', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -2364,6 +2580,12 @@ ALTER TABLE `component`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `contract_type`
+--
+ALTER TABLE `contract_type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `country`
 --
 ALTER TABLE `country`
@@ -2378,10 +2600,32 @@ ALTER TABLE `currency`
   ADD KEY `CurrencyISO_Language` (`currency_ISO`,`language`);
 
 --
+-- Indices de la tabla `customer`
+--
+ALTER TABLE `customer`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `customer_un` (`person_id`);
+
+--
 -- Indices de la tabla `department`
 --
 ALTER TABLE `department`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `employee_un` (`person_id`),
+  ADD KEY `employee_FK` (`contract_type_id`);
+
+--
+-- Indices de la tabla `employee_document`
+--
+ALTER TABLE `employee_document`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employee_document_FK` (`employee_id`);
 
 --
 -- Indices de la tabla `exchange_rate`
@@ -2404,6 +2648,12 @@ ALTER TABLE `parameter`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `payment_method`
+--
+ALTER TABLE `payment_method`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `permission`
 --
 ALTER TABLE `permission`
@@ -2423,7 +2673,9 @@ ALTER TABLE `person`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `product_FK` (`unit_measurement_id`);
+  ADD KEY `product_FK_1` (`unit_measurement_id`),
+  ADD KEY `product_payment_method_FK` (`payment_method_id`),
+  ADD KEY `product_way_to_pay_FK` (`way_to_pay_id`);
 
 --
 -- Indices de la tabla `profile`
@@ -2439,6 +2691,26 @@ ALTER TABLE `provider`
   ADD UNIQUE KEY `provider_un` (`person_id`);
 
 --
+-- Indices de la tabla `purchase_order`
+--
+ALTER TABLE `purchase_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_order_provider_FK` (`provider_id`),
+  ADD KEY `purchase_order_currency_FK` (`currency_id`),
+  ADD KEY `purchase_order_way_to_pay_FK` (`way_to_pay_id`),
+  ADD KEY `purchase_order_payment_method_FK` (`payment_method_id`);
+
+--
+-- Indices de la tabla `sale_order`
+--
+ALTER TABLE `sale_order`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_order_customer_FK` (`customer_id`),
+  ADD KEY `sale_order_currency_FK` (`currency_id`),
+  ADD KEY `sale_order_way_to_pay_FK` (`way_to_pay_id`),
+  ADD KEY `sale_order_payment_method_FK` (`payment_method_id`);
+
+--
 -- Indices de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
@@ -2452,6 +2724,12 @@ ALTER TABLE `user`
   ADD UNIQUE KEY `user_un` (`username`),
   ADD UNIQUE KEY `user_person_un` (`person_id`),
   ADD KEY `user_FK_1` (`profile_id`);
+
+--
+-- Indices de la tabla `way_to_pay`
+--
+ALTER TABLE `way_to_pay`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -2476,6 +2754,12 @@ ALTER TABLE `component`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `contract_type`
+--
+ALTER TABLE `contract_type`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT de la tabla `country`
 --
 ALTER TABLE `country`
@@ -2488,16 +2772,34 @@ ALTER TABLE `currency`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=637;
 
 --
+-- AUTO_INCREMENT de la tabla `customer`
+--
+ALTER TABLE `customer`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `department`
 --
 ALTER TABLE `department`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
+-- AUTO_INCREMENT de la tabla `employee`
+--
+ALTER TABLE `employee`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `employee_document`
+--
+ALTER TABLE `employee_document`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de la tabla `operation`
@@ -2509,7 +2811,13 @@ ALTER TABLE `operation`
 -- AUTO_INCREMENT de la tabla `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `payment_method`
+--
+ALTER TABLE `payment_method`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `permission`
@@ -2542,16 +2850,34 @@ ALTER TABLE `provider`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `purchase_order`
+--
+ALTER TABLE `purchase_order`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `sale_order`
+--
+ALTER TABLE `sale_order`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `way_to_pay`
+--
+ALTER TABLE `way_to_pay`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Restricciones para tablas volcadas
@@ -2562,6 +2888,25 @@ ALTER TABLE `user`
 --
 ALTER TABLE `access`
   ADD CONSTRAINT `access_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
+
+--
+-- Filtros para la tabla `customer`
+--
+ALTER TABLE `customer`
+  ADD CONSTRAINT `customer_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
+
+--
+-- Filtros para la tabla `employee`
+--
+ALTER TABLE `employee`
+  ADD CONSTRAINT `employee_FK` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`),
+  ADD CONSTRAINT `employee_person_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
+
+--
+-- Filtros para la tabla `employee_document`
+--
+ALTER TABLE `employee_document`
+  ADD CONSTRAINT `employee_document_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
 
 --
 -- Filtros para la tabla `exchange_rate`
@@ -2593,6 +2938,24 @@ ALTER TABLE `product`
 --
 ALTER TABLE `provider`
   ADD CONSTRAINT `provider_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
+
+--
+-- Filtros para la tabla `purchase_order`
+--
+ALTER TABLE `purchase_order`
+  ADD CONSTRAINT `purchase_order_currency_FK` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`id`),
+  ADD CONSTRAINT `purchase_order_payment_method_FK` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
+  ADD CONSTRAINT `purchase_order_provider_FK` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`),
+  ADD CONSTRAINT `purchase_order_way_to_pay_FK` FOREIGN KEY (`way_to_pay_id`) REFERENCES `way_to_pay` (`id`);
+
+--
+-- Filtros para la tabla `sale_order`
+--
+ALTER TABLE `sale_order`
+  ADD CONSTRAINT `sale_order_currency_FK` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`id`),
+  ADD CONSTRAINT `sale_order_customer_FK` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
+  ADD CONSTRAINT `sale_order_payment_method_FK` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
+  ADD CONSTRAINT `sale_order_way_to_pay_FK` FOREIGN KEY (`way_to_pay_id`) REFERENCES `way_to_pay` (`id`);
 
 --
 -- Filtros para la tabla `user`
