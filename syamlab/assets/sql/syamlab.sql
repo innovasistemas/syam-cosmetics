@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 13-11-2020 a las 00:05:26
+-- Tiempo de generación: 14-11-2020 a las 00:07:49
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -2228,6 +2228,7 @@ INSERT INTO `department` (`id`, `code`, `name`, `country_id`) VALUES
 CREATE TABLE `employee` (
   `id` bigint(20) NOT NULL,
   `person_id` bigint(20) NOT NULL,
+  `date_admision` date NOT NULL,
   `position` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `salary` double NOT NULL,
@@ -2239,6 +2240,7 @@ CREATE TABLE `employee` (
   `bank_account` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `bank_entity` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contract_type_id` bigint(20) NOT NULL,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
@@ -2288,6 +2290,41 @@ INSERT INTO `exchange_rate` (`id`, `currency_id`, `exchange_TRM`, `custom_exchan
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `loan`
+--
+
+CREATE TABLE `loan` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `disbursement_date` date NOT NULL,
+  `pay_limit_date` date NOT NULL,
+  `amount` double NOT NULL,
+  `balance` double NOT NULL DEFAULT 0,
+  `payments_quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
+  `employee_id` bigint(20) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `loan_payment`
+--
+
+CREATE TABLE `loan_payment` (
+  `id` bigint(20) NOT NULL,
+  `loan_id` bigint(20) NOT NULL,
+  `payment_date` date NOT NULL,
+  `value` double NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `operation`
 --
 
@@ -2307,9 +2344,11 @@ CREATE TABLE `operation` (
 
 CREATE TABLE `parameter` (
   `id` bigint(20) NOT NULL,
-  `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `percentage` double NOT NULL,
-  `active` tinyint(1) NOT NULL,
+  `code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` double NOT NULL DEFAULT 0,
+  `percentage` double NOT NULL DEFAULT 0,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2318,10 +2357,23 @@ CREATE TABLE `parameter` (
 -- Volcado de datos para la tabla `parameter`
 --
 
-INSERT INTO `parameter` (`id`, `description`, `percentage`, `active`, `create_date`, `last_update`) VALUES
-(1, 'IVA', 19, 1, '2020-11-12 14:49:08', NULL),
-(2, 'Retención en la fuente - compras', 4, 1, '2020-11-12 14:54:31', NULL),
-(3, 'Retención en la fuente - servicios', 2.5, 1, '2020-11-12 14:54:31', NULL);
+INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `active`, `create_date`, `last_update`) VALUES
+(1, 'iva', 'IVA', 0, 19, 1, '2020-11-12 14:49:08', NULL),
+(2, 'retfte-compras', 'Retención en la fuente - compras', 0, 4, 1, '2020-11-12 14:54:31', NULL),
+(3, 'retfte-servicios', 'Retención en la fuente - servicios', 0, 2.5, 1, '2020-11-12 14:54:31', NULL),
+(4, 'auxtransp', 'Auxilio de transporte', 102854, 0, 1, '2020-11-13 15:26:40', NULL),
+(5, 'dedsalud', 'Deducción salud', 0, 4, 1, '2020-11-13 15:38:15', NULL),
+(6, 'dedpension', 'Deducción pensión', 0, 4, 1, '2020-11-13 15:38:15', NULL),
+(7, 'hod', 'Hora ordinaria diurna (HOD)', 240, 0, 1, '2020-11-13 15:49:32', NULL),
+(8, 'hed', 'Hora extra diurna (HED)', 0, 25, 1, '2020-11-13 15:49:32', NULL),
+(9, 'hon', 'Hora ordinaria nocturna (HON)', 0, 35, 1, '2020-11-13 15:49:32', NULL),
+(10, 'hen', 'Hora extra nocturna (HEN)', 0, 75, 1, '2020-11-13 15:49:32', NULL),
+(11, 'hoddf', 'Hora ordinaria diurna dominical y festivo (HODDF)', 0, 75, 1, '2020-11-13 16:06:27', NULL),
+(12, 'heddf', 'Hora extra diurna dominical y festivo (HEDDF)', 0, 100, 1, '2020-11-13 16:06:27', NULL),
+(13, 'hendf', 'Hora extra nocturna domical y festivo (HENDF)', 0, 150, 1, '2020-11-13 16:06:27', NULL),
+(14, 'hondf', 'Hora ordinaria nocturna dominical y festivo (HONDF)', 0, 110, 1, '2020-11-13 16:28:04', NULL),
+(15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, 1, '2020-11-13 19:17:58', NULL),
+(16, 'ppm', 'Cantidad de pagos por mes', 2, 0, 1, '2020-11-13 19:35:39', NULL);
 
 -- --------------------------------------------------------
 
@@ -2352,6 +2404,54 @@ INSERT INTO `payment_method` (`id`, `description`, `observation`, `active`, `cre
 (7, 'Transferencia electrónica', 'Esta forma de pago consiste en mover cierta cantidad de dinero de una cuenta bancaria a otra. Para concretarla, el comprador debe certificar su identidad por medio de un código proporcionado por un banco. Tanto las tarjetas de crédito y débito como la transferencia son servicios que ofrecen instituciones bancarias.', 1, '2020-11-12 21:12:01', NULL),
 (8, 'Pagos a través de dispositivos móviles', 'Con esta modalidad, el usuario puede comprar directamente en el punto de venta o a través de aplicaciones. Regularmente hacen uso de un código QR para llevar a cabo el proceso de compra. Algunos ejemplos de estos medios de pagos son Mobile Card, Android Pay, Apple Pay o Twyp.', 1, '2020-11-12 21:12:01', NULL),
 (9, 'Moneda virtual', 'Sólo existe en el espacio digital, pero tiene su equivalencia con dinero físico. Esta moneda puede ser comprada a alguien más que desea vender las que tiene. Algunos ejemplos de ésta son Ethereum, Monero, Tether y Bitcoin.', 1, '2020-11-12 21:12:01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payroll`
+--
+
+CREATE TABLE `payroll` (
+  `id` bigint(20) NOT NULL,
+  `employee_id` bigint(20) NOT NULL,
+  `expedition_date` date NOT NULL,
+  `period_caused_from` date NOT NULL,
+  `period_caused_to` date NOT NULL,
+  `total_discounts` double NOT NULL,
+  `total_to_pay` double NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `payroll_detail`
+--
+
+CREATE TABLE `payroll_detail` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `daytime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `overtime_night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `daytime_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `night_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `daytime_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `night_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
+  `transportation_assistence` double NOT NULL DEFAULT 0,
+  `discount_products` double NOT NULL DEFAULT 0,
+  `discount_food` double NOT NULL DEFAULT 0,
+  `discount_loan` double NOT NULL DEFAULT 0,
+  `discount_others` double NOT NULL DEFAULT 0,
+  `commission` double NOT NULL DEFAULT 0,
+  `payroll_id` bigint(20) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2402,6 +2502,7 @@ CREATE TABLE `person` (
 
 CREATE TABLE `product` (
   `id` bigint(20) NOT NULL,
+  `code` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `existence` double NOT NULL,
   `stock_minimum` double NOT NULL,
@@ -2452,6 +2553,22 @@ CREATE TABLE `provider` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `purchase_detail`
+--
+
+CREATE TABLE `purchase_detail` (
+  `id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `quantity` double NOT NULL,
+  `price` double NOT NULL,
+  `purchase_order_id` bigint(20) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `purchase_order`
 --
 
@@ -2465,10 +2582,26 @@ CREATE TABLE `purchase_order` (
   `way_to_pay_id` bigint(20) NOT NULL,
   `payment_method_id` bigint(20) NOT NULL,
   `currency_id` bigint(20) NOT NULL,
-  `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `sale_detail`
+--
+
+CREATE TABLE `sale_detail` (
+  `id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NOT NULL,
+  `quantity` double NOT NULL,
+  `price` double NOT NULL,
+  `sale_order_id` bigint(20) NOT NULL,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2482,13 +2615,18 @@ CREATE TABLE `sale_order` (
   `id` bigint(20) NOT NULL,
   `customer_id` bigint(20) NOT NULL,
   `date_time` datetime NOT NULL,
+  `shipping_phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shipping_address` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `total_cost` double NOT NULL,
   `total_IVA` double NOT NULL,
   `total_withholding` double NOT NULL,
   `way_to_pay_id` bigint(20) NOT NULL,
   `payment_method_id` bigint(20) NOT NULL,
   `currency_id` bigint(20) NOT NULL,
-  `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `country_id` bigint(20) NOT NULL,
+  `department_id` bigint(20) DEFAULT NULL,
+  `city_id` bigint(20) NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -2635,6 +2773,20 @@ ALTER TABLE `exchange_rate`
   ADD KEY `exchange_rate_FK` (`currency_id`);
 
 --
+-- Indices de la tabla `loan`
+--
+ALTER TABLE `loan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `loan_employee_FK` (`employee_id`);
+
+--
+-- Indices de la tabla `loan_payment`
+--
+ALTER TABLE `loan_payment`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `loan_payment_FK` (`loan_id`);
+
+--
 -- Indices de la tabla `operation`
 --
 ALTER TABLE `operation`
@@ -2645,13 +2797,28 @@ ALTER TABLE `operation`
 -- Indices de la tabla `parameter`
 --
 ALTER TABLE `parameter`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `parameter_un` (`code`);
 
 --
 -- Indices de la tabla `payment_method`
 --
 ALTER TABLE `payment_method`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `payroll`
+--
+ALTER TABLE `payroll`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payroll_employee_FK` (`employee_id`);
+
+--
+-- Indices de la tabla `payroll_detail`
+--
+ALTER TABLE `payroll_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `payroll_detail_FK` (`payroll_id`);
 
 --
 -- Indices de la tabla `permission`
@@ -2673,6 +2840,7 @@ ALTER TABLE `person`
 --
 ALTER TABLE `product`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `product_un` (`code`),
   ADD KEY `product_FK_1` (`unit_measurement_id`),
   ADD KEY `product_payment_method_FK` (`payment_method_id`),
   ADD KEY `product_way_to_pay_FK` (`way_to_pay_id`);
@@ -2691,6 +2859,14 @@ ALTER TABLE `provider`
   ADD UNIQUE KEY `provider_un` (`person_id`);
 
 --
+-- Indices de la tabla `purchase_detail`
+--
+ALTER TABLE `purchase_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `purchase_detail_product_FK` (`product_id`),
+  ADD KEY `purchase_detail_purchase_order_FK` (`purchase_order_id`);
+
+--
 -- Indices de la tabla `purchase_order`
 --
 ALTER TABLE `purchase_order`
@@ -2699,6 +2875,14 @@ ALTER TABLE `purchase_order`
   ADD KEY `purchase_order_currency_FK` (`currency_id`),
   ADD KEY `purchase_order_way_to_pay_FK` (`way_to_pay_id`),
   ADD KEY `purchase_order_payment_method_FK` (`payment_method_id`);
+
+--
+-- Indices de la tabla `sale_detail`
+--
+ALTER TABLE `sale_detail`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sale_detail_product_FK` (`product_id`),
+  ADD KEY `sale_detail_sale_order_FK` (`sale_order_id`);
 
 --
 -- Indices de la tabla `sale_order`
@@ -2802,6 +2986,18 @@ ALTER TABLE `exchange_rate`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `loan`
+--
+ALTER TABLE `loan`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `loan_payment`
+--
+ALTER TABLE `loan_payment`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `operation`
 --
 ALTER TABLE `operation`
@@ -2811,13 +3007,25 @@ ALTER TABLE `operation`
 -- AUTO_INCREMENT de la tabla `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `payment_method`
 --
 ALTER TABLE `payment_method`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT de la tabla `payroll`
+--
+ALTER TABLE `payroll`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `payroll_detail`
+--
+ALTER TABLE `payroll_detail`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `permission`
@@ -2850,9 +3058,21 @@ ALTER TABLE `provider`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `purchase_detail`
+--
+ALTER TABLE `purchase_detail`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `purchase_order`
 --
 ALTER TABLE `purchase_order`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `sale_detail`
+--
+ALTER TABLE `sale_detail`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
@@ -2915,10 +3135,34 @@ ALTER TABLE `exchange_rate`
   ADD CONSTRAINT `exchange_rate_FK` FOREIGN KEY (`currency_id`) REFERENCES `currency` (`id`);
 
 --
+-- Filtros para la tabla `loan`
+--
+ALTER TABLE `loan`
+  ADD CONSTRAINT `loan_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
+-- Filtros para la tabla `loan_payment`
+--
+ALTER TABLE `loan_payment`
+  ADD CONSTRAINT `loan_payment_FK` FOREIGN KEY (`loan_id`) REFERENCES `loan` (`id`);
+
+--
 -- Filtros para la tabla `operation`
 --
 ALTER TABLE `operation`
   ADD CONSTRAINT `operation_FK` FOREIGN KEY (`access_id`) REFERENCES `access` (`id`);
+
+--
+-- Filtros para la tabla `payroll`
+--
+ALTER TABLE `payroll`
+  ADD CONSTRAINT `payroll_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
+-- Filtros para la tabla `payroll_detail`
+--
+ALTER TABLE `payroll_detail`
+  ADD CONSTRAINT `payroll_detail_FK` FOREIGN KEY (`payroll_id`) REFERENCES `payroll` (`id`);
 
 --
 -- Filtros para la tabla `permission`
@@ -2940,6 +3184,13 @@ ALTER TABLE `provider`
   ADD CONSTRAINT `provider_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
 
 --
+-- Filtros para la tabla `purchase_detail`
+--
+ALTER TABLE `purchase_detail`
+  ADD CONSTRAINT `purchase_detail_product_FK` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `purchase_detail_purchase_order_FK` FOREIGN KEY (`purchase_order_id`) REFERENCES `purchase_order` (`id`);
+
+--
 -- Filtros para la tabla `purchase_order`
 --
 ALTER TABLE `purchase_order`
@@ -2947,6 +3198,13 @@ ALTER TABLE `purchase_order`
   ADD CONSTRAINT `purchase_order_payment_method_FK` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
   ADD CONSTRAINT `purchase_order_provider_FK` FOREIGN KEY (`provider_id`) REFERENCES `provider` (`id`),
   ADD CONSTRAINT `purchase_order_way_to_pay_FK` FOREIGN KEY (`way_to_pay_id`) REFERENCES `way_to_pay` (`id`);
+
+--
+-- Filtros para la tabla `sale_detail`
+--
+ALTER TABLE `sale_detail`
+  ADD CONSTRAINT `sale_detail_product_FK` FOREIGN KEY (`product_id`) REFERENCES `product` (`id`),
+  ADD CONSTRAINT `sale_detail_sale_order_FK` FOREIGN KEY (`sale_order_id`) REFERENCES `sale_order` (`id`);
 
 --
 -- Filtros para la tabla `sale_order`
