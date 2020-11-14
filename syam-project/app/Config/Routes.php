@@ -15,12 +15,14 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * Router Setup
  * --------------------------------------------------------------------
  */
+
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
+
 
 /**
  * --------------------------------------------------------------------
@@ -32,6 +34,15 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/hello-world', 'Home::helloWorld');
+$routes->get('/configuraciones', 'Setting::test');
+
+
+// Controller is \Users
+// $routes->add('/hello-world', 'Home::helloWorld');
+
+// Controller is \Admin\Users
+// $routes->add('/config', 'ConfigurationManagement::test');
+
 
 /**
  * --------------------------------------------------------------------
@@ -46,6 +57,7 @@ $routes->get('/hello-world', 'Home::helloWorld');
  * You will have access to the $routes object within that file without
  * needing to reload it.
  */
+
 if (file_exists(APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php'))
 {
 	require APPPATH . 'Config/' . ENVIRONMENT . '/Routes.php';
