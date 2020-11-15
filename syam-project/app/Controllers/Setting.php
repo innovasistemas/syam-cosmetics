@@ -1,53 +1,55 @@
 <?php namespace App\Controllers;
 
-use App\Models\Main;
+use App\Models\SettingModel;
 
 class Setting extends BaseController
 {
+	private $objModels;
+
 
 	public function __construct()
 	{
-		// parent::__construct();
-
-		// $this->load->helper(array('url', 'form'));
-		// $this->load->library('form_validation');
-		// $this->load->model("ManagementModel");
-		// $this->load->library("Sendy");
+		$this->objModels = new class{};
+		$this->objModels->modelDepartment = new SettingModel();
 	}
 
 
-	public function __destruct()
+	public function __desctruct()
 	{
 
-	}
-
-
-	public function index()
-	{
-		return view('welcome_message');
 	}
 
 
 	public function test()
 	{
-		// return "hola";
-		// $profile = new Main();
-		// var_dump($profile->test());
-		// $id = 1;
-		// return $profile->find($id);+
 
-		$model = new Main();
-		$results = $model->test();
-		var_dump($results);
+		// $results = $model->test();
+		// $data['result'] = $model->orderBy('id', 'DESC')->findAll();
+		$data['first'] = $this->objModels->modelDepartment->find(11);
 
-        foreach ($results as $row)
-        {
-	        echo $row->id . "--";
-	        echo $row->code . "--";
-	        echo $row->name . "<br>";
-        }
+		$data['where'] = $this->objModels->modelDepartment
+							->getWhere(['id' => 4])
+							->getResult();
+		// var_dump($results);
 
-        echo 'Total Results: ' . count($results);
+        // foreach ($results as $row)
+        // {
+	    //     echo $row->id . "--";
+	    //     echo $row->code . "--";
+	    //     echo $row->name . "<br>";
+        // }
+        // foreach ($data['where']->getResult() as $row)
+        // {
+	    //     echo $row->id . "--";
+	    //     echo $row->code . "--";
+	    //     echo $row->name . "\n<br>";
+        // }
+
+		// echo "<br>";
+        // echo 'Total Results: ' . count($results);
+		// echo print_r($results);
+		echo print_r($data);
+		// echo json_encode($results);
 	}
 
 
