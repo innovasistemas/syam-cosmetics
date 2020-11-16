@@ -2,8 +2,8 @@
 
 use CodeIgniter\Model;
 
-class CountryModel extends Model
+class DepartmentModel extends Model
 {
-    protected $table      = 'country';
+    protected $table      = 'department';
     protected $primaryKey = 'id';
 }
