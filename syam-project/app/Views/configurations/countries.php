@@ -1,11 +1,4 @@
-<?php
 
-echo "Hola a todos<br>";
-echo base_url();
-echo "<br>" . site_url();
-
-
- ?>
 
 
 <br>

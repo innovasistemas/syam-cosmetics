@@ -2,9 +2,19 @@
 
 class Home extends BaseController
 {
-	public function index()
+	// public function index()
+	// {
+		// return view('welcome_message');
+	// }
+
+
+	public function Countries()
 	{
-		return view('welcome_message');
+		$data['title'] = ucwords('syam laboratorio'); // Capitalize the first letter
+
+	    echo view('templates/header', $data);
+	    echo view('configurations/countries', $data);
+	    echo view('templates/footer', $data);
 	}
 
 
@@ -19,6 +29,9 @@ class Home extends BaseController
 	    echo view('hello_world', $data);
 	    echo view('templates/footer', $data);
 	}
+
+
+	
 
 	//--------------------------------------------------------------------
 

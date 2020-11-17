@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2020 a las 00:07:49
+-- Tiempo de generación: 18-11-2020 a las 00:05:47
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.4.8
 
@@ -1227,271 +1227,293 @@ INSERT INTO `contract_type` (`id`, `description`, `observation`, `active`, `crea
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `contract_type_employee`
+--
+
+CREATE TABLE `contract_type_employee` (
+  `id` bigint(20) NOT NULL,
+  `employee_id` bigint(20) NOT NULL,
+  `contract_type_id` bigint(20) NOT NULL,
+  `date_admission` date NOT NULL,
+  `finish_date` date DEFAULT NULL,
+  `position` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salary` double NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `peace_and_safe` tinyint(1) NOT NULL DEFAULT 0,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `country`
 --
 
 CREATE TABLE `country` (
   `id` bigint(20) NOT NULL,
   `code` varchar(2) NOT NULL,
-  `name` varchar(100) NOT NULL
+  `name` varchar(100) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Volcado de datos para la tabla `country`
 --
 
-INSERT INTO `country` (`id`, `code`, `name`) VALUES
-(1, 'AU', 'Australia'),
-(2, 'CN', 'China'),
-(3, 'JP', 'Japan'),
-(4, 'TH', 'Thailand'),
-(5, 'IN', 'India'),
-(6, 'MY', 'Malaysia'),
-(7, 'KR', 'Kore'),
-(8, 'HK', 'Hong Kong'),
-(9, 'TW', 'Taiwan'),
-(10, 'PH', 'Philippines'),
-(11, 'VN', 'Vietnam'),
-(12, 'FR', 'France'),
-(13, 'EU', 'Europe'),
-(14, 'DE', 'Germany'),
-(15, 'SE', 'Sweden'),
-(16, 'IT', 'Italy'),
-(17, 'GR', 'Greece'),
-(18, 'ES', 'Spain'),
-(19, 'AT', 'Austria'),
-(20, 'GB', 'United Kingdom'),
-(21, 'NL', 'Netherlands'),
-(22, 'BE', 'Belgium'),
-(23, 'CH', 'Switzerland'),
-(24, 'AE', 'United Arab Emirates'),
-(25, 'IL', 'Israel'),
-(26, 'UA', 'Ukraine'),
-(27, 'RU', 'Russian Federation'),
-(28, 'KZ', 'Kazakhstan'),
-(29, 'PT', 'Portugal'),
-(30, 'SA', 'Saudi Arabia'),
-(31, 'DK', 'Denmark'),
-(32, 'IR', 'Ira'),
-(33, 'NO', 'Norway'),
-(34, 'US', 'United States'),
-(35, 'MX', 'Mexico'),
-(36, 'CA', 'Canada'),
-(37, 'A1', 'Anonymous Proxy'),
-(38, 'SY', 'Syrian Arab Republic'),
-(39, 'CY', 'Cyprus'),
-(40, 'CZ', 'Czech Republic'),
-(41, 'IQ', 'Iraq'),
-(42, 'TR', 'Turkey'),
-(43, 'RO', 'Romania'),
-(44, 'LB', 'Lebanon'),
-(45, 'HU', 'Hungary'),
-(46, 'GE', 'Georgia'),
-(47, 'BR', 'Brazil'),
-(48, 'AZ', 'Azerbaijan'),
-(49, 'A2', 'Satellite Provider'),
-(50, 'PS', 'Palestinian Territory'),
-(51, 'LT', 'Lithuania'),
-(52, 'OM', 'Oman'),
-(53, 'SK', 'Slovakia'),
-(54, 'RS', 'Serbia'),
-(55, 'FI', 'Finland'),
-(56, 'IS', 'Iceland'),
-(57, 'BG', 'Bulgaria'),
-(58, 'SI', 'Slovenia'),
-(59, 'MD', 'Moldov'),
-(60, 'MK', 'Macedonia'),
-(61, 'LI', 'Liechtenstein'),
-(62, 'JE', 'Jersey'),
-(63, 'PL', 'Poland'),
-(64, 'HR', 'Croatia'),
-(65, 'BA', 'Bosnia and Herzegovina'),
-(66, 'EE', 'Estonia'),
-(67, 'LV', 'Latvia'),
-(68, 'JO', 'Jordan'),
-(69, 'KG', 'Kyrgyzstan'),
-(70, 'RE', 'Reunion'),
-(71, 'IE', 'Ireland'),
-(72, 'LY', 'Libya'),
-(73, 'LU', 'Luxembourg'),
-(74, 'AM', 'Armenia'),
-(75, 'VG', 'Virgin Island'),
-(76, 'YE', 'Yemen'),
-(77, 'BY', 'Belarus'),
-(78, 'GI', 'Gibraltar'),
-(79, 'MQ', 'Martinique'),
-(80, 'PA', 'Panama'),
-(81, 'DO', 'Dominican Republic'),
-(82, 'GU', 'Guam'),
-(83, 'PR', 'Puerto Rico'),
-(84, 'VI', 'Virgin Island'),
-(85, 'MN', 'Mongolia'),
-(86, 'NZ', 'New Zealand'),
-(87, 'SG', 'Singapore'),
-(88, 'ID', 'Indonesia'),
-(89, 'NP', 'Nepal'),
-(90, 'PG', 'Papua New Guinea'),
-(91, 'PK', 'Pakistan'),
-(92, 'AP', 'Asia/Pacific Region'),
-(93, 'BS', 'Bahamas'),
-(94, 'LC', 'Saint Lucia'),
-(95, 'AR', 'Argentina'),
-(96, 'BD', 'Bangladesh'),
-(97, 'TK', 'Tokelau'),
-(98, 'KH', 'Cambodia'),
-(99, 'MO', 'Macau'),
-(100, 'MV', 'Maldives'),
-(101, 'AF', 'Afghanistan'),
-(102, 'NC', 'New Caledonia'),
-(103, 'FJ', 'Fiji'),
-(104, 'WF', 'Wallis and Futuna'),
-(105, 'QA', 'Qatar'),
-(106, 'AL', 'Albania'),
-(107, 'BZ', 'Belize'),
-(108, 'UZ', 'Uzbekistan'),
-(109, 'KW', 'Kuwait'),
-(110, 'ME', 'Montenegro'),
-(111, 'PE', 'Peru'),
-(112, 'BM', 'Bermuda'),
-(113, 'CW', 'Curacao'),
-(114, 'CO', 'Colombia'),
-(115, 'VE', 'Venezuela'),
-(116, 'CL', 'Chile'),
-(117, 'EC', 'Ecuador'),
-(118, 'ZA', 'South Africa'),
-(119, 'IM', 'Isle of Man'),
-(120, 'BO', 'Bolivia'),
-(121, 'GG', 'Guernsey'),
-(122, 'MT', 'Malta'),
-(123, 'TJ', 'Tajikistan'),
-(124, 'SC', 'Seychelles'),
-(125, 'BH', 'Bahrain'),
-(126, 'EG', 'Egypt'),
-(127, 'ZW', 'Zimbabwe'),
-(128, 'LR', 'Liberia'),
-(129, 'KE', 'Kenya'),
-(130, 'GH', 'Ghana'),
-(131, 'NG', 'Nigeria'),
-(132, 'TZ', 'Tanzani'),
-(133, 'ZM', 'Zambia'),
-(134, 'MG', 'Madagascar'),
-(135, 'AO', 'Angola'),
-(136, 'NA', 'Namibia'),
-(137, 'CI', 'Cote D\'Ivoire'),
-(138, 'SD', 'Sudan'),
-(139, 'CM', 'Cameroon'),
-(140, 'MW', 'Malawi'),
-(141, 'GA', 'Gabon'),
-(142, 'ML', 'Mali'),
-(143, 'BJ', 'Benin'),
-(144, 'TD', 'Chad'),
-(145, 'BW', 'Botswana'),
-(146, 'CV', 'Cape Verde'),
-(147, 'RW', 'Rwanda'),
-(148, 'CG', 'Congo'),
-(149, 'UG', 'Uganda'),
-(150, 'MZ', 'Mozambique'),
-(151, 'GM', 'Gambia'),
-(152, 'LS', 'Lesotho'),
-(153, 'MU', 'Mauritius'),
-(154, 'MA', 'Morocco'),
-(155, 'DZ', 'Algeria'),
-(156, 'GN', 'Guinea'),
-(157, 'CD', 'Cong'),
-(158, 'SZ', 'Swaziland'),
-(159, 'BF', 'Burkina Faso'),
-(160, 'SL', 'Sierra Leone'),
-(161, 'SO', 'Somalia'),
-(162, 'NE', 'Niger'),
-(163, 'CF', 'Central African Republic'),
-(164, 'TG', 'Togo'),
-(165, 'BI', 'Burundi'),
-(166, 'GQ', 'Equatorial Guinea'),
-(167, 'SS', 'South Sudan'),
-(168, 'SN', 'Senegal'),
-(169, 'MR', 'Mauritania'),
-(170, 'DJ', 'Djibouti'),
-(171, 'KM', 'Comoros'),
-(172, 'IO', 'British Indian Ocean Territory'),
-(173, 'TN', 'Tunisia'),
-(174, 'GL', 'Greenland'),
-(175, 'VA', 'Holy See (Vatican City State)'),
-(176, 'CR', 'Costa Rica'),
-(177, 'KY', 'Cayman Islands'),
-(178, 'JM', 'Jamaica'),
-(179, 'GT', 'Guatemala'),
-(180, 'MH', 'Marshall Islands'),
-(181, 'AQ', 'Antarctica'),
-(182, 'BB', 'Barbados'),
-(183, 'AW', 'Aruba'),
-(184, 'MC', 'Monaco'),
-(185, 'AI', 'Anguilla'),
-(186, 'KN', 'Saint Kitts and Nevis'),
-(187, 'GD', 'Grenada'),
-(188, 'PY', 'Paraguay'),
-(189, 'MS', 'Montserrat'),
-(190, 'TC', 'Turks and Caicos Islands'),
-(191, 'AG', 'Antigua and Barbuda'),
-(192, 'TV', 'Tuvalu'),
-(193, 'PF', 'French Polynesia'),
-(194, 'SB', 'Solomon Islands'),
-(195, 'VU', 'Vanuatu'),
-(196, 'ER', 'Eritrea'),
-(197, 'TT', 'Trinidad and Tobago'),
-(198, 'AD', 'Andorra'),
-(199, 'HT', 'Haiti'),
-(200, 'SH', 'Saint Helena'),
-(201, 'FM', 'Micronesi'),
-(202, 'SV', 'El Salvador'),
-(203, 'HN', 'Honduras'),
-(204, 'UY', 'Uruguay'),
-(205, 'LK', 'Sri Lanka'),
-(206, 'EH', 'Western Sahara'),
-(207, 'CX', 'Christmas Island'),
-(208, 'WS', 'Samoa'),
-(209, 'SR', 'Suriname'),
-(210, 'CK', 'Cook Islands'),
-(211, 'KI', 'Kiribati'),
-(212, 'NU', 'Niue'),
-(213, 'TO', 'Tonga'),
-(214, 'TF', 'French Southern Territories'),
-(215, 'YT', 'Mayotte'),
-(216, 'NF', 'Norfolk Island'),
-(217, 'BN', 'Brunei Darussalam'),
-(218, 'TM', 'Turkmenistan'),
-(219, 'PN', 'Pitcairn Islands'),
-(220, 'SM', 'San Marino'),
-(221, 'AX', 'Aland Islands'),
-(222, 'FO', 'Faroe Islands'),
-(223, 'SJ', 'Svalbard and Jan Mayen'),
-(224, 'CC', 'Cocos (Keeling) Islands'),
-(225, 'NR', 'Nauru'),
-(226, 'GS', 'South Georgia and the South Sandwich Islands'),
-(227, 'UM', 'United States Minor Outlying Islands'),
-(228, 'GW', 'Guinea-Bissau'),
-(229, 'PW', 'Palau'),
-(230, 'AS', 'American Samoa'),
-(231, 'BT', 'Bhutan'),
-(232, 'GF', 'French Guiana'),
-(233, 'GP', 'Guadeloupe'),
-(234, 'MF', 'Saint Martin'),
-(235, 'VC', 'Saint Vincent and the Grenadines'),
-(236, 'PM', 'Saint Pierre and Miquelon'),
-(237, 'BL', 'Saint Barthelemy'),
-(238, 'DM', 'Dominica'),
-(239, 'ST', 'Sao Tome and Principe'),
-(240, 'KP', 'Kore'),
-(241, 'FK', 'Falkland Islands (Malvinas)'),
-(242, 'MP', 'Northern Mariana Islands'),
-(243, 'TL', 'Timor-Leste'),
-(244, 'BQ', 'Bonair'),
-(245, 'MM', 'Myanmar'),
-(246, 'NI', 'Nicaragua'),
-(247, 'SX', 'Sint Maarten (Dutch part)'),
-(248, 'GY', 'Guyana'),
-(249, 'LA', 'Lao People\'s Democratic Republic'),
-(250, 'CU', 'Cuba'),
-(251, 'ET', 'Ethiopia');
+INSERT INTO `country` (`id`, `code`, `name`, `active`) VALUES
+(1, 'AU', 'Australia', 1),
+(2, 'CN', 'China', 1),
+(3, 'JP', 'Japan', 1),
+(4, 'TH', 'Thailand', 1),
+(5, 'IN', 'India', 1),
+(6, 'MY', 'Malaysia', 1),
+(7, 'KR', 'Kore', 1),
+(8, 'HK', 'Hong Kong', 1),
+(9, 'TW', 'Taiwan', 1),
+(10, 'PH', 'Philippines', 1),
+(11, 'VN', 'Vietnam', 1),
+(12, 'FR', 'France', 1),
+(13, 'EU', 'Europe', 1),
+(14, 'DE', 'Germany', 1),
+(15, 'SE', 'Sweden', 1),
+(16, 'IT', 'Italy', 1),
+(17, 'GR', 'Greece', 1),
+(18, 'ES', 'Spain', 1),
+(19, 'AT', 'Austria', 1),
+(20, 'GB', 'United Kingdom', 1),
+(21, 'NL', 'Netherlands', 1),
+(22, 'BE', 'Belgium', 1),
+(23, 'CH', 'Switzerland', 1),
+(24, 'AE', 'United Arab Emirates', 1),
+(25, 'IL', 'Israel', 1),
+(26, 'UA', 'Ukraine', 1),
+(27, 'RU', 'Russian Federation', 1),
+(28, 'KZ', 'Kazakhstan', 1),
+(29, 'PT', 'Portugal', 1),
+(30, 'SA', 'Saudi Arabia', 1),
+(31, 'DK', 'Denmark', 1),
+(32, 'IR', 'Ira', 1),
+(33, 'NO', 'Norway', 1),
+(34, 'US', 'United States', 1),
+(35, 'MX', 'Mexico', 1),
+(36, 'CA', 'Canada', 1),
+(37, 'A1', 'Anonymous Proxy', 1),
+(38, 'SY', 'Syrian Arab Republic', 1),
+(39, 'CY', 'Cyprus', 1),
+(40, 'CZ', 'Czech Republic', 1),
+(41, 'IQ', 'Iraq', 1),
+(42, 'TR', 'Turkey', 1),
+(43, 'RO', 'Romania', 1),
+(44, 'LB', 'Lebanon', 1),
+(45, 'HU', 'Hungary', 1),
+(46, 'GE', 'Georgia', 1),
+(47, 'BR', 'Brazil', 1),
+(48, 'AZ', 'Azerbaijan', 1),
+(49, 'A2', 'Satellite Provider', 1),
+(50, 'PS', 'Palestinian Territory', 1),
+(51, 'LT', 'Lithuania', 1),
+(52, 'OM', 'Oman', 1),
+(53, 'SK', 'Slovakia', 1),
+(54, 'RS', 'Serbia', 1),
+(55, 'FI', 'Finland', 1),
+(56, 'IS', 'Iceland', 1),
+(57, 'BG', 'Bulgaria', 1),
+(58, 'SI', 'Slovenia', 1),
+(59, 'MD', 'Moldov', 1),
+(60, 'MK', 'Macedonia', 1),
+(61, 'LI', 'Liechtenstein', 1),
+(62, 'JE', 'Jersey', 1),
+(63, 'PL', 'Poland', 1),
+(64, 'HR', 'Croatia', 1),
+(65, 'BA', 'Bosnia and Herzegovina', 1),
+(66, 'EE', 'Estonia', 1),
+(67, 'LV', 'Latvia', 1),
+(68, 'JO', 'Jordan', 1),
+(69, 'KG', 'Kyrgyzstan', 1),
+(70, 'RE', 'Reunion', 1),
+(71, 'IE', 'Ireland', 1),
+(72, 'LY', 'Libya', 1),
+(73, 'LU', 'Luxembourg', 1),
+(74, 'AM', 'Armenia', 1),
+(75, 'VG', 'Virgin Island', 1),
+(76, 'YE', 'Yemen', 1),
+(77, 'BY', 'Belarus', 1),
+(78, 'GI', 'Gibraltar', 1),
+(79, 'MQ', 'Martinique', 1),
+(80, 'PA', 'Panama', 1),
+(81, 'DO', 'Dominican Republic', 1),
+(82, 'GU', 'Guam', 1),
+(83, 'PR', 'Puerto Rico', 1),
+(84, 'VI', 'Virgin Island', 1),
+(85, 'MN', 'Mongolia', 1),
+(86, 'NZ', 'New Zealand', 1),
+(87, 'SG', 'Singapore', 1),
+(88, 'ID', 'Indonesia', 1),
+(89, 'NP', 'Nepal', 1),
+(90, 'PG', 'Papua New Guinea', 1),
+(91, 'PK', 'Pakistan', 1),
+(92, 'AP', 'Asia/Pacific Region', 1),
+(93, 'BS', 'Bahamas', 1),
+(94, 'LC', 'Saint Lucia', 1),
+(95, 'AR', 'Argentina', 1),
+(96, 'BD', 'Bangladesh', 1),
+(97, 'TK', 'Tokelau', 1),
+(98, 'KH', 'Cambodia', 1),
+(99, 'MO', 'Macau', 1),
+(100, 'MV', 'Maldives', 1),
+(101, 'AF', 'Afghanistan', 1),
+(102, 'NC', 'New Caledonia', 1),
+(103, 'FJ', 'Fiji', 1),
+(104, 'WF', 'Wallis and Futuna', 1),
+(105, 'QA', 'Qatar', 1),
+(106, 'AL', 'Albania', 1),
+(107, 'BZ', 'Belize', 1),
+(108, 'UZ', 'Uzbekistan', 1),
+(109, 'KW', 'Kuwait', 1),
+(110, 'ME', 'Montenegro', 1),
+(111, 'PE', 'Peru', 1),
+(112, 'BM', 'Bermuda', 1),
+(113, 'CW', 'Curacao', 1),
+(114, 'CO', 'Colombia', 1),
+(115, 'VE', 'Venezuela', 1),
+(116, 'CL', 'Chile', 1),
+(117, 'EC', 'Ecuador', 1),
+(118, 'ZA', 'South Africa', 1),
+(119, 'IM', 'Isle of Man', 1),
+(120, 'BO', 'Bolivia', 1),
+(121, 'GG', 'Guernsey', 1),
+(122, 'MT', 'Malta', 1),
+(123, 'TJ', 'Tajikistan', 1),
+(124, 'SC', 'Seychelles', 1),
+(125, 'BH', 'Bahrain', 1),
+(126, 'EG', 'Egypt', 1),
+(127, 'ZW', 'Zimbabwe', 1),
+(128, 'LR', 'Liberia', 1),
+(129, 'KE', 'Kenya', 1),
+(130, 'GH', 'Ghana', 1),
+(131, 'NG', 'Nigeria', 1),
+(132, 'TZ', 'Tanzani', 1),
+(133, 'ZM', 'Zambia', 1),
+(134, 'MG', 'Madagascar', 1),
+(135, 'AO', 'Angola', 1),
+(136, 'NA', 'Namibia', 1),
+(137, 'CI', 'Cote D\'Ivoire', 1),
+(138, 'SD', 'Sudan', 1),
+(139, 'CM', 'Cameroon', 1),
+(140, 'MW', 'Malawi', 1),
+(141, 'GA', 'Gabon', 1),
+(142, 'ML', 'Mali', 1),
+(143, 'BJ', 'Benin', 1),
+(144, 'TD', 'Chad', 1),
+(145, 'BW', 'Botswana', 1),
+(146, 'CV', 'Cape Verde', 1),
+(147, 'RW', 'Rwanda', 1),
+(148, 'CG', 'Congo', 1),
+(149, 'UG', 'Uganda', 1),
+(150, 'MZ', 'Mozambique', 1),
+(151, 'GM', 'Gambia', 1),
+(152, 'LS', 'Lesotho', 1),
+(153, 'MU', 'Mauritius', 1),
+(154, 'MA', 'Morocco', 1),
+(155, 'DZ', 'Algeria', 1),
+(156, 'GN', 'Guinea', 1),
+(157, 'CD', 'Cong', 1),
+(158, 'SZ', 'Swaziland', 1),
+(159, 'BF', 'Burkina Faso', 1),
+(160, 'SL', 'Sierra Leone', 1),
+(161, 'SO', 'Somalia', 1),
+(162, 'NE', 'Niger', 1),
+(163, 'CF', 'Central African Republic', 1),
+(164, 'TG', 'Togo', 1),
+(165, 'BI', 'Burundi', 1),
+(166, 'GQ', 'Equatorial Guinea', 1),
+(167, 'SS', 'South Sudan', 1),
+(168, 'SN', 'Senegal', 1),
+(169, 'MR', 'Mauritania', 1),
+(170, 'DJ', 'Djibouti', 1),
+(171, 'KM', 'Comoros', 1),
+(172, 'IO', 'British Indian Ocean Territory', 1),
+(173, 'TN', 'Tunisia', 1),
+(174, 'GL', 'Greenland', 1),
+(175, 'VA', 'Holy See (Vatican City State)', 1),
+(176, 'CR', 'Costa Rica', 1),
+(177, 'KY', 'Cayman Islands', 1),
+(178, 'JM', 'Jamaica', 1),
+(179, 'GT', 'Guatemala', 1),
+(180, 'MH', 'Marshall Islands', 1),
+(181, 'AQ', 'Antarctica', 1),
+(182, 'BB', 'Barbados', 1),
+(183, 'AW', 'Aruba', 1),
+(184, 'MC', 'Monaco', 1),
+(185, 'AI', 'Anguilla', 1),
+(186, 'KN', 'Saint Kitts and Nevis', 1),
+(187, 'GD', 'Grenada', 1),
+(188, 'PY', 'Paraguay', 1),
+(189, 'MS', 'Montserrat', 1),
+(190, 'TC', 'Turks and Caicos Islands', 1),
+(191, 'AG', 'Antigua and Barbuda', 1),
+(192, 'TV', 'Tuvalu', 1),
+(193, 'PF', 'French Polynesia', 1),
+(194, 'SB', 'Solomon Islands', 1),
+(195, 'VU', 'Vanuatu', 1),
+(196, 'ER', 'Eritrea', 1),
+(197, 'TT', 'Trinidad and Tobago', 1),
+(198, 'AD', 'Andorra', 1),
+(199, 'HT', 'Haiti', 1),
+(200, 'SH', 'Saint Helena', 1),
+(201, 'FM', 'Micronesi', 1),
+(202, 'SV', 'El Salvador', 1),
+(203, 'HN', 'Honduras', 1),
+(204, 'UY', 'Uruguay', 1),
+(205, 'LK', 'Sri Lanka', 1),
+(206, 'EH', 'Western Sahara', 1),
+(207, 'CX', 'Christmas Island', 1),
+(208, 'WS', 'Samoa', 1),
+(209, 'SR', 'Suriname', 1),
+(210, 'CK', 'Cook Islands', 1),
+(211, 'KI', 'Kiribati', 1),
+(212, 'NU', 'Niue', 1),
+(213, 'TO', 'Tonga', 1),
+(214, 'TF', 'French Southern Territories', 1),
+(215, 'YT', 'Mayotte', 1),
+(216, 'NF', 'Norfolk Island', 1),
+(217, 'BN', 'Brunei Darussalam', 1),
+(218, 'TM', 'Turkmenistan', 1),
+(219, 'PN', 'Pitcairn Islands', 1),
+(220, 'SM', 'San Marino', 1),
+(221, 'AX', 'Aland Islands', 1),
+(222, 'FO', 'Faroe Islands', 1),
+(223, 'SJ', 'Svalbard and Jan Mayen', 1),
+(224, 'CC', 'Cocos (Keeling) Islands', 1),
+(225, 'NR', 'Nauru', 1),
+(226, 'GS', 'South Georgia and the South Sandwich Islands', 1),
+(227, 'UM', 'United States Minor Outlying Islands', 1),
+(228, 'GW', 'Guinea-Bissau', 1),
+(229, 'PW', 'Palau', 1),
+(230, 'AS', 'American Samoa', 1),
+(231, 'BT', 'Bhutan', 1),
+(232, 'GF', 'French Guiana', 1),
+(233, 'GP', 'Guadeloupe', 1),
+(234, 'MF', 'Saint Martin', 1),
+(235, 'VC', 'Saint Vincent and the Grenadines', 1),
+(236, 'PM', 'Saint Pierre and Miquelon', 1),
+(237, 'BL', 'Saint Barthelemy', 1),
+(238, 'DM', 'Dominica', 1),
+(239, 'ST', 'Sao Tome and Principe', 1),
+(240, 'KP', 'Kore', 1),
+(241, 'FK', 'Falkland Islands (Malvinas)', 1),
+(242, 'MP', 'Northern Mariana Islands', 1),
+(243, 'TL', 'Timor-Leste', 1),
+(244, 'BQ', 'Bonair', 1),
+(245, 'MM', 'Myanmar', 1),
+(246, 'NI', 'Nicaragua', 1),
+(247, 'SX', 'Sint Maarten (Dutch part)', 1),
+(248, 'GY', 'Guyana', 1),
+(249, 'LA', 'Lao People\'s Democratic Republic', 1),
+(250, 'CU', 'Cuba', 1),
+(251, 'ET', 'Ethiopia', 1);
 
 -- --------------------------------------------------------
 
@@ -2228,17 +2250,8 @@ INSERT INTO `department` (`id`, `code`, `name`, `country_id`) VALUES
 CREATE TABLE `employee` (
   `id` bigint(20) NOT NULL,
   `person_id` bigint(20) NOT NULL,
-  `date_admision` date NOT NULL,
-  `position` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `salary` double NOT NULL,
   `number_children` tinyint(4) NOT NULL DEFAULT 0,
-  `pension_fund` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `EPS` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ARL` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `compensation_box` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bank_account` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bank_entity` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contract_type_id` bigint(20) NOT NULL,
@@ -2262,6 +2275,48 @@ CREATE TABLE `employee_document` (
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `employee_service_entity`
+--
+
+CREATE TABLE `employee_service_entity` (
+  `id` bigint(20) NOT NULL,
+  `account_number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contract_type_employee_id` bigint(20) NOT NULL,
+  `service_entity_id` bigint(20) NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entity_type`
+--
+
+CREATE TABLE `entity_type` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entity_type`
+--
+
+INSERT INTO `entity_type` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Banco', 1, '2020-11-17 04:27:15', NULL),
+(2, 'EPS', 1, '2020-11-17 04:27:15', NULL),
+(3, 'AFP', 1, '2020-11-17 04:27:15', NULL),
+(4, 'ARL', 1, '2020-11-17 04:27:15', NULL),
+(5, 'Caja de compensación', 1, '2020-11-17 04:27:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -2301,6 +2356,8 @@ CREATE TABLE `loan` (
   `amount` double NOT NULL,
   `balance` double NOT NULL DEFAULT 0,
   `payments_quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
+  `loan_status_id` bigint(20) NOT NULL DEFAULT 1,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
   `employee_id` bigint(20) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
@@ -2321,6 +2378,31 @@ CREATE TABLE `loan_payment` (
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `loan_status`
+--
+
+CREATE TABLE `loan_status` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `loan_status`
+--
+
+INSERT INTO `loan_status` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Estudio', 1, '2020-11-17 15:07:27', NULL),
+(2, 'Aprobado', 1, '2020-11-17 15:07:27', NULL),
+(3, 'Desembolsado', 1, '2020-11-17 15:07:27', NULL),
+(4, 'Cerrado', 1, '2020-11-17 15:07:27', NULL),
+(5, 'Anulado', 1, '2020-11-17 15:07:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -2348,7 +2430,9 @@ CREATE TABLE `parameter` (
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `value` double NOT NULL DEFAULT 0,
   `percentage` double NOT NULL DEFAULT 0,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
+  `parameter_category_id` bigint(20) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2357,23 +2441,84 @@ CREATE TABLE `parameter` (
 -- Volcado de datos para la tabla `parameter`
 --
 
-INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `active`, `create_date`, `last_update`) VALUES
-(1, 'iva', 'IVA', 0, 19, 1, '2020-11-12 14:49:08', NULL),
-(2, 'retfte-compras', 'Retención en la fuente - compras', 0, 4, 1, '2020-11-12 14:54:31', NULL),
-(3, 'retfte-servicios', 'Retención en la fuente - servicios', 0, 2.5, 1, '2020-11-12 14:54:31', NULL),
-(4, 'auxtransp', 'Auxilio de transporte', 102854, 0, 1, '2020-11-13 15:26:40', NULL),
-(5, 'dedsalud', 'Deducción salud', 0, 4, 1, '2020-11-13 15:38:15', NULL),
-(6, 'dedpension', 'Deducción pensión', 0, 4, 1, '2020-11-13 15:38:15', NULL),
-(7, 'hod', 'Hora ordinaria diurna (HOD)', 240, 0, 1, '2020-11-13 15:49:32', NULL),
-(8, 'hed', 'Hora extra diurna (HED)', 0, 25, 1, '2020-11-13 15:49:32', NULL),
-(9, 'hon', 'Hora ordinaria nocturna (HON)', 0, 35, 1, '2020-11-13 15:49:32', NULL),
-(10, 'hen', 'Hora extra nocturna (HEN)', 0, 75, 1, '2020-11-13 15:49:32', NULL),
-(11, 'hoddf', 'Hora ordinaria diurna dominical y festivo (HODDF)', 0, 75, 1, '2020-11-13 16:06:27', NULL),
-(12, 'heddf', 'Hora extra diurna dominical y festivo (HEDDF)', 0, 100, 1, '2020-11-13 16:06:27', NULL),
-(13, 'hendf', 'Hora extra nocturna domical y festivo (HENDF)', 0, 150, 1, '2020-11-13 16:06:27', NULL),
-(14, 'hondf', 'Hora ordinaria nocturna dominical y festivo (HONDF)', 0, 110, 1, '2020-11-13 16:28:04', NULL),
-(15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, 1, '2020-11-13 19:17:58', NULL),
-(16, 'ppm', 'Cantidad de pagos por mes', 2, 0, 1, '2020-11-13 19:35:39', NULL);
+INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `observation`, `active`, `parameter_category_id`, `create_date`, `last_update`) VALUES
+(1, 'iva', 'IVA', 0, 19, NULL, 1, 3, '2020-11-12 14:49:08', NULL),
+(2, 'retftecom', 'Retención en la fuente - compras', 0, 4, NULL, 1, 2, '2020-11-12 14:54:31', NULL),
+(3, 'retfteser', 'Retención en la fuente - servicios', 0, 2.5, NULL, 1, 2, '2020-11-12 14:54:31', NULL),
+(4, 'auxtran', 'Auxilio de transporte', 102854, 0, NULL, 1, 2, '2020-11-13 15:26:40', NULL),
+(5, 'dedsalud', 'Deducción salud', 0, 4, NULL, 1, 2, '2020-11-13 15:38:15', NULL),
+(6, 'dedpen', 'Deducción pensión', 0, 4, NULL, 1, 2, '2020-11-13 15:38:15', NULL),
+(7, 'hod', 'Hora ordinaria diurna (HOD)', 240, 0, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(8, 'hed', 'Hora extra diurna (HED)', 0, 25, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(9, 'hon', 'Hora ordinaria nocturna (HON)', 0, 35, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(10, 'hen', 'Hora extra nocturna (HEN)', 0, 75, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(11, 'hoddf', 'Hora ordinaria diurna dominical y festivo (HODDF)', 0, 75, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(12, 'heddf', 'Hora extra diurna dominical y festivo (HEDDF)', 0, 100, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(13, 'hendf', 'Hora extra nocturna domical y festivo (HENDF)', 0, 150, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(14, 'hondf', 'Hora ordinaria nocturna dominical y festivo (HONDF)', 0, 110, NULL, 1, 2, '2020-11-13 16:28:04', NULL),
+(15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, NULL, 1, 2, '2020-11-13 19:17:58', NULL),
+(16, 'ppm', 'Cantidad de pagos por mes', 2, 0, NULL, 1, 2, '2020-11-13 19:35:39', NULL),
+(17, 'smlv', 'Salario Mínimo Legal Vigente', 877803, 0, NULL, 1, 2, '2020-11-17 06:32:50', NULL),
+(18, 't001', 'access', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(19, 't002', 'city', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(20, 't003', 'component', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(21, 't004', 'contract_type', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(22, 't005', 'contract_type_employee', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(23, 't006', 'country', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(24, 't007', 'currency', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(25, 't008', 'customer', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(26, 't009', 'department', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(27, 't010', 'employee', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(28, 't011', 'employee_document', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(29, 't012', 'employee_service_entity', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(30, 't013', 'entity_type', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(31, 't014', 'exchange_rate', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(32, 't015', 'loan', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(33, 't016', 'loan_payment', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
+(34, 't017', 'loan_status', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(35, 't018', 'operation', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(36, 't019', 'parameter', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(37, 't020', 'parameter_category', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(38, 't021', 'payment_method', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(39, 't022', 'payroll', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(40, 't023', 'payroll_detail', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(41, 't024', 'permission', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(42, 't025', 'person', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(43, 't026', 'product', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(44, 't027', 'profile', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(45, 't028', 'provider', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(46, 't029', 'purchase_detail', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(47, 't030', 'purchase_order', 0, 0, NULL, 1, 1, '2020-11-17 17:31:53', NULL),
+(48, 't031', 'sale_detail', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
+(49, 't032', 'sale_order', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
+(50, 't033', 'service_entity', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
+(51, 't034', 'unit_measurement', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
+(52, 't035', 'user', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
+(53, 't036', 'way_to_pay', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `parameter_category`
+--
+
+CREATE TABLE `parameter_category` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apply` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `parameter_category`
+--
+
+INSERT INTO `parameter_category` (`id`, `description`, `apply`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'tabla', 'none', 1, '2020-11-16 08:08:11', NULL),
+(2, 'nómina', 'value,percentage', 1, '2020-11-16 08:08:11', NULL),
+(3, 'compras/ventas', 'value,percentage', 1, '2020-11-16 08:08:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -2512,6 +2657,7 @@ CREATE TABLE `product` (
   `order` smallint(6) NOT NULL,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `weight` double NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `way_to_pay_id` bigint(20) NOT NULL,
   `payment_method_id` bigint(20) NOT NULL,
   `unit_measurement_id` bigint(20) NOT NULL,
@@ -2636,12 +2782,84 @@ CREATE TABLE `sale_order` (
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `service_entity`
+--
+
+CREATE TABLE `service_entity` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identification_card` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `entity_type_id` bigint(20) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `service_entity`
+--
+
+INSERT INTO `service_entity` (`id`, `description`, `identification_card`, `address`, `phone`, `email`, `observation`, `active`, `entity_type_id`, `create_date`, `last_update`) VALUES
+(1, 'Banco de la República', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:29:21', NULL),
+(2, 'Banco de Bogotá', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(3, 'Davivienda', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(4, 'BBVA', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(5, 'Banco de Occidente', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(6, 'Banco Agrario de Colombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(7, 'Banco AV Villas', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(8, 'Banco Caja Social', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(9, 'Banco Popular', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(10, 'Colpatria', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(11, 'Banco Santander de Negocios Colombia S.A.', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(12, 'Banco Falabella', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(13, 'Bancolombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(14, 'Bancoomeva', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(15, 'Banco Pichincha', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(16, 'Nueva EPS', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:35', NULL),
+(17, 'Cafesalud', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(18, 'Coomeva', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(19, 'Salud Total', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(20, 'EPS Sanitas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(21, 'Famisanar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(22, 'Suramericana', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(23, 'Medimas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(24, 'Cruz Blanca', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(25, 'Compensar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(26, 'Colfondos Pensiones y Cesantías', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(27, 'Protección S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(28, 'Porvenir S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(29, 'Old Mutual', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(30, 'Axa Colpatria Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 05:58:39', NULL),
+(31, 'Colmena Seguros', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(32, 'Compañía de Seguros de Vida Aurora S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(33, 'Seguros Bolívar S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(34, 'La Equidad Seguros Generales Organismo Cooperativo', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(35, 'Positiva Compañía de Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(36, 'Seguros Alfa', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(37, 'Seguros Generales Suramericana S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:35', NULL),
+(38, 'Colsubsidio', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(39, 'Comfenalco', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(40, 'Comfama', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(41, 'Cafam', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(42, 'Comfenalco Antioquia', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(43, 'Comfiar', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(44, 'Comfacor', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(45, 'Cafaba', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `unit_measurement`
 --
 
 CREATE TABLE `unit_measurement` (
   `id` bigint(20) NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(4) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2650,10 +2868,10 @@ CREATE TABLE `unit_measurement` (
 -- Volcado de datos para la tabla `unit_measurement`
 --
 
-INSERT INTO `unit_measurement` (`id`, `description`, `creation_date`, `last_update`) VALUES
-(1, 'Unidad física', '2020-11-12 18:35:33', NULL),
-(2, 'Gramo', '2020-11-12 18:35:33', NULL),
-(3, 'Litro', '2020-11-12 18:35:33', NULL);
+INSERT INTO `unit_measurement` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Unidad física', 1, '2020-11-12 18:35:33', NULL),
+(2, 'Gramo', 1, '2020-11-12 18:35:33', NULL),
+(3, 'Litro', 1, '2020-11-12 18:35:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -2724,6 +2942,14 @@ ALTER TABLE `contract_type`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contract_type_employee_employee_FK` (`employee_id`),
+  ADD KEY `contract_type_employee_contract_type_FK` (`contract_type_id`);
+
+--
 -- Indices de la tabla `country`
 --
 ALTER TABLE `country`
@@ -2766,6 +2992,20 @@ ALTER TABLE `employee_document`
   ADD KEY `employee_document_FK` (`employee_id`);
 
 --
+-- Indices de la tabla `employee_service_entity`
+--
+ALTER TABLE `employee_service_entity`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `employee_service_entity_FK` (`contract_type_employee_id`),
+  ADD KEY `employee_service_entity_FK_1` (`service_entity_id`);
+
+--
+-- Indices de la tabla `entity_type`
+--
+ALTER TABLE `entity_type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
@@ -2777,7 +3017,8 @@ ALTER TABLE `exchange_rate`
 --
 ALTER TABLE `loan`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `loan_employee_FK` (`employee_id`);
+  ADD KEY `loan_employee_FK` (`employee_id`),
+  ADD KEY `loan_loan_status_FK` (`loan_status_id`);
 
 --
 -- Indices de la tabla `loan_payment`
@@ -2785,6 +3026,12 @@ ALTER TABLE `loan`
 ALTER TABLE `loan_payment`
   ADD PRIMARY KEY (`id`),
   ADD KEY `loan_payment_FK` (`loan_id`);
+
+--
+-- Indices de la tabla `loan_status`
+--
+ALTER TABLE `loan_status`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `operation`
@@ -2798,7 +3045,14 @@ ALTER TABLE `operation`
 --
 ALTER TABLE `parameter`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `parameter_un` (`code`);
+  ADD UNIQUE KEY `parameter_un` (`code`),
+  ADD KEY `parameter_parameter_category_fk` (`parameter_category_id`);
+
+--
+-- Indices de la tabla `parameter_category`
+--
+ALTER TABLE `parameter_category`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `payment_method`
@@ -2895,6 +3149,13 @@ ALTER TABLE `sale_order`
   ADD KEY `sale_order_payment_method_FK` (`payment_method_id`);
 
 --
+-- Indices de la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_entity_entity_type_fk` (`entity_type_id`);
+
+--
 -- Indices de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
@@ -2944,6 +3205,12 @@ ALTER TABLE `contract_type`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
+-- AUTO_INCREMENT de la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `country`
 --
 ALTER TABLE `country`
@@ -2980,6 +3247,18 @@ ALTER TABLE `employee_document`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `employee_service_entity`
+--
+ALTER TABLE `employee_service_entity`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entity_type`
+--
+ALTER TABLE `entity_type`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
@@ -2998,6 +3277,12 @@ ALTER TABLE `loan_payment`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `loan_status`
+--
+ALTER TABLE `loan_status`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `operation`
 --
 ALTER TABLE `operation`
@@ -3007,7 +3292,13 @@ ALTER TABLE `operation`
 -- AUTO_INCREMENT de la tabla `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+--
+-- AUTO_INCREMENT de la tabla `parameter_category`
+--
+ALTER TABLE `parameter_category`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `payment_method`
@@ -3082,6 +3373,12 @@ ALTER TABLE `sale_order`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
+--
 -- AUTO_INCREMENT de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
@@ -3110,6 +3407,13 @@ ALTER TABLE `access`
   ADD CONSTRAINT `access_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
+-- Filtros para la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  ADD CONSTRAINT `contract_type_employee_contract_type_FK` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`),
+  ADD CONSTRAINT `contract_type_employee_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
 -- Filtros para la tabla `customer`
 --
 ALTER TABLE `customer`
@@ -3119,7 +3423,6 @@ ALTER TABLE `customer`
 -- Filtros para la tabla `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_FK` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`),
   ADD CONSTRAINT `employee_person_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
 
 --
@@ -3127,6 +3430,13 @@ ALTER TABLE `employee`
 --
 ALTER TABLE `employee_document`
   ADD CONSTRAINT `employee_document_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
+-- Filtros para la tabla `employee_service_entity`
+--
+ALTER TABLE `employee_service_entity`
+  ADD CONSTRAINT `employee_service_entity_FK` FOREIGN KEY (`contract_type_employee_id`) REFERENCES `contract_type_employee` (`id`),
+  ADD CONSTRAINT `employee_service_entity_FK_1` FOREIGN KEY (`service_entity_id`) REFERENCES `service_entity` (`id`);
 
 --
 -- Filtros para la tabla `exchange_rate`
@@ -3138,7 +3448,8 @@ ALTER TABLE `exchange_rate`
 -- Filtros para la tabla `loan`
 --
 ALTER TABLE `loan`
-  ADD CONSTRAINT `loan_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+  ADD CONSTRAINT `loan_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`),
+  ADD CONSTRAINT `loan_loan_status_FK` FOREIGN KEY (`loan_status_id`) REFERENCES `loan_status` (`id`);
 
 --
 -- Filtros para la tabla `loan_payment`
@@ -3151,6 +3462,12 @@ ALTER TABLE `loan_payment`
 --
 ALTER TABLE `operation`
   ADD CONSTRAINT `operation_FK` FOREIGN KEY (`access_id`) REFERENCES `access` (`id`);
+
+--
+-- Filtros para la tabla `parameter`
+--
+ALTER TABLE `parameter`
+  ADD CONSTRAINT `parameter_parameter_category_fk` FOREIGN KEY (`parameter_category_id`) REFERENCES `parameter_category` (`id`);
 
 --
 -- Filtros para la tabla `payroll`
@@ -3214,6 +3531,12 @@ ALTER TABLE `sale_order`
   ADD CONSTRAINT `sale_order_customer_FK` FOREIGN KEY (`customer_id`) REFERENCES `customer` (`id`),
   ADD CONSTRAINT `sale_order_payment_method_FK` FOREIGN KEY (`payment_method_id`) REFERENCES `payment_method` (`id`),
   ADD CONSTRAINT `sale_order_way_to_pay_FK` FOREIGN KEY (`way_to_pay_id`) REFERENCES `way_to_pay` (`id`);
+
+--
+-- Filtros para la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  ADD CONSTRAINT `service_entity_entity_type_fk` FOREIGN KEY (`entity_type_id`) REFERENCES `entity_type` (`id`);
 
 --
 -- Filtros para la tabla `user`
