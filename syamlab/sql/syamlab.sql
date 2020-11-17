@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.2
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1deb2ubuntu2.1
+-- http://www.phpmyadmin.net
 --
--- Servidor: 127.0.0.1
--- Tiempo de generación: 14-11-2020 a las 00:07:49
--- Versión del servidor: 10.4.13-MariaDB
--- Versión de PHP: 7.4.8
+-- Servidor: localhost
+-- Tiempo de generación: 17-11-2020 a las 02:24:31
+-- Versión del servidor: 5.7.25
+-- Versión de PHP: 7.0.33-5+ubuntu16.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -33,7 +32,7 @@ CREATE TABLE `access` (
   `user_agent` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ip_access` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
   `user_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL,
   `exit_date` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1189,11 +1188,11 @@ CREATE TABLE `component` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `type` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `order` smallint(6) NOT NULL DEFAULT 0,
+  `order` smallint(6) NOT NULL DEFAULT '0',
   `link` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1206,9 +1205,9 @@ CREATE TABLE `component` (
 CREATE TABLE `contract_type` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -1223,6 +1222,27 @@ INSERT INTO `contract_type` (`id`, `description`, `observation`, `active`, `crea
 (4, 'Contrato de aprendizaje', 'Está enfocado a la formación de practicantes. La idea de este tipo de contrato es el aprendizaje y que el practicante se incluya al mundo laboral. La remuneración es llamada auxilio de sostenimiento y depende completamente de un convenio entre ambas partes, donde el estudiante no tiene prestaciones sociales.\r\nEl valor de la remuneración depende de si el practicante es universitario o no, de ser universitario tiene derecho a un salario que debe ser superior o igual al mínimo y si el practicante no es universitario tendrá como base de pago un salario por debajo del mínimo.', 1, '2020-11-12 17:01:58', NULL),
 (5, 'Contrato ocasional de trabajo', 'Este contrato no debe ser superior a 30 días y debe ser por una labor específica diferente a las actividades comunes de la empresa. El trabajador recibe la remuneración acordada y al terminar no tiene derecho a ningún tipo de prestación, salvo en caso de un accidente. La duración del contrato puede ser renovable sin exceder los treinta días del vínculo inicial.', 1, '2020-11-12 17:01:58', NULL),
 (6, 'Contrato civil por prestación de servicios', 'La remuneración se acuerda entre las partes y no genera relación laboral ni obliga a la organización a pagar prestaciones sociales. La duración es igualmente en común acuerdo dependiendo del trabajo a realizar.\r\nEl empleado recibe un sueldo al cual se le descuenta únicamente por concepto de retención en la fuente.', 1, '2020-11-12 17:01:58', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contract_type_employee`
+--
+
+CREATE TABLE `contract_type_employee` (
+  `id` bigint(20) NOT NULL,
+  `employee_id` bigint(20) NOT NULL,
+  `contract_type_id` bigint(20) NOT NULL,
+  `date_admission` date NOT NULL,
+  `finish_date` date DEFAULT NULL,
+  `position` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `salary` double NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `peace_and_safe` tinyint(1) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -2162,8 +2182,8 @@ CREATE TABLE `customer` (
   `contact_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2228,21 +2248,12 @@ INSERT INTO `department` (`id`, `code`, `name`, `country_id`) VALUES
 CREATE TABLE `employee` (
   `id` bigint(20) NOT NULL,
   `person_id` bigint(20) NOT NULL,
-  `date_admision` date NOT NULL,
-  `position` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `salary` double NOT NULL,
-  `number_children` tinyint(4) NOT NULL DEFAULT 0,
-  `pension_fund` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `EPS` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `ARL` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `compensation_box` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bank_account` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bank_entity` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `number_children` tinyint(4) NOT NULL DEFAULT '0',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `observation` text COLLATE utf8mb4_unicode_ci,
   `contract_type_id` bigint(20) NOT NULL,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2255,13 +2266,38 @@ CREATE TABLE `employee` (
 CREATE TABLE `employee_document` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   `employee_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entity_type`
+--
+
+CREATE TABLE `entity_type` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entity_type`
+--
+
+INSERT INTO `entity_type` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Banco', 1, '2020-11-17 04:27:15', NULL),
+(2, 'EPS', 1, '2020-11-17 04:27:15', NULL),
+(3, 'AFP', 1, '2020-11-17 04:27:15', NULL),
+(4, 'ARL', 1, '2020-11-17 04:27:15', NULL),
+(5, 'Caja de compensación', 1, '2020-11-17 04:27:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -2274,8 +2310,8 @@ CREATE TABLE `exchange_rate` (
   `currency_id` bigint(20) NOT NULL,
   `exchange_TRM` double NOT NULL,
   `custom_exchange` double NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2299,10 +2335,10 @@ CREATE TABLE `loan` (
   `disbursement_date` date NOT NULL,
   `pay_limit_date` date NOT NULL,
   `amount` double NOT NULL,
-  `balance` double NOT NULL DEFAULT 0,
-  `payments_quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
+  `balance` double NOT NULL DEFAULT '0',
+  `payments_quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
   `employee_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2317,8 +2353,8 @@ CREATE TABLE `loan_payment` (
   `loan_id` bigint(20) NOT NULL,
   `payment_date` date NOT NULL,
   `value` double NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2332,7 +2368,7 @@ CREATE TABLE `operation` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `access_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2346,10 +2382,12 @@ CREATE TABLE `parameter` (
   `id` bigint(20) NOT NULL,
   `code` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` double NOT NULL DEFAULT 0,
-  `percentage` double NOT NULL DEFAULT 0,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `value` double NOT NULL DEFAULT '0',
+  `percentage` double NOT NULL DEFAULT '0',
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `parameter_category_id` bigint(20) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2357,23 +2395,48 @@ CREATE TABLE `parameter` (
 -- Volcado de datos para la tabla `parameter`
 --
 
-INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `active`, `create_date`, `last_update`) VALUES
-(1, 'iva', 'IVA', 0, 19, 1, '2020-11-12 14:49:08', NULL),
-(2, 'retfte-compras', 'Retención en la fuente - compras', 0, 4, 1, '2020-11-12 14:54:31', NULL),
-(3, 'retfte-servicios', 'Retención en la fuente - servicios', 0, 2.5, 1, '2020-11-12 14:54:31', NULL),
-(4, 'auxtransp', 'Auxilio de transporte', 102854, 0, 1, '2020-11-13 15:26:40', NULL),
-(5, 'dedsalud', 'Deducción salud', 0, 4, 1, '2020-11-13 15:38:15', NULL),
-(6, 'dedpension', 'Deducción pensión', 0, 4, 1, '2020-11-13 15:38:15', NULL),
-(7, 'hod', 'Hora ordinaria diurna (HOD)', 240, 0, 1, '2020-11-13 15:49:32', NULL),
-(8, 'hed', 'Hora extra diurna (HED)', 0, 25, 1, '2020-11-13 15:49:32', NULL),
-(9, 'hon', 'Hora ordinaria nocturna (HON)', 0, 35, 1, '2020-11-13 15:49:32', NULL),
-(10, 'hen', 'Hora extra nocturna (HEN)', 0, 75, 1, '2020-11-13 15:49:32', NULL),
-(11, 'hoddf', 'Hora ordinaria diurna dominical y festivo (HODDF)', 0, 75, 1, '2020-11-13 16:06:27', NULL),
-(12, 'heddf', 'Hora extra diurna dominical y festivo (HEDDF)', 0, 100, 1, '2020-11-13 16:06:27', NULL),
-(13, 'hendf', 'Hora extra nocturna domical y festivo (HENDF)', 0, 150, 1, '2020-11-13 16:06:27', NULL),
-(14, 'hondf', 'Hora ordinaria nocturna dominical y festivo (HONDF)', 0, 110, 1, '2020-11-13 16:28:04', NULL),
-(15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, 1, '2020-11-13 19:17:58', NULL),
-(16, 'ppm', 'Cantidad de pagos por mes', 2, 0, 1, '2020-11-13 19:35:39', NULL);
+INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `observation`, `active`, `parameter_category_id`, `create_date`, `last_update`) VALUES
+(1, 'iva', 'IVA', 0, 19, NULL, 1, 3, '2020-11-12 14:49:08', NULL),
+(2, 'retftecom', 'Retención en la fuente - compras', 0, 4, NULL, 1, 2, '2020-11-12 14:54:31', NULL),
+(3, 'retfteser', 'Retención en la fuente - servicios', 0, 2.5, NULL, 1, 2, '2020-11-12 14:54:31', NULL),
+(4, 'auxtran', 'Auxilio de transporte', 102854, 0, NULL, 1, 2, '2020-11-13 15:26:40', NULL),
+(5, 'dedsalud', 'Deducción salud', 0, 4, NULL, 1, 2, '2020-11-13 15:38:15', NULL),
+(6, 'dedpen', 'Deducción pensión', 0, 4, NULL, 1, 2, '2020-11-13 15:38:15', NULL),
+(7, 'hod', 'Hora ordinaria diurna (HOD)', 240, 0, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(8, 'hed', 'Hora extra diurna (HED)', 0, 25, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(9, 'hon', 'Hora ordinaria nocturna (HON)', 0, 35, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(10, 'hen', 'Hora extra nocturna (HEN)', 0, 75, NULL, 1, 2, '2020-11-13 15:49:32', NULL),
+(11, 'hoddf', 'Hora ordinaria diurna dominical y festivo (HODDF)', 0, 75, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(12, 'heddf', 'Hora extra diurna dominical y festivo (HEDDF)', 0, 100, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(13, 'hendf', 'Hora extra nocturna domical y festivo (HENDF)', 0, 150, NULL, 1, 2, '2020-11-13 16:06:27', NULL),
+(14, 'hondf', 'Hora ordinaria nocturna dominical y festivo (HONDF)', 0, 110, NULL, 1, 2, '2020-11-13 16:28:04', NULL),
+(15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, NULL, 1, 2, '2020-11-13 19:17:58', NULL),
+(16, 'ppm', 'Cantidad de pagos por mes', 2, 0, NULL, 1, 2, '2020-11-13 19:35:39', NULL),
+(17, 'smlv', 'Salario Mínimo Legal Vigente', 877803, 0, NULL, 1, 2, '2020-11-17 06:32:50', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `parameter_category`
+--
+
+CREATE TABLE `parameter_category` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `apply` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `parameter_category`
+--
+
+INSERT INTO `parameter_category` (`id`, `description`, `apply`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'tabla', 'none', 1, '2020-11-16 08:08:11', NULL),
+(2, 'nómina', 'value,percentage', 1, '2020-11-16 08:08:11', NULL),
+(3, 'compras/ventas', 'value,percentage', 1, '2020-11-16 08:08:11', NULL);
 
 -- --------------------------------------------------------
 
@@ -2384,9 +2447,9 @@ INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `ac
 CREATE TABLE `payment_method` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2419,9 +2482,9 @@ CREATE TABLE `payroll` (
   `period_caused_to` date NOT NULL,
   `total_discounts` double NOT NULL,
   `total_to_pay` double NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2434,22 +2497,22 @@ CREATE TABLE `payroll` (
 CREATE TABLE `payroll_detail` (
   `id` bigint(20) NOT NULL,
   `description` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `daytime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `overtime_night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `daytime_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `night_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `daytime_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `night_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT 0,
-  `transportation_assistence` double NOT NULL DEFAULT 0,
-  `discount_products` double NOT NULL DEFAULT 0,
-  `discount_food` double NOT NULL DEFAULT 0,
-  `discount_loan` double NOT NULL DEFAULT 0,
-  `discount_others` double NOT NULL DEFAULT 0,
-  `commission` double NOT NULL DEFAULT 0,
+  `daytime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `overtime_night_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `daytime_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `night_festive_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `daytime_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `night_festive_overtime_hours` tinyint(3) UNSIGNED NOT NULL DEFAULT '0',
+  `transportation_assistence` double NOT NULL DEFAULT '0',
+  `discount_products` double NOT NULL DEFAULT '0',
+  `discount_food` double NOT NULL DEFAULT '0',
+  `discount_loan` double NOT NULL DEFAULT '0',
+  `discount_others` double NOT NULL DEFAULT '0',
+  `commission` double NOT NULL DEFAULT '0',
   `payroll_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2464,7 +2527,7 @@ CREATE TABLE `permission` (
   `active` tinyint(1) NOT NULL,
   `profile_id` bigint(20) NOT NULL,
   `component_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2489,8 +2552,8 @@ CREATE TABLE `person` (
   `birth_place` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `city_residence` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2510,12 +2573,12 @@ CREATE TABLE `product` (
   `purchase_price` double NOT NULL,
   `sale_price` double NOT NULL,
   `order` smallint(6) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   `weight` double NOT NULL,
   `way_to_pay_id` bigint(20) NOT NULL,
   `payment_method_id` bigint(20) NOT NULL,
   `unit_measurement_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2528,8 +2591,8 @@ CREATE TABLE `product` (
 CREATE TABLE `profile` (
   `id` bigint(20) NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2545,8 +2608,8 @@ CREATE TABLE `provider` (
   `contact_name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_phone` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `contact_email` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2562,7 +2625,7 @@ CREATE TABLE `purchase_detail` (
   `quantity` double NOT NULL,
   `price` double NOT NULL,
   `purchase_order_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2583,9 +2646,9 @@ CREATE TABLE `purchase_order` (
   `payment_method_id` bigint(20) NOT NULL,
   `currency_id` bigint(20) NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2601,7 +2664,7 @@ CREATE TABLE `sale_detail` (
   `quantity` double NOT NULL,
   `price` double NOT NULL,
   `sale_order_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2627,11 +2690,74 @@ CREATE TABLE `sale_order` (
   `department_id` bigint(20) DEFAULT NULL,
   `city_id` bigint(20) NOT NULL,
   `status` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
-  `create_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `service_entity`
+--
+
+CREATE TABLE `service_entity` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identification_card` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `entity_type_id` bigint(20) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `service_entity`
+--
+
+INSERT INTO `service_entity` (`id`, `description`, `identification_card`, `address`, `phone`, `email`, `observation`, `active`, `entity_type_id`, `create_date`, `last_update`) VALUES
+(1, 'Banco de la República', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:29:21', NULL),
+(2, 'Banco de Bogotá', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(3, 'Davivienda', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(4, 'BBVA', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(5, 'Banco de Occidente', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(6, 'Banco Agrario de Colombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(7, 'Banco AV Villas', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(8, 'Banco Caja Social', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(9, 'Banco Popular', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(10, 'Colpatria', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(11, 'Banco Santander de Negocios Colombia S.A.', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(12, 'Banco Falabella', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(13, 'Bancolombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(14, 'Bancoomeva', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(15, 'Banco Pichincha', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(16, 'Nueva EPS', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:35', NULL),
+(17, 'Cafesalud', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(18, 'Coomeva', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(19, 'Salud Total', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(20, 'EPS Sanitas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(21, 'Famisanar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(22, 'Suramericana', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(23, 'Medimas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(24, 'Cruz Blanca', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(25, 'Compensar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(26, 'Colfondos Pensiones y Cesantías', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(27, 'Protección S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(28, 'Porvenir S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(29, 'Old Mutual', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(30, 'Axa Colpatria Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 05:58:39', NULL),
+(31, 'Colmena Seguros', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(32, 'Compañía de Seguros de Vida Aurora S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(33, 'Seguros Bolívar S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(34, 'La Equidad Seguros Generales Organismo Cooperativo', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(35, 'Positiva Compañía de Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(36, 'Seguros Alfa', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(37, 'Seguros Generales Suramericana S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -2642,7 +2768,8 @@ CREATE TABLE `sale_order` (
 CREATE TABLE `unit_measurement` (
   `id` bigint(20) NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `active` tinyint(4) NOT NULL DEFAULT '1',
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2650,10 +2777,10 @@ CREATE TABLE `unit_measurement` (
 -- Volcado de datos para la tabla `unit_measurement`
 --
 
-INSERT INTO `unit_measurement` (`id`, `description`, `creation_date`, `last_update`) VALUES
-(1, 'Unidad física', '2020-11-12 18:35:33', NULL),
-(2, 'Gramo', '2020-11-12 18:35:33', NULL),
-(3, 'Litro', '2020-11-12 18:35:33', NULL);
+INSERT INTO `unit_measurement` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Unidad física', 1, '2020-11-12 18:35:33', NULL),
+(2, 'Gramo', 1, '2020-11-12 18:35:33', NULL),
+(3, 'Litro', 1, '2020-11-12 18:35:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -2665,10 +2792,10 @@ CREATE TABLE `user` (
   `id` bigint(20) NOT NULL,
   `username` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
   `profile_id` bigint(20) NOT NULL,
   `person_id` bigint(20) NOT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2681,8 +2808,8 @@ CREATE TABLE `user` (
 CREATE TABLE `way_to_pay` (
   `id` bigint(20) NOT NULL,
   `description` varchar(7) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `creation_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `observation` text COLLATE utf8mb4_unicode_ci,
+  `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2722,6 +2849,14 @@ ALTER TABLE `component`
 --
 ALTER TABLE `contract_type`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indices de la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `contract_type_employee_employee_FK` (`employee_id`),
+  ADD KEY `contract_type_employee_contract_type_FK` (`contract_type_id`);
 
 --
 -- Indices de la tabla `country`
@@ -2766,6 +2901,12 @@ ALTER TABLE `employee_document`
   ADD KEY `employee_document_FK` (`employee_id`);
 
 --
+-- Indices de la tabla `entity_type`
+--
+ALTER TABLE `entity_type`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
@@ -2798,7 +2939,14 @@ ALTER TABLE `operation`
 --
 ALTER TABLE `parameter`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `parameter_un` (`code`);
+  ADD UNIQUE KEY `parameter_un` (`code`),
+  ADD KEY `parameter_parameter_category_fk` (`parameter_category_id`);
+
+--
+-- Indices de la tabla `parameter_category`
+--
+ALTER TABLE `parameter_category`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indices de la tabla `payment_method`
@@ -2895,6 +3043,13 @@ ALTER TABLE `sale_order`
   ADD KEY `sale_order_payment_method_FK` (`payment_method_id`);
 
 --
+-- Indices de la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `service_entity_entity_type_fk` (`entity_type_id`);
+
+--
 -- Indices de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
@@ -2924,181 +3079,171 @@ ALTER TABLE `way_to_pay`
 --
 ALTER TABLE `access`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `city`
 --
 ALTER TABLE `city`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1122;
-
 --
 -- AUTO_INCREMENT de la tabla `component`
 --
 ALTER TABLE `component`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `contract_type`
 --
 ALTER TABLE `contract_type`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
+--
+-- AUTO_INCREMENT de la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT de la tabla `country`
 --
 ALTER TABLE `country`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=252;
-
 --
 -- AUTO_INCREMENT de la tabla `currency`
 --
 ALTER TABLE `currency`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=637;
-
 --
 -- AUTO_INCREMENT de la tabla `customer`
 --
 ALTER TABLE `customer`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `department`
 --
 ALTER TABLE `department`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
-
 --
 -- AUTO_INCREMENT de la tabla `employee`
 --
 ALTER TABLE `employee`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `employee_document`
 --
 ALTER TABLE `employee_document`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT de la tabla `entity_type`
+--
+ALTER TABLE `entity_type`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT de la tabla `loan`
 --
 ALTER TABLE `loan`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `loan_payment`
 --
 ALTER TABLE `loan_payment`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `operation`
 --
 ALTER TABLE `operation`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `parameter`
 --
 ALTER TABLE `parameter`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `parameter_category`
+--
+ALTER TABLE `parameter_category`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT de la tabla `payment_method`
 --
 ALTER TABLE `payment_method`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
 --
 -- AUTO_INCREMENT de la tabla `payroll`
 --
 ALTER TABLE `payroll`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `payroll_detail`
 --
 ALTER TABLE `payroll_detail`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `permission`
 --
 ALTER TABLE `permission`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `person`
 --
 ALTER TABLE `person`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `product`
 --
 ALTER TABLE `product`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `profile`
 --
 ALTER TABLE `profile`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `provider`
 --
 ALTER TABLE `provider`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `purchase_detail`
 --
 ALTER TABLE `purchase_detail`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `purchase_order`
 --
 ALTER TABLE `purchase_order`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `sale_detail`
 --
 ALTER TABLE `sale_detail`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `sale_order`
 --
 ALTER TABLE `sale_order`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
+--
+-- AUTO_INCREMENT de la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 --
 -- AUTO_INCREMENT de la tabla `unit_measurement`
 --
 ALTER TABLE `unit_measurement`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
 --
 -- AUTO_INCREMENT de la tabla `user`
 --
 ALTER TABLE `user`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT de la tabla `way_to_pay`
 --
 ALTER TABLE `way_to_pay`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- Restricciones para tablas volcadas
 --
@@ -3110,6 +3255,13 @@ ALTER TABLE `access`
   ADD CONSTRAINT `access_FK` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 --
+-- Filtros para la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  ADD CONSTRAINT `contract_type_employee_contract_type_FK` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`),
+  ADD CONSTRAINT `contract_type_employee_employee_FK` FOREIGN KEY (`employee_id`) REFERENCES `employee` (`id`);
+
+--
 -- Filtros para la tabla `customer`
 --
 ALTER TABLE `customer`
@@ -3119,7 +3271,6 @@ ALTER TABLE `customer`
 -- Filtros para la tabla `employee`
 --
 ALTER TABLE `employee`
-  ADD CONSTRAINT `employee_FK` FOREIGN KEY (`contract_type_id`) REFERENCES `contract_type` (`id`),
   ADD CONSTRAINT `employee_person_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`);
 
 --
@@ -3151,6 +3302,12 @@ ALTER TABLE `loan_payment`
 --
 ALTER TABLE `operation`
   ADD CONSTRAINT `operation_FK` FOREIGN KEY (`access_id`) REFERENCES `access` (`id`);
+
+--
+-- Filtros para la tabla `parameter`
+--
+ALTER TABLE `parameter`
+  ADD CONSTRAINT `parameter_parameter_category_fk` FOREIGN KEY (`parameter_category_id`) REFERENCES `parameter_category` (`id`);
 
 --
 -- Filtros para la tabla `payroll`
@@ -3216,12 +3373,17 @@ ALTER TABLE `sale_order`
   ADD CONSTRAINT `sale_order_way_to_pay_FK` FOREIGN KEY (`way_to_pay_id`) REFERENCES `way_to_pay` (`id`);
 
 --
+-- Filtros para la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  ADD CONSTRAINT `service_entity_entity_type_fk` FOREIGN KEY (`entity_type_id`) REFERENCES `entity_type` (`id`);
+
+--
 -- Filtros para la tabla `user`
 --
 ALTER TABLE `user`
   ADD CONSTRAINT `user_FK` FOREIGN KEY (`person_id`) REFERENCES `person` (`id`),
   ADD CONSTRAINT `user_FK_1` FOREIGN KEY (`profile_id`) REFERENCES `profile` (`id`);
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
