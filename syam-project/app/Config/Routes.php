@@ -34,7 +34,13 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
 $routes->get('/hello-world', 'Home::helloWorld');
+<<<<<<< HEAD
 $routes->get('/configuraciones', 'Setting::test');
+=======
+$routes->get('/paises', 'Home::countries');
+$routes->get('/configuraciones', 'Setting::test');
+$routes->get('/registros', 'Setting::listRecords');
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 
 
 // Controller is \Users

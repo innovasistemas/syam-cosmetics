@@ -462,6 +462,19 @@
                 "object",
                 "object graph"
             ],
+<<<<<<< HEAD
+=======
+            "support": {
+                "issues": "https://github.com/myclabs/DeepCopy/issues",
+                "source": "https://github.com/myclabs/DeepCopy/tree/1.10.2"
+            },
+            "funding": [
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/myclabs/deep-copy",
+                    "type": "tidelift"
+                }
+            ],
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
             "time": "2020-11-13T09:40:50+00:00"
         },
         {

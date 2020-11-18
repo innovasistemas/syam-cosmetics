@@ -1,16 +1,38 @@
 <?php namespace App\Controllers;
 
 use App\Models\SettingModel;
+<<<<<<< HEAD
+=======
+use App\Models\CountryModel;
+use App\Models\ParameterModel;
+
+
+use CodeIgniter\HTTP\IncomingRequest;
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 
 class Setting extends BaseController
 {
 	private $objModels;
 
+<<<<<<< HEAD
+=======
+	protected $helpers = ['url', 'form'];
+
+	public $request;
+
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 
 	public function __construct()
 	{
 		$this->objModels = new class{};
 		$this->objModels->modelDepartment = new SettingModel();
+<<<<<<< HEAD
+=======
+		$this->objModels->modelCountry = new CountryModel();
+		$this->objModels->modelParameter = new ParameterModel();
+
+		$this->request = service('request');
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 	}
 
 
@@ -20,6 +42,75 @@ class Setting extends BaseController
 	}
 
 
+<<<<<<< HEAD
+=======
+	public function index()
+	{
+
+	}
+
+	public function listRecords()
+	{
+		if(!empty($this->request->getGet('dataSend'))){
+			$arrayData = json_decode($this->request->getGet('dataSend'), TRUE);
+
+			// $arrayData = json_decode($_GET['dataSend'], TRUE);
+			// print_r($arrayData);
+            // $arrayData['db']['orderField'] = empty($arrayData['db']['orderField']) 
+            //         ? "id" : $arrayData['db']['orderField'];
+            // $arrayData['db']['typeOrder'] = empty($arrayData['db']['typeOrder']) 
+            //         ? "ASC" : $arrayData['db']['typeOrder'];
+            // $arrayClauses = empty($arrayData['clauses']) 
+            //         ? [] : $arrayData['clauses'];
+                    
+            // $objResult = $this->ManagementModel->read($arrayData['db'], 
+            //         array_values($arrayData['fields']), $arrayClauses);
+            // $arrayResult = [];
+            // foreach ($objResult->result() as $row){
+            //     $arrayResult[] = $row;  
+			// }
+
+
+			$arrayResult = $this->objModels->modelParameter
+										->getWhere(['code' => $arrayData['db']['table']])
+										->getResult();;
+
+			// print_r($arrayResult);
+			
+			$strCodeCountry = '';
+			foreach($arrayResult as $row){
+				$strCodeCountry = $row->description;
+			}
+
+
+			// exit;
+
+
+			// $model = 'model' . ($arrayData['db']['table']);
+			$model = 'model' . ucfirst($strCodeCountry);
+			$arrayResult = $this->objModels->$model
+											->getWhere(['active' => 1])
+											->getResult();
+
+			$arrayResult = [
+                "content" => $arrayResult, 
+                "error" => 0
+            ];
+        }else{
+            $arrayResult = [
+                "content" => "Datos incompletos para realizar esta solicitud", 
+                "error" => 101
+            ];
+        }
+        
+        echo json_encode($arrayResult);
+	}
+
+
+	
+
+
+>>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 	public function test()
 	{
 
