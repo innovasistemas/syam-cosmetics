@@ -9,6 +9,7 @@ class EmployeeModel extends Model
 
     protected $allowedFields = [
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 'date_admision', 'position', 'certificate',
                                 'salary', 'number_children', 'pension_fund',
                                 'EPS', 'ARL', 'compensation_box',
@@ -17,5 +18,8 @@ class EmployeeModel extends Model
 =======
                                 'certificate', 'number_children', 'active'
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
+=======
+                                'certificate', 'number_children', 'active'
+>>>>>>> develop
                             ];
 }

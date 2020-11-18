@@ -6,6 +6,10 @@
 <br>
 <strong>Open source development</strong>
 <input type="button" value="Enviar" id="btnSend" />
+<<<<<<< HEAD
+=======
+<input type="button" value="Consumir Webservice" id="btnApi" />
+>>>>>>> develop
 <div id="div-content"></div>
 
 
@@ -14,11 +18,20 @@
         $('strong').css("color", "blue");
 
         $('#btnSend').click(function(){
+<<<<<<< HEAD
             loadCountry|();
+=======
+            loadCountry();
+        });
+
+        $('#btnApi').click(function(){
+            webservice();
+>>>>>>> develop
         });
     });
 
 
+<<<<<<< HEAD
     function loadCountry|()
     {
         var entity = 't006';
@@ -35,15 +48,35 @@
             // clauses: {
             //     'active': 1
             // }                   
+=======
+    function loadCountry()
+    {
+        var code = 't006';
+        var id = 20;
+        var objJson = {
+            store: {
+                list: code
+            },
+            attributes: {
+                identifier: id
+            }
+>>>>>>> develop
         }
         
         var strJson = JSON.stringify(objJson);
             
         $.ajax({
+<<<<<<< HEAD
             url: '<?php echo base_url() ?>/registros',
             data: {'dataSend': strJson},
             type: 'GET',
             // type: 'POST',
+=======
+            url: '<?php echo base_url() ?>/registros-web',
+            data: {'dataSend': strJson},
+            // type: 'GET',
+            type: 'POST',
+>>>>>>> develop
             dataType: 'json',
             success: function(data) {
                 var content = "";
@@ -66,6 +99,30 @@
                 $('#div-content').html(content);
             }
         }); 
+<<<<<<< HEAD
+=======
+
+
+         
+    }
+
+
+    function webservice()
+    {
+        $.ajax({
+            url: 'http://localhost/desarrollo-prueba/webservice-prueba.json',
+            //data: {'dataSend': strJson},
+            type: 'GET',
+            // type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                var content = "";
+                console.log(data);
+                
+                $('#div-content').html(content);
+            }
+        });
+>>>>>>> develop
     }
 
 </script>

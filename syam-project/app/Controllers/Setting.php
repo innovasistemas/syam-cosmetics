@@ -2,12 +2,16 @@
 
 use App\Models\SettingModel;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> develop
 use App\Models\CountryModel;
 use App\Models\ParameterModel;
 
 
 use CodeIgniter\HTTP\IncomingRequest;
+<<<<<<< HEAD
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
 
 class Setting extends BaseController
@@ -21,18 +25,34 @@ class Setting extends BaseController
 	public $request;
 
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
+=======
+
+class Setting extends BaseController
+{
+	protected $helpers = ['url', 'form'];
+	protected $format = 'json';
+	private $objModels;
+	public $request;
+
+>>>>>>> develop
 
 	public function __construct()
 	{
 		$this->objModels = new class{};
 		$this->objModels->modelDepartment = new SettingModel();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> develop
 		$this->objModels->modelCountry = new CountryModel();
 		$this->objModels->modelParameter = new ParameterModel();
 
 		$this->request = service('request');
+<<<<<<< HEAD
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
+=======
+>>>>>>> develop
 	}
 
 
@@ -43,16 +63,24 @@ class Setting extends BaseController
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> develop
 	public function index()
 	{
 
 	}
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> develop
 	public function listRecords()
 	{
 		if(!empty($this->request->getGet('dataSend'))){
 			$arrayData = json_decode($this->request->getGet('dataSend'), TRUE);
+<<<<<<< HEAD
 
 			// $arrayData = json_decode($_GET['dataSend'], TRUE);
 			// print_r($arrayData);
@@ -93,6 +121,26 @@ class Setting extends BaseController
 											->getResult();
 
 			$arrayResult = [
+=======
+			$strCodeCountry = $this->objModels->modelParameter
+									->getTableName($arrayData['db']['table']);
+			$model = 'model' . ucfirst($strCodeCountry);
+
+			if(empty($arrayData['fields']['id'])){
+				$arrayResult = $this->objModels->$model
+												->getWhere(['active' => 1])
+												->getResult();
+			}else{
+				$arrayResult = $this->objModels->$model
+								->getWhere([
+											'id' => $arrayData['fields']['id'],
+											'active' => 1
+										])
+								->getResult();
+			}
+
+			$arrayResponse = [
+>>>>>>> develop
                 "content" => $arrayResult, 
                 "error" => 0
             ];
@@ -103,6 +151,7 @@ class Setting extends BaseController
             ];
         }
         
+<<<<<<< HEAD
         echo json_encode($arrayResult);
 	}
 
@@ -147,4 +196,9 @@ class Setting extends BaseController
 
 	//--------------------------------------------------------------------
 
+=======
+        echo json_encode($arrayResponse);
+	}
+
+>>>>>>> develop
 }

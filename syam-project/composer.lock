@@ -474,7 +474,10 @@
                     "type": "tidelift"
                 }
             ],
+<<<<<<< HEAD
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general
+=======
+>>>>>>> develop
             "time": "2020-11-13T09:40:50+00:00"
         },
         {

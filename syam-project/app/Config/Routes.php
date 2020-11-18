@@ -33,6 +33,7 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get('/', 'Home::index');
+<<<<<<< HEAD
 $routes->get('/hello-world', 'Home::helloWorld');
 <<<<<<< HEAD
 $routes->get('/configuraciones', 'Setting::test');
@@ -48,6 +49,17 @@ $routes->get('/registros', 'Setting::listRecords');
 
 // Controller is \Admin\Users
 // $routes->add('/config', 'ConfigurationManagement::test');
+=======
+// $routes->get('/hello-world', 'Home::helloWorld');
+$routes->get('/paises', 'Home::countries');
+
+// $routes->get('/configuraciones', 'Setting::test');
+$routes->get('/registros', 'Setting::listRecords');
+
+$routes->resource('settings');
+
+$routes->post('/registros-web', 'Settings::listRecords');
+>>>>>>> develop
 
 
 /**

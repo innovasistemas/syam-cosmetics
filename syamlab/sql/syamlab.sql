@@ -1245,16 +1245,22 @@ CREATE TABLE `contract_type_employee` (
   `position` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `salary` double NOT NULL,
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
   `observation` text COLLATE utf8mb4_unicode_ci,
   `peace_and_safe` tinyint(1) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `create_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `peace_and_safe` tinyint(1) NOT NULL DEFAULT 0,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2265,10 +2271,13 @@ CREATE TABLE `employee` (
   `person_id` bigint(20) NOT NULL,
   `certificate` text COLLATE utf8mb4_unicode_ci NOT NULL,
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
   `number_children` tinyint(4) NOT NULL DEFAULT '0',
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `observation` text COLLATE utf8mb4_unicode_ci,
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `number_children` tinyint(4) NOT NULL DEFAULT 0,
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -2348,6 +2357,48 @@ INSERT INTO `entity_type` (`id`, `description`, `active`, `creation_date`, `last
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `employee_service_entity`
+--
+
+CREATE TABLE `employee_service_entity` (
+  `id` bigint(20) NOT NULL,
+  `account_number` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `contract_type_employee_id` bigint(20) NOT NULL,
+  `service_entity_id` bigint(20) NOT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `entity_type`
+--
+
+CREATE TABLE `entity_type` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `entity_type`
+--
+
+INSERT INTO `entity_type` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Banco', 1, '2020-11-17 04:27:15', NULL),
+(2, 'EPS', 1, '2020-11-17 04:27:15', NULL),
+(3, 'AFP', 1, '2020-11-17 04:27:15', NULL),
+(4, 'ARL', 1, '2020-11-17 04:27:15', NULL),
+(5, 'Caja de compensación', 1, '2020-11-17 04:27:15', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `exchange_rate`
 --
 
@@ -2389,7 +2440,10 @@ CREATE TABLE `loan` (
   `payments_quantity` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
   `loan_status_id` bigint(20) NOT NULL DEFAULT 1,
   `active` tinyint(4) NOT NULL DEFAULT 1,
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `employee_id` bigint(20) NOT NULL,
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
@@ -2410,6 +2464,31 @@ CREATE TABLE `loan_payment` (
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `loan_status`
+--
+
+CREATE TABLE `loan_status` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `loan_status`
+--
+
+INSERT INTO `loan_status` (`id`, `description`, `active`, `creation_date`, `last_update`) VALUES
+(1, 'Estudio', 1, '2020-11-17 15:07:27', NULL),
+(2, 'Aprobado', 1, '2020-11-17 15:07:27', NULL),
+(3, 'Desembolsado', 1, '2020-11-17 15:07:27', NULL),
+(4, 'Cerrado', 1, '2020-11-17 15:07:27', NULL),
+(5, 'Anulado', 1, '2020-11-17 15:07:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -2500,8 +2579,11 @@ INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `ob
 (15, 'cansalminauxtran', 'Cantidad salarios mínimos auxilio de transporte', 2, 0, NULL, 1, 2, '2020-11-13 19:17:58', NULL),
 (16, 'ppm', 'Cantidad de pagos por mes', 2, 0, NULL, 1, 2, '2020-11-13 19:35:39', NULL),
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 (17, 'smlv', 'Salario Mínimo Legal Vigente', 877803, 0, NULL, 1, 2, '2020-11-17 06:32:50', NULL);
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 (17, 'smlv', 'Salario Mínimo Legal Vigente', 877803, 0, NULL, 1, 2, '2020-11-17 06:32:50', NULL),
 (18, 't001', 'access', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
 (19, 't002', 'city', 0, 0, NULL, 1, 1, '2020-11-17 17:26:08', NULL),
@@ -2539,7 +2621,10 @@ INSERT INTO `parameter` (`id`, `code`, `description`, `value`, `percentage`, `ob
 (51, 't034', 'unit_measurement', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
 (52, 't035', 'user', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL),
 (53, 't036', 'way_to_pay', 0, 0, NULL, 1, 1, '2020-11-17 18:07:20', NULL);
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 
 -- --------------------------------------------------------
 
@@ -2552,12 +2637,17 @@ CREATE TABLE `parameter_category` (
   `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
   `apply` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'none',
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
   `active` tinyint(1) NOT NULL DEFAULT '1',
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 =======
   `active` tinyint(1) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `last_update` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2966,6 +3056,77 @@ INSERT INTO `service_entity` (`id`, `description`, `identification_card`, `addre
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `service_entity`
+--
+
+CREATE TABLE `service_entity` (
+  `id` bigint(20) NOT NULL,
+  `description` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `identification_card` varchar(20) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `address` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `email` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `observation` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT 1,
+  `entity_type_id` bigint(20) NOT NULL,
+  `create_date` timestamp NOT NULL DEFAULT current_timestamp(),
+  `last_update` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Volcado de datos para la tabla `service_entity`
+--
+
+INSERT INTO `service_entity` (`id`, `description`, `identification_card`, `address`, `phone`, `email`, `observation`, `active`, `entity_type_id`, `create_date`, `last_update`) VALUES
+(1, 'Banco de la República', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:29:21', NULL),
+(2, 'Banco de Bogotá', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(3, 'Davivienda', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(4, 'BBVA', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(5, 'Banco de Occidente', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(6, 'Banco Agrario de Colombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(7, 'Banco AV Villas', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(8, 'Banco Caja Social', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(9, 'Banco Popular', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(10, 'Colpatria', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(11, 'Banco Santander de Negocios Colombia S.A.', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(12, 'Banco Falabella', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(13, 'Bancolombia', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(14, 'Bancoomeva', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(15, 'Banco Pichincha', NULL, NULL, NULL, NULL, NULL, 1, 1, '2020-11-17 05:44:37', NULL),
+(16, 'Nueva EPS', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:35', NULL),
+(17, 'Cafesalud', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(18, 'Coomeva', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:45:55', NULL),
+(19, 'Salud Total', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(20, 'EPS Sanitas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(21, 'Famisanar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(22, 'Suramericana', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(23, 'Medimas', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(24, 'Cruz Blanca', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(25, 'Compensar', NULL, NULL, NULL, NULL, NULL, 1, 2, '2020-11-17 05:53:38', NULL),
+(26, 'Colfondos Pensiones y Cesantías', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(27, 'Protección S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(28, 'Porvenir S.A.', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(29, 'Old Mutual', NULL, NULL, NULL, NULL, NULL, 1, 3, '2020-11-17 05:57:37', NULL),
+(30, 'Axa Colpatria Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 05:58:39', NULL),
+(31, 'Colmena Seguros', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(32, 'Compañía de Seguros de Vida Aurora S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(33, 'Seguros Bolívar S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(34, 'La Equidad Seguros Generales Organismo Cooperativo', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(35, 'Positiva Compañía de Seguros S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(36, 'Seguros Alfa', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:34', NULL),
+(37, 'Seguros Generales Suramericana S.A.', NULL, NULL, NULL, NULL, NULL, 1, 4, '2020-11-17 06:01:35', NULL),
+(38, 'Colsubsidio', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(39, 'Comfenalco', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(40, 'Comfama', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(41, 'Cafam', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(42, 'Comfenalco Antioquia', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(43, 'Comfiar', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(44, 'Comfacor', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL),
+(45, 'Cafaba', NULL, NULL, NULL, NULL, NULL, 1, 5, '2020-11-17 14:21:39', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `unit_measurement`
 --
 
@@ -2973,9 +3134,12 @@ CREATE TABLE `unit_measurement` (
   `id` bigint(20) NOT NULL,
   `description` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
   `active` tinyint(4) NOT NULL DEFAULT '1',
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
   `active` tinyint(4) NOT NULL DEFAULT 1,
   `creation_date` timestamp NOT NULL DEFAULT current_timestamp(),
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
@@ -3111,7 +3275,10 @@ ALTER TABLE `employee_document`
 
 --
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 -- Indices de la tabla `employee_service_entity`
 --
 ALTER TABLE `employee_service_entity`
@@ -3120,7 +3287,10 @@ ALTER TABLE `employee_service_entity`
   ADD KEY `employee_service_entity_FK_1` (`service_entity_id`);
 
 --
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 -- Indices de la tabla `entity_type`
 --
 ALTER TABLE `entity_type`
@@ -3333,6 +3503,12 @@ ALTER TABLE `contract_type_employee`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT de la tabla `contract_type_employee`
+--
+ALTER TABLE `contract_type_employee`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `country`
 --
 ALTER TABLE `country`
@@ -3380,6 +3556,18 @@ ALTER TABLE `entity_type`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `employee_service_entity`
+--
+ALTER TABLE `employee_service_entity`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `entity_type`
+--
+ALTER TABLE `entity_type`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `exchange_rate`
 --
 ALTER TABLE `exchange_rate`
@@ -3401,6 +3589,12 @@ ALTER TABLE `loan_status`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT de la tabla `loan_status`
+--
+ALTER TABLE `loan_status`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT de la tabla `operation`
 --
 ALTER TABLE `operation`
@@ -3410,18 +3604,26 @@ ALTER TABLE `operation`
 --
 ALTER TABLE `parameter`
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 =======
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
+=======
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 --
 -- AUTO_INCREMENT de la tabla `parameter_category`
 --
 ALTER TABLE `parameter_category`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 <<<<<<< HEAD:syamlab/sql/syamlab.sql
+<<<<<<< HEAD:syamlab/sql/syamlab.sql
 =======
+=======
+>>>>>>> develop:syamlab/assets/sql/syamlab.sql
 
 >>>>>>> d75ef44... Nuevas tablas, modelos. Consumo de datos: listado general:syamlab/assets/sql/syamlab.sql
 --
@@ -3489,6 +3691,12 @@ ALTER TABLE `sale_order`
 --
 ALTER TABLE `service_entity`
   MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+--
+-- AUTO_INCREMENT de la tabla `service_entity`
+--
+ALTER TABLE `service_entity`
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+
 --
 -- AUTO_INCREMENT de la tabla `service_entity`
 --
