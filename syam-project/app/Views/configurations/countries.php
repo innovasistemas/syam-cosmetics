@@ -6,6 +6,7 @@
 <br>
 <strong>Open source development</strong>
 <input type="button" value="Enviar" id="btnSend" />
+<input type="button" value="Consumir Webservice" id="btnApi" />
 <div id="div-content"></div>
 
 
@@ -14,36 +15,35 @@
         $('strong').css("color", "blue");
 
         $('#btnSend').click(function(){
-            loadCountry|();
+            loadCountry();
+        });
+
+        $('#btnApi').click(function(){
+            webservice();
         });
     });
 
 
-    function loadCountry|()
+    function loadCountry()
     {
-        var entity = 't006';
+        var code = 't006';
+        var id = 20;
         var objJson = {
-            'db': {
-                'table': entity
+            store: {
+                list: code
             },
-            fields: {
-                '0': 'id',
-                '1': 'description',
-                '2': 'active'
+            attributes: {
+                identifier: id
             }
-            // ,
-            // clauses: {
-            //     'active': 1
-            // }                   
         }
         
         var strJson = JSON.stringify(objJson);
             
         $.ajax({
-            url: '<?php echo base_url() ?>/registros',
+            url: '<?php echo base_url() ?>/registros-web',
             data: {'dataSend': strJson},
-            type: 'GET',
-            // type: 'POST',
+            // type: 'GET',
+            type: 'POST',
             dataType: 'json',
             success: function(data) {
                 var content = "";
@@ -66,6 +66,27 @@
                 $('#div-content').html(content);
             }
         }); 
+
+
+         
+    }
+
+
+    function webservice()
+    {
+        $.ajax({
+            url: 'http://localhost/desarrollo-prueba/webservice-prueba.json',
+            //data: {'dataSend': strJson},
+            type: 'GET',
+            // type: 'POST',
+            dataType: 'json',
+            success: function(data) {
+                var content = "";
+                console.log(data);
+                
+                $('#div-content').html(content);
+            }
+        });
     }
 
 </script>

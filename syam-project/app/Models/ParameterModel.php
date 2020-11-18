@@ -11,4 +11,15 @@ class ParameterModel extends Model
                                 'code', 'description', 'value',
                                 'percentage', 'parameter_category_id', 'active'
                             ];
+
+
+    // Función para devolver el nombre de la tabla a partir de su código
+    public function getTableName($code)
+    {
+        $arrayResult = $this->getWhere(['code' => $code])
+                            ->getResult();
+
+        $strCodeCountry = $arrayResult[0]->description;
+        return $strCodeCountry;
+    }
 }

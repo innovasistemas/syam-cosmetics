@@ -21,12 +21,12 @@ echo "<br>" . site_url();
         $('strong').css("color", "blue");
 
         $('#btnSend').click(function(){
-            loadCountry|();
+            loadCountry();
         });
     });
 
 
-    function loadCountry|()
+    function loadCountry()
     {
         var entity = 't006';
         var objJson = {
