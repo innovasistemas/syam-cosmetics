@@ -40,10 +40,8 @@ class Settings extends ResourceController
 
 	public function listRecords()
 	{
-		// if(!empty($this->request->getGet('dataSend'))){
 		if(!empty($this->request->getPost('dataSend'))){
             $arrayResponse = array();
-			// $arrayData = json_decode($this->request->getGet('dataSend'), TRUE);
 			$arrayData = json_decode($this->request->getPost('dataSend'), TRUE);
 			$strCodeCountry = $this->objModels->modelParameter
 									->getTableName($arrayData['store']['list']);
@@ -63,7 +61,9 @@ class Settings extends ResourceController
 			}
 
 			$arrayResponse = [
-                "content" => $arrayResult, 
+				"content" => $arrayResult,
+				"totalRecords" => $this->objModels->$model->countAll(), 
+				"totalRecordsQuery" => count($arrayResult),
                 "error" => 0
             ];
         }else{
@@ -80,40 +80,5 @@ class Settings extends ResourceController
 	
 
 
-	public function test()
-	{
-
-		// $results = $model->test();
-		// $data['result'] = $model->orderBy('id', 'DESC')->findAll();
-		$data['first'] = $this->objModels->modelDepartment->find(11);
-
-		$data['where'] = $this->objModels->modelDepartment
-							->getWhere(['id' => 4])
-							->getResult();
-		// var_dump($results);
-
-        // foreach ($results as $row)
-        // {
-	    //     echo $row->id . "--";
-	    //     echo $row->code . "--";
-	    //     echo $row->name . "<br>";
-        // }
-        // foreach ($data['where']->getResult() as $row)
-        // {
-	    //     echo $row->id . "--";
-	    //     echo $row->code . "--";
-	    //     echo $row->name . "\n<br>";
-        // }
-
-		// echo "<br>";
-        // echo 'Total Results: ' . count($results);
-		// echo print_r($results);
-		echo print_r($data);
-		// echo json_encode($results);
-	}
-
-
-
-	//--------------------------------------------------------------------
-
+	
 }

@@ -8,7 +8,7 @@ class ComponentModel extends Model
     protected $primaryKey = 'id';
 
     protected $allowedFields = [
-                                'description', 'type', 'order', 'link',
-                                'image', 'active'
+                                'description', 'order', 'link',
+                                'image', 'active', 'type_component_id'
                             ];
 }

@@ -2,37 +2,45 @@
 
 class Home extends BaseController
 {
-	// public function index()
-	// {
-		// return view('welcome_message');
-	// }
+	public $data;
+
+
+	public function __construct()
+	{
+		$this->data['titleEnterprise'] = ucwords('syamcosmetics'); 
+		$spanishDays = [
+			'Domingo', 'Lunes', 'Martes', 'Miércoles', 
+			'Jueves', 'Viernes', 'Sábado'
+		];
+		$spanishMonths = [
+			'Enero', 'Febrero', 'Marzo', 'Abril',
+			'Mayo', 'Junio', 'Julio', 'Agosto',
+			'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+		];
+		$this->data['spanishDay'] = $spanishDays[date('w')];
+		$this->data['spanishMonth'] = $spanishMonths[date('n') - 1];
+	}
+
+
+	public function __destruct()
+	{
+
+	}
+
+
+	public function index()
+	{
+
+	}
 
 
 	public function Countries()
 	{
-		$data['title'] = ucwords('syam laboratorio'); // Capitalize the first letter
+		$this->data['titlePage'] = ucwords('países'); 
 
-	    echo view('templates/header', $data);
-	    echo view('configurations/countries', $data);
-	    echo view('templates/footer', $data);
+	    echo view('templates/header', $this->data);
+	    echo view('configurations/countries', $this->data);
+	    echo view('templates/footer', $this->data);
 	}
-
-
-	public function helloWorld()
-	{
-		// echo "Hello World";
-		// return view('hello_world');
-
-		$data['title'] = ucfirst('codeigniter framework'); // Capitalize the first letter
-
-	    echo view('templates/header', $data);
-	    echo view('hello_world', $data);
-	    echo view('templates/footer', $data);
-	}
-
-
 	
-
-	//--------------------------------------------------------------------
-
 }

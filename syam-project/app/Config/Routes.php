@@ -32,16 +32,28 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+
+/**
+ * --------------------------------------------------------------------
+ * Rutas de páginas
+ * --------------------------------------------------------------------
+ */
 $routes->get('/', 'Home::index');
 // $routes->get('/hello-world', 'Home::helloWorld');
 $routes->get('/paises', 'Home::countries');
 
 // $routes->get('/configuraciones', 'Setting::test');
-$routes->get('/registros', 'Setting::listRecords');
+// $routes->get('/registros', 'Setting::listRecords');
 
+
+/**
+ * --------------------------------------------------------------------
+ * Rutas para el consumo de las API's RESTful 
+ * --------------------------------------------------------------------
+ */
 $routes->resource('settings');
 
-$routes->post('/registros-web', 'Settings::listRecords');
+$routes->post('registros-web', 'Settings::listRecords');
 
 
 /**
